@@ -44,6 +44,8 @@ export interface EntryPayload {
   location?: string
   date?: string
   title?: string
+  next?: string
+  prev?: string
 }
 
 // export type SlugPayload = Pick<EntryPayload, 'slug'>

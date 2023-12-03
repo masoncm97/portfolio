@@ -4,14 +4,24 @@ export function generateSiblingRoutes(
   entries: EntryPayload[] | undefined,
 ): string[] {
   if (!entries) return []
-  return entries.map((entry) => `/${entry.slug}`)
+  return entries.map((entry) => `${entry.slug}`)
 }
 
-export function formatString(str: string): string {
-  return str.replace(/[\u200B-\u200D\uFEFF]/g, '')
-}
+export function getNextRoute(
+  currentRoute: string,
+  siblingRoutes: string[],
+  modifier: (number) => number,
+) {
+  if (!siblingRoutes || siblingRoutes.length === 0) return ''
 
-export function generateQuery(str: string | undefined): string {
-  if (!str) return ''
-  return formatString(str.toLowerCase())
+  const currentIndex = siblingRoutes.indexOf(currentRoute)
+  if (currentIndex === -1) return ''
+
+  // Apply the modifier function and ensure the result is within bounds using modulo
+  const newIndex = modifier(currentIndex) % siblingRoutes.length
+
+  // Adjust for negative indices resulting from the modifier function
+  return siblingRoutes[
+    newIndex < 0 ? newIndex + siblingRoutes.length : newIndex
+  ]
 }

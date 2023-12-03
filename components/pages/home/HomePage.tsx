@@ -2,9 +2,9 @@ import type { EncodeDataAttributeCallback } from '@sanity/react-loader/rsc'
 import Link from 'next/link'
 import { Header } from '@/components/shared/Header'
 import { resolveHref } from '@/sanity/lib/utils'
-import type { EntryPayload, HomePagePayload } from '@/types'
+import type { HomePagePayload } from '@/types'
 import { EntryListItem } from './EntryListItem'
-import { generateQuery, generateSiblingRoutes } from '@/util/routes-helper'
+import { generateSiblingRoutes } from '@/util/routes-helper'
 
 export interface HomePageProps {
   data: HomePagePayload | null
@@ -21,8 +21,6 @@ export function HomePage({
   const { overview = [], entries = [], title = '' } = data ?? {}
 
   let gallery = entries
-
-  const siblingRoutes = generateSiblingRoutes(entries)
 
   if (searchParams && searchParams['category']) {
     gallery = entries?.filter((entry) => {

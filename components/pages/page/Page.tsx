@@ -55,6 +55,8 @@ export function Page({ data, encodeDataAttribute }: PageProps) {
                 className={classNames(
                   getTableElementStyle(table.size - 1, table.size, true),
                 )}
+                next={data?.next}
+                prev={data?.prev}
               />
             </div>
           </div>
