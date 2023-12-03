@@ -46,10 +46,13 @@ export default async function IndexRoute({
   return (
     <>
       <div className="flex min-h-screen flex-col bg-white text-black">
-        <Suspense>
-          <Navbar />
-        </Suspense>
-        <div className="mt-20 flex-grow px-4 md:px-16 lg:px-32">
+        <div className="items-center sm:flex sm:justify-between">
+          <Suspense>
+            <Navbar />
+          </Suspense>
+          <h1 className="hidden sm:block">Mason Mathai</h1>
+        </div>
+        <div className="mt-5 flex-grow px-4 md:px-16 lg:px-32">
           <Suspense>{children}</Suspense>
         </div>
       </div>

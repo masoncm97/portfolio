@@ -1,4 +1,5 @@
 const { theme } = require('@sanity/demo/tailwind')
+const defaultTheme = require('tailwindcss/defaultTheme')
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
@@ -9,6 +10,11 @@ module.exports = {
   ],
   theme: {
     ...theme,
+    screens: {
+      xxs: '375px',
+      xs: '475px',
+      ...defaultTheme.screens,
+    },
     // Overriding fontFamily to use @next/font loaded families
     fontFamily: {
       mono: 'var(--font-mono)',

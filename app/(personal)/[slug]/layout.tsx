@@ -8,6 +8,7 @@ import { Suspense } from 'react'
 import { Navbar } from '@/components/shared/navbar'
 import { urlForOpenGraphImage } from '@/sanity/lib/utils'
 import { getAllEntries, getSettings } from '@/sanity/loader/loadQuery'
+import Bounded from '@/components/shared/Bounded'
 
 const VisualEditing = dynamic(() => import('@/sanity/loader/VisualEditing'))
 
@@ -45,11 +46,9 @@ export default async function IndexRoute({
 }) {
   return (
     <>
-      <div className="flex min-h-screen flex-col bg-white text-black">
-        <div className="mt-20 flex-grow px-4 md:px-16 lg:px-32">
-          <Suspense>{children}</Suspense>
-        </div>
-      </div>
+      <section className="">
+        <Suspense>{children}</Suspense>
+      </section>
       {draftMode().isEnabled && <VisualEditing />}
     </>
   )

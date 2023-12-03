@@ -56,8 +56,8 @@ export default defineType({
     defineField({
       name: 'medium',
       title: 'Medium',
-      type: 'text',
-      //   validation: (rule) => rule.max(10),
+      type: 'reference',
+      to: [{ type: 'medium' }],
     }),
     defineField({
       name: 'content',
@@ -99,12 +99,13 @@ export default defineType({
     defineField({
       name: 'location',
       title: 'Location',
-      type: 'text',
+      type: 'string',
     }),
     defineField({
       name: 'date',
       title: 'Date',
-      type: 'text',
+      type: 'string',
+      validation: (rule) => rule.max(10),
     }),
   ],
   preview: {

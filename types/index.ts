@@ -3,15 +3,16 @@ import type { Image, ImageDefinition } from 'sanity'
 
 export type SanityImage = Image & ImageDefinition
 
-export interface Category {
+export interface BaseType {
   _type: string
   title?: string
 }
 
-export interface Tag {
-  _type: string
-  title?: string
-}
+export interface Category extends BaseType {}
+
+export interface Tag extends BaseType {}
+
+export interface Medium extends BaseType {}
 
 export type SearchParam = {
   name: string
@@ -37,7 +38,7 @@ export interface EntryPayload {
   category?: Category
   tags?: Tag[]
   shortDescription?: string
-  medium?: string
+  medium?: Medium
   content?: PortableTextBlock[]
   image?: SanityImage
   secondaryImage?: SanityImage

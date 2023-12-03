@@ -20,7 +20,7 @@ export function getTableElementStyle(
         ? 'border-b-[1px]'
         : 'border-b-0'
       : index === length - 1
-        ? 'max-lg:border-b-[1px] lg:border-r-[1px]'
-        : 'max-lg:border-b-0 lg:border-r-0',
+        ? 'border-b-[1px] md:border-r-[1px]'
+        : 'border-b-0 md:border-b-[1px] md:border-r-0',
   )
 }

@@ -16,11 +16,11 @@ export function ArrowNav({ className, next, prev }: ArrowNavProps) {
         'grid grid-rows-1 gap-6 py-4 relative px-10 [&>*]:row-start-1',
       )}
     >
-      <Link href={`/${next}`}>
+      <Link className="grid" href={`/${next}`}>
         <Arrow className="translate-y-[1px] rotate-180 place-self-end" />
       </Link>
-      <Link href={`/${prev}`}>
-        <Arrow className="" />
+      <Link className="grid" href={`/${prev}`}>
+        <Arrow />
       </Link>
     </div>
   )

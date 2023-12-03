@@ -12,7 +12,7 @@ export default function Navbar(props: NavbarProps) {
   const { data } = props
   const categories = data?.categories || ([] as Category[])
   return (
-    <div className="flex flex-col items-center px-4 py-4">
+    <div className="flex flex-col items-center md:flex-row px-4 py-4">
       {categories &&
         categories.map((category, index) => {
           const href = resolveHref(category._type, category.title)
@@ -23,7 +23,7 @@ export default function Navbar(props: NavbarProps) {
             <div
               key={category.title}
               className={classNames(
-                'w-[15rem] sm:w-[25rem] lg:max-w-[8rem] text-center max-w-xs',
+                'w-[15rem] md:max-w-[8rem] text-center max-w-xs',
                 getTableElementStyle(index, categories.length),
               )}
             >
