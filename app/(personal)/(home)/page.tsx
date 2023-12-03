@@ -1,5 +1,4 @@
 import dynamic from 'next/dynamic'
-import { draftMode } from 'next/headers'
 import { HomePage } from '@/components/pages/home/HomePage'
 import { getAllEntries } from '@/sanity/loader/loadQuery'
 
@@ -33,9 +32,4 @@ export default async function IndexRoute({
   // const param = new SearchParam();
 
   return <HomePage data={initial} searchParams={searchParams} />
-}
-
-export type SearchParam = {
-  name: string
-  value: string
 }

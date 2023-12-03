@@ -1,6 +1,5 @@
 import { Arrow } from './Arrow'
 import Link from 'next/link'
-import { EntryPayload } from '@/types'
 import classNames from 'classnames'
 
 export interface ArrowNavProps {
