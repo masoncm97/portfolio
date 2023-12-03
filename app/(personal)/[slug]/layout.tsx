@@ -5,16 +5,16 @@ import { Metadata, Viewport } from 'next'
 import dynamic from 'next/dynamic'
 import { draftMode } from 'next/headers'
 import { Suspense } from 'react'
-import { Navbar } from '@/components/shared/navbar'
+import { Navbar } from '@/components/shared/Navbar'
 import { urlForOpenGraphImage } from '@/sanity/lib/utils'
-import { loadAllEntries, loadSettings } from '@/sanity/loader/loadQuery'
+import { getAllEntries, getSettings } from '@/sanity/loader/loadQuery'
 
 const VisualEditing = dynamic(() => import('@/sanity/loader/VisualEditing'))
 
 export async function generateMetadata(): Promise<Metadata> {
-  const [{ data: settings }, { data: homePage }] = await Promise.all([
-    loadSettings(),
-    loadAllEntries(),
+  const [settings, homePage] = await Promise.all([
+    getSettings(),
+    getAllEntries(),
   ])
 
   const ogImage = urlForOpenGraphImage(settings?.ogImage)

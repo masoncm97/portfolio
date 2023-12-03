@@ -13,6 +13,11 @@ export interface Tag {
   title?: string
 }
 
+export type SearchParam = {
+  name: string
+  value: string
+}
+
 export interface HomePagePayload {
   overview?: PortableTextBlock[]
   entries?: EntryPayload[]

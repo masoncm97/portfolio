@@ -2,7 +2,7 @@
 
 import { type QueryResponseInitial } from '@sanity/react-loader/rsc'
 
-import { getAllEntries } from '@/sanity/lib/queries'
+import { getAllEntriesQuery } from '@/sanity/lib/queries'
 import { useQuery } from '@/sanity/loader/useQuery'
 import { HomePagePayload } from '@/types'
 
@@ -15,7 +15,7 @@ type Props = {
 export default function HomePagePreview(props: Props) {
   const { initial } = props
   const { data, encodeDataAttribute } = useQuery<HomePagePayload | null>(
-    getAllEntries,
+    getAllEntriesQuery,
     {},
     { initial },
   )

@@ -20,7 +20,7 @@ export function HomePage({ data, encodeDataAttribute }: HomePageProps) {
         <div className="mx-auto grid grid-cols-[repeat(auto-fit,minmax(150px,1fr))]">
           {entries.map((entry, key) => {
             const href = resolveHref(entry._type, entry.slug)
-            if (!href) {
+            if (!href || typeof href != 'string') {
               return null
             }
             return (

@@ -1,6 +1,6 @@
 import { groq } from 'next-sanity'
 
-export const getAllEntries = groq`
+export const getAllEntriesQuery = groq`
   *[_type == "home"][0]{
     _id,
     overview,

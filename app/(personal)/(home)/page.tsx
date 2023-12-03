@@ -1,17 +1,18 @@
 import dynamic from 'next/dynamic'
 import { draftMode } from 'next/headers'
 import { HomePage } from '@/components/pages/home/HomePage'
-import { loadAllEntries } from '@/sanity/loader/loadQuery'
+import { getAllEntries } from '@/sanity/loader/loadQuery'
 
 const HomePagePreview = dynamic(
   () => import('@/components/pages/home/HomePagePreview'),
 )
 
 export default async function IndexRoute() {
-  const initial = await loadAllEntries()
-  if (draftMode().isEnabled) {
-    return <HomePagePreview initial={initial} />
-  }
+  const initial = await getAllEntries()
+
+  // if (draftMode().isEnabled) {
+  //   return <HomePagePreview initial={initial} />
+  // }
 
   // if (!initial.data) {
   //   return (
@@ -25,5 +26,5 @@ export default async function IndexRoute() {
   //   )
   // }
 
-  return <HomePage data={initial.data} />
+  return <HomePage data={initial} />
 }

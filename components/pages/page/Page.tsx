@@ -1,8 +1,10 @@
+import { ArrowNav } from '@/components/shared/Arrow/ArrowNav'
 import ImageBox from '@/components/shared/ImageBox'
 import { EntryPayload } from '@/types'
 import { getTableElementStyle } from '@/util/styles-helper'
 import { EncodeDataAttributeCallback } from '@sanity/react-loader/rsc'
 import classNames from 'classnames'
+import Link from 'next/link'
 
 export interface PageProps {
   data: EntryPayload | undefined
@@ -24,6 +26,7 @@ export function Page({ data, encodeDataAttribute }: PageProps) {
         <div>
           <div>
             <div className="mb-14">
+              <Link href="/">shit</Link>
               {/* Image  */}
               <ImageBox
                 data-sanity={encodeDataAttribute?.('image')}
@@ -40,7 +43,7 @@ export function Page({ data, encodeDataAttribute }: PageProps) {
                   <p
                     key={key}
                     className={classNames(
-                      getTableElementStyle(index, table.size, true),
+                      getTableElementStyle(index, table.size + 1, true),
                       'pl-2',
                     )}
                   >
@@ -48,7 +51,11 @@ export function Page({ data, encodeDataAttribute }: PageProps) {
                   </p>
                 )
               })}
-              {/* <ArrowNav entries={entriesData!} /> */}
+              <ArrowNav
+                className={classNames(
+                  getTableElementStyle(table.size - 1, table.size, true),
+                )}
+              />
             </div>
           </div>
         </div>

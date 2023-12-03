@@ -3,18 +3,22 @@ import 'server-only'
 import { draftMode } from 'next/headers'
 
 import { client } from '@/sanity/lib/client'
-import { getAllEntries, settingsQuery } from '@/sanity/lib/queries'
+import { getAllEntriesQuery, settingsQuery } from '@/sanity/lib/queries'
 import { token } from '@/sanity/lib/token'
 import { HomePagePayload, EntryPayload, SettingsPayload } from '@/types'
+import { groq } from 'next-sanity'
 
 import { queryStore } from './createQueryStore'
 
 const serverClient = client.withConfig({
   token,
-  stega: {
-    // Enable stega if it's a Vercel preview deployment, as the Vercel Toolbar has controls that shows overlays
-    enabled: process.env.VERCEL_ENV === 'preview',
-  },
+  perspective: 'published',
+  useCdn: true,
+  stega: false,
+  // stega: {
+  //   // Enable stega if it's a Vercel preview deployment, as the Vercel Toolbar has controls that shows overlays
+  //   enabled: process.env.VERCEL_ENV === 'preview',
+  // },
 })
 
 /**
@@ -57,18 +61,34 @@ export const loadQuery = ((query, params = {}, options = {}) => {
  * Loaders that are used in more than one place are declared here, otherwise they're colocated with the component
  */
 
-export function loadSettings() {
-  return loadQuery<SettingsPayload>(
-    settingsQuery,
-    {},
-    { next: { tags: ['settings', 'home', 'page'] } },
-  )
+// export function loadSettings() {
+//   return loadQuery<SettingsPayload>(
+//     settingsQuery,
+//     {},
+//     { next: { tags: ['settings', 'home', 'page'] } },
+//   )
+// }
+
+export function getSettings() {
+  // Not using loadQuery as it's optimized for fetching in the RSC lifecycle
+  return serverClient.fetch<SettingsPayload>(settingsQuery, {
+    next: { tags: ['settings', 'home', 'page'] },
+  })
 }
 
-export function loadAllEntries() {
-  return loadQuery<HomePagePayload | null>(
-    getAllEntries,
+export function getAllEntries() {
+  // Not using loadQuery as it's optimized for fetching in the RSC lifecycle
+  return serverClient.fetch<HomePagePayload>(
+    getAllEntriesQuery,
     {},
     { next: { tags: ['home', 'entry'] } },
   )
 }
+
+// export function loadAllEntries() {
+//   return loadQuery<HomePagePayload | null>(
+//     getAllEntriesQuery,
+//     {},
+//     { next: { tags: ['home', 'entry'] } },
+//   )
+// }
