@@ -7,17 +7,14 @@ import { defineConfig } from 'sanity'
 import { deskTool } from 'sanity/desk'
 import { presentationTool } from 'sanity/presentation'
 import { unsplashImageAsset } from 'sanity-plugin-asset-source-unsplash'
-
 import { apiVersion, dataset, projectId, studioUrl } from '@/sanity/lib/api'
 import { locate } from '@/sanity/plugins/locate'
 import { pageStructure, singletonPlugin } from '@/sanity/plugins/settings'
-import page from '@/sanity/schemas/documents/page'
-import project from '@/sanity/schemas/documents/project'
-import duration from '@/sanity/schemas/objects/duration'
-import milestone from '@/sanity/schemas/objects/milestone'
-import timeline from '@/sanity/schemas/objects/timeline'
+import entry from '@/sanity/schemas/documents/entry'
 import home from '@/sanity/schemas/singletons/home'
 import settings from '@/sanity/schemas/singletons/settings'
+import tag from '@/sanity/schemas/documents/tag'
+import category from '@/sanity/schemas/documents/category'
 
 const title =
   process.env.NEXT_PUBLIC_SANITY_PROJECT_TITLE ||
@@ -35,12 +32,9 @@ export default defineConfig({
       home,
       settings,
       // Documents
-      duration,
-      page,
-      project,
-      // Objects
-      milestone,
-      timeline,
+      entry,
+      tag,
+      category,
     ],
   },
   plugins: [

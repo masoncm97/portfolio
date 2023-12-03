@@ -4,12 +4,20 @@ export const homePageQuery = groq`
   *[_type == "home"][0]{
     _id,
     overview,
-    showcaseProjects[]->{
+    entries[]->{
+      _id,
       _type,
-      coverImage,
-      overview,
       "slug": slug.current,
-      tags,
+      category->{title},
+      tags[]->{
+        title
+      },
+      shortDescription, 
+      medium,
+      content, 
+      image, 
+      secondaryImage,
+      location, 
       title,
     },
     title,
@@ -26,27 +34,27 @@ export const pagesBySlugQuery = groq`
   }
 `
 
-export const projectBySlugQuery = groq`
-  *[_type == "project" && slug.current == $slug][0] {
+export const entryBySlugQuery = groq`
+  *[_type == "entry" && slug.current == $slug][0] {
     _id,
-    client,
-    coverImage,
-    description,
-    duration,
-    overview,
-    site,
     "slug": slug.current,
-    tags,
+    category->{title},
+    tags[]->{
+      title
+    },
+    shortDescription, 
+    medium,
+    content, 
+    image, 
+    secondaryImage,
+    location, 
     title,
   }
 `
 
 export const settingsQuery = groq`
   *[_type == "settings"][0]{
-    footer,
-    menuItems[]->{
-      _type,
-      "slug": slug.current,
+    categories[]->{
       title
     },
     ogImage,

@@ -5,17 +5,11 @@ import { draftMode } from 'next/headers'
 import { client } from '@/sanity/lib/client'
 import {
   homePageQuery,
-  pagesBySlugQuery,
-  projectBySlugQuery,
+  entryBySlugQuery,
   settingsQuery,
 } from '@/sanity/lib/queries'
 import { token } from '@/sanity/lib/token'
-import {
-  HomePagePayload,
-  PagePayload,
-  ProjectPayload,
-  SettingsPayload,
-} from '@/types'
+import { HomePagePayload, EntryPayload, SettingsPayload } from '@/types'
 
 import { queryStore } from './createQueryStore'
 
@@ -42,13 +36,15 @@ export const loadQuery = ((query, params = {}, options = {}) => {
     perspective = draftMode().isEnabled ? 'previewDrafts' : 'published',
   } = options
   // Don't cache by default
-  let revalidate: NextFetchRequestConfig['revalidate'] = 0
+  // let revalidate: NextFetchRequestConfig['revalidate'] = 0
   // If `next.tags` is set, and we're not using the CDN, then it's safe to cache
-  if (!usingCdn && Array.isArray(options.next?.tags)) {
-    revalidate = false
-  } else if (usingCdn) {
-    revalidate = 60
-  }
+  // if (!usingCdn && Array.isArray(options.next?.tags)) {
+  //   revalidate = false
+  // } else if (usingCdn) {
+  //   revalidate = 60
+  // }
+  const revalidate = 60
+
   return queryStore.loadQuery(query, params, {
     ...options,
     next: {
@@ -81,18 +77,18 @@ export function loadHomePage() {
   )
 }
 
-export function loadProject(slug: string) {
-  return loadQuery<ProjectPayload | null>(
-    projectBySlugQuery,
+export function loadEntry(slug: string) {
+  return loadQuery<EntryPayload | null>(
+    entryBySlugQuery,
     { slug },
-    { next: { tags: [`project:${slug}`] } },
+    { next: { tags: [`entry:${slug}`] } },
   )
 }
 
-export function loadPage(slug: string) {
-  return loadQuery<PagePayload | null>(
-    pagesBySlugQuery,
-    { slug },
-    { next: { tags: [`page:${slug}`] } },
-  )
-}
+// export function loadPage(slug: string) {
+//   return loadQuery<PagePayload | null>(
+//     pagesBySlugQuery,
+//     { slug },
+//     { next: { tags: [`page:${slug}`] } },
+//   )
+// }

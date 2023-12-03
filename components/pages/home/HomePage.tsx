@@ -5,6 +5,7 @@ import { ProjectListItem } from '@/components/pages/home/ProjectListItem'
 import { Header } from '@/components/shared/Header'
 import { resolveHref } from '@/sanity/lib/utils'
 import type { HomePagePayload } from '@/types'
+import { EntryListItem } from './EntryListItem'
 
 export interface HomePageProps {
   data: HomePagePayload | null
@@ -13,17 +14,18 @@ export interface HomePageProps {
 
 export function HomePage({ data, encodeDataAttribute }: HomePageProps) {
   // Default to an empty object to allow previews on non-existent documents
-  const { overview = [], showcaseProjects = [], title = '' } = data ?? {}
-
+  const { overview = [], entries = [], title = '' } = data ?? {}
   return (
     <div className="space-y-20">
       {/* Header */}
+      <p>hi</p>
       {title && <Header centered title={title} description={overview} />}
-      {/* Showcase projects */}
-      {showcaseProjects && showcaseProjects.length > 0 && (
-        <div className="mx-auto max-w-[100rem] rounded-md border">
-          {showcaseProjects.map((project, key) => {
-            const href = resolveHref(project._type, project.slug)
+      {entries && entries.length > 0 && (
+        <div className="mx-auto grid grid-cols-[repeat(auto-fit,minmax(150px,1fr))]">
+          {entries.map((entry, key) => {
+            console.log('entry', entry)
+            console.log('type', entry._type)
+            const href = resolveHref(entry._type, entry.slug)
             if (!href) {
               return null
             }
@@ -31,13 +33,9 @@ export function HomePage({ data, encodeDataAttribute }: HomePageProps) {
               <Link
                 key={key}
                 href={href}
-                data-sanity={encodeDataAttribute?.([
-                  'showcaseProjects',
-                  key,
-                  'slug',
-                ])}
+                data-sanity={encodeDataAttribute?.(['entries', key, 'slug'])}
               >
-                <ProjectListItem project={project} odd={key % 2} />
+                <EntryListItem entry={entry} odd={key % 2} />
               </Link>
             )
           })}

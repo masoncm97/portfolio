@@ -6,7 +6,9 @@ import { notFound } from 'next/navigation'
 
 import { Page } from '@/components/pages/page/Page'
 import { generateStaticSlugs } from '@/sanity/loader/generateStaticSlugs'
-import { loadPage } from '@/sanity/loader/loadQuery'
+import { loadEntry } from '@/sanity/loader/loadQuery'
+// import { loadPage } from '@/sanity/loader/loadQuery'
+
 const PagePreview = dynamic(() => import('@/components/pages/page/PagePreview'))
 
 type Props = {
@@ -17,22 +19,20 @@ export async function generateMetadata(
   { params }: Props,
   parent: ResolvingMetadata,
 ): Promise<Metadata> {
-  const { data: page } = await loadPage(params.slug)
+  const { data: entry } = await loadEntry(params.slug)
 
   return {
-    title: page?.title,
-    description: page?.overview
-      ? toPlainText(page.overview)
-      : (await parent).description,
+    title: entry?.title,
+    description: entry?.shortDescription,
   }
 }
 
 export function generateStaticParams() {
-  return generateStaticSlugs('page')
+  return generateStaticSlugs('entry')
 }
 
 export default async function PageSlugRoute({ params }: Props) {
-  const initial = await loadPage(params.slug)
+  const initial = await loadEntry(params.slug)
 
   if (draftMode().isEnabled) {
     return <PagePreview params={params} initial={initial} />

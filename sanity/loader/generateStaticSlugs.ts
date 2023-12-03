@@ -12,7 +12,7 @@ export function generateStaticSlugs(type: string) {
     .withConfig({
       token,
       perspective: 'published',
-      useCdn: false,
+      useCdn: true,
       stega: false,
     })
     .fetch<string[]>(
