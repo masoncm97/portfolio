@@ -7,7 +7,11 @@ const HomePagePreview = dynamic(
   () => import('@/components/pages/home/HomePagePreview'),
 )
 
-export default async function IndexRoute() {
+export default async function IndexRoute({
+  searchParams,
+}: {
+  [key: string]: string | string[] | undefined
+}) {
   const initial = await getAllEntries()
 
   // if (draftMode().isEnabled) {
@@ -26,5 +30,12 @@ export default async function IndexRoute() {
   //   )
   // }
 
-  return <HomePage data={initial} />
+  // const param = new SearchParam();
+
+  return <HomePage data={initial} searchParams={searchParams} />
+}
+
+export type SearchParam = {
+  name: string
+  value: string
 }
