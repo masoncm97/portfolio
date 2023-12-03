@@ -15,7 +15,10 @@ export const homePageQuery = groq`
       shortDescription, 
       medium,
       content, 
-      image, 
+      image{
+        "lqip": asset->metadata.lqip,
+        "palette": asset->metadata.palette
+      },
       secondaryImage,
       location, 
       title,
@@ -45,7 +48,11 @@ export const entryBySlugQuery = groq`
     shortDescription, 
     medium,
     content, 
-    image, 
+    image{
+      asset,
+      "lqip": asset->metadata.lqip,
+      "palette": asset->metadata.palette
+    },
     secondaryImage,
     location, 
     title,

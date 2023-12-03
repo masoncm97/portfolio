@@ -3,7 +3,7 @@ import Image from 'next/image'
 import { urlForImage } from '@/sanity/lib/utils'
 
 interface ImageBoxProps {
-  image?: { asset?: any }
+  image?: { asset?: any; lqip?: string }
   alt?: string
   width?: number
   height?: number
@@ -24,6 +24,7 @@ export default function ImageBox({
   const imageUrl =
     image && urlForImage(image)?.height(height).width(width).fit('crop').url()
 
+  console.log(image)
   return (
     <div
       className={`w-full overflow-hidden rounded-[3px] bg-gray-50 ${classesWrapper}`}
@@ -37,6 +38,8 @@ export default function ImageBox({
           height={height}
           sizes={size}
           src={imageUrl}
+          placeholder="blur"
+          blurDataURL={image?.lqip}
         />
       )}
     </div>

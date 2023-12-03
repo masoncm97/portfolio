@@ -8,7 +8,6 @@ interface EntryProps {
 
 export function EntryListItem(props: EntryProps) {
   const { entry, odd } = props
-  console.log('fuck')
   console.log('entry', entry)
   return (
     <div className={`flex flex-col gap-x-5 p-2 transition xl:flex-row`}>
