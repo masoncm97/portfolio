@@ -6,7 +6,7 @@ import {
 } from '@sanity/react-loader/rsc'
 
 import { studioUrl } from '@/sanity/lib/api'
-import { SettingsPayload } from '@/types'
+import { EntryPayload, HomePagePayload, SettingsPayload } from '@/types'
 
 import { settingsQuery } from '../lib/queries'
 import { queryStore } from './createQueryStore'

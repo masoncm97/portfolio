@@ -7,14 +7,14 @@ import { draftMode } from 'next/headers'
 import { Suspense } from 'react'
 import { Navbar } from '@/components/shared/navbar'
 import { urlForOpenGraphImage } from '@/sanity/lib/utils'
-import { loadHomePage, loadSettings } from '@/sanity/loader/loadQuery'
+import { loadAllEntries, loadSettings } from '@/sanity/loader/loadQuery'
 
 const VisualEditing = dynamic(() => import('@/sanity/loader/VisualEditing'))
 
 export async function generateMetadata(): Promise<Metadata> {
   const [{ data: settings }, { data: homePage }] = await Promise.all([
     loadSettings(),
-    loadHomePage(),
+    loadAllEntries(),
   ])
 
   const ogImage = urlForOpenGraphImage(settings?.ogImage)

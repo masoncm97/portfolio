@@ -1,10 +1,11 @@
 import ImageBox from '@/components/shared/ImageBox'
 import { EntryPayload } from '@/types'
+import { getTableElementStyle } from '@/util/styles-helper'
 import { EncodeDataAttributeCallback } from '@sanity/react-loader/rsc'
 import classNames from 'classnames'
 
 export interface PageProps {
-  data: EntryPayload | null
+  data: EntryPayload | undefined
   encodeDataAttribute?: EncodeDataAttributeCallback
 }
 
@@ -21,7 +22,7 @@ export function Page({ data, encodeDataAttribute }: PageProps) {
     <div>
       <div className="mb-14">
         <div>
-          <div className="mb-14">
+          <div>
             <div className="mb-14">
               {/* Image  */}
               <ImageBox
@@ -52,24 +53,7 @@ export function Page({ data, encodeDataAttribute }: PageProps) {
           </div>
         </div>
       </div>
-      <div className="absolute left-0 w-screen border-t" />
     </div>
-  )
-}
-export function getTableElementStyle(
-  index: number,
-  length: number,
-  columnPriority: boolean = false,
-) {
-  return classNames(
-    'border border-black',
-    columnPriority
-      ? index === length - 1
-        ? 'border-b-[1px]'
-        : 'border-b-0'
-      : index === length - 1
-        ? 'max-lg:border-b-[1px] lg:border-r-[1px]'
-        : 'max-lg:border-b-0 lg:border-r-0',
   )
 }
 

@@ -1,6 +1,6 @@
 import { groq } from 'next-sanity'
 
-export const homePageQuery = groq`
+export const getAllEntries = groq`
   *[_type == "home"][0]{
     _id,
     overview,
@@ -8,19 +8,22 @@ export const homePageQuery = groq`
       _id,
       _type,
       "slug": slug.current,
-      category->{title},
+      category->{_type,title},
       tags[]->{
+        _type,
         title
       },
       shortDescription, 
       medium,
       content, 
       image{
+        asset,
         "lqip": asset->metadata.lqip,
         "palette": asset->metadata.palette
       },
       secondaryImage,
       location, 
+      date,
       title,
     },
     title,
@@ -37,31 +40,32 @@ export const pagesBySlugQuery = groq`
   }
 `
 
-export const entryBySlugQuery = groq`
-  *[_type == "entry" && slug.current == $slug][0] {
-    _id,
-    "slug": slug.current,
-    category->{title},
-    tags[]->{
-      title
-    },
-    shortDescription, 
-    medium,
-    content, 
-    image{
-      asset,
-      "lqip": asset->metadata.lqip,
-      "palette": asset->metadata.palette
-    },
-    secondaryImage,
-    location, 
-    title,
-  }
-`
+// export const entryBySlugQuery = groq`
+//   *[_type == "entry" && slug.current == $slug][0] {
+//     _id,
+//     "slug": slug.current,
+//     category->{title},
+//     tags[]->{
+//       title
+//     },
+//     shortDescription,
+//     medium,
+//     content,
+//     image{
+//       asset,
+//       "lqip": asset->metadata.lqip,
+//       "palette": asset->metadata.palette
+//     },
+//     secondaryImage,
+//     location,
+//     title,
+//   }
+// `
 
 export const settingsQuery = groq`
   *[_type == "settings"][0]{
     categories[]->{
+      _type,
       title
     },
     ogImage,

@@ -4,10 +4,12 @@ import type { Image, ImageDefinition } from 'sanity'
 export type SanityImage = Image & ImageDefinition
 
 export interface Category {
+  _type: string
   title?: string
 }
 
 export interface Tag {
+  _type: string
   title?: string
 }
 
@@ -19,7 +21,7 @@ export interface HomePagePayload {
 
 export interface SettingsPayload {
   title?: string
-  category?: Category[]
+  categories?: Category[]
   ogImage?: SanityImage
 }
 

@@ -3,11 +3,7 @@ import 'server-only'
 import { draftMode } from 'next/headers'
 
 import { client } from '@/sanity/lib/client'
-import {
-  homePageQuery,
-  entryBySlugQuery,
-  settingsQuery,
-} from '@/sanity/lib/queries'
+import { getAllEntries, settingsQuery } from '@/sanity/lib/queries'
 import { token } from '@/sanity/lib/token'
 import { HomePagePayload, EntryPayload, SettingsPayload } from '@/types'
 
@@ -43,7 +39,7 @@ export const loadQuery = ((query, params = {}, options = {}) => {
   // } else if (usingCdn) {
   //   revalidate = 60
   // }
-  const revalidate = 60
+  const revalidate = 120
 
   return queryStore.loadQuery(query, params, {
     ...options,
@@ -65,30 +61,14 @@ export function loadSettings() {
   return loadQuery<SettingsPayload>(
     settingsQuery,
     {},
-    { next: { tags: ['settings', 'home', 'page', 'project'] } },
+    { next: { tags: ['settings', 'home', 'page'] } },
   )
 }
 
-export function loadHomePage() {
+export function loadAllEntries() {
   return loadQuery<HomePagePayload | null>(
-    homePageQuery,
+    getAllEntries,
     {},
-    { next: { tags: ['home', 'project'] } },
+    { next: { tags: ['home', 'entry'] } },
   )
 }
-
-export function loadEntry(slug: string) {
-  return loadQuery<EntryPayload | null>(
-    entryBySlugQuery,
-    { slug },
-    { next: { tags: [`entry:${slug}`] } },
-  )
-}
-
-// export function loadPage(slug: string) {
-//   return loadQuery<PagePayload | null>(
-//     pagesBySlugQuery,
-//     { slug },
-//     { next: { tags: [`page:${slug}`] } },
-//   )
-// }

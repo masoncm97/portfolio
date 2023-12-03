@@ -1,33 +1,33 @@
 import Link from 'next/link'
-
 import { resolveHref } from '@/sanity/lib/utils'
-import type { MenuItem, SettingsPayload } from '@/types'
+import type { Category, SettingsPayload } from '@/types'
+import classNames from 'classnames'
+import { getTableElementStyle } from '@/util/styles-helper'
 
 interface NavbarProps {
   data: SettingsPayload
 }
 export default function Navbar(props: NavbarProps) {
   const { data } = props
-  const menuItems = data?.menuItems || ([] as MenuItem[])
+  const categories = data?.categories || ([] as Category[])
   return (
-    <div className="sticky top-0 z-10 flex flex-wrap items-center gap-x-5 bg-white/80 px-4 py-4 backdrop-blur md:px-16 md:py-5 lg:px-32">
-      {menuItems &&
-        menuItems.map((menuItem, key) => {
-          const href = resolveHref(menuItem?._type, menuItem?.slug)
+    <div className="flex flex-col items-center px-4 py-4">
+      {categories &&
+        categories.map((category, index) => {
+          const href = resolveHref(category._type, category.title)
           if (!href) {
             return null
           }
           return (
             <Link
-              key={key}
-              className={`text-lg hover:text-black md:text-xl ${
-                menuItem?._type === 'home'
-                  ? 'font-extrabold text-black'
-                  : 'text-gray-600'
-              }`}
+              key={category.title}
               href={href}
+              className={classNames(
+                'w-[15rem] sm:w-[25rem] lg:max-w-[8rem] text-center max-w-xs',
+                getTableElementStyle(index, categories.length),
+              )}
             >
-              {menuItem.title}
+              {category.title}
             </Link>
           )
         })}
