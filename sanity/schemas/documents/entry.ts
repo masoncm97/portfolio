@@ -92,6 +92,12 @@ export default defineType({
       type: 'image',
     }),
     defineField({
+      name: 'orientation',
+      title: 'Orientation',
+      type: 'reference',
+      to: [{ type: 'orientation' }],
+    }),
+    defineField({
       name: 'secondaryImage',
       title: 'Secondary Image',
       type: 'image',

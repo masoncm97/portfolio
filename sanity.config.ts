@@ -16,6 +16,7 @@ import settings from '@/sanity/schemas/singletons/settings'
 import tag from '@/sanity/schemas/documents/tag'
 import category from '@/sanity/schemas/documents/category'
 import medium from '@/sanity/schemas/documents/medium'
+import orientation from './sanity/schemas/documents/orientation'
 
 const title =
   process.env.NEXT_PUBLIC_SANITY_PROJECT_TITLE ||
@@ -37,6 +38,7 @@ export default defineConfig({
       tag,
       category,
       medium,
+      orientation,
     ],
   },
   plugins: [

@@ -13,7 +13,7 @@ export function ArrowNav({ className, next, prev }: ArrowNavProps) {
     <div
       className={classNames(
         className,
-        'grid grid-rows-1 gap-6 py-4 relative px-10 [&>*]:row-start-1',
+        'grid grid-rows-1 gap-6 py-4 px-10 [&>*]:row-start-1 bg-white',
       )}
     >
       <Link className="grid" href={`/${next}`}>

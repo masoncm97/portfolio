@@ -21,6 +21,7 @@ export const getAllEntriesQuery = groq`
         "lqip": asset->metadata.lqip,
         "palette": asset->metadata.palette
       },
+      orientation->{_type,title},
       secondaryImage,
       location, 
       date,

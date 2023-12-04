@@ -31,9 +31,7 @@ export default async function RootLayout({
       lang="en"
       className={`${mono.variable} ${sans.variable} ${serif.variable}`}
     >
-      <body>
-        <Bounded>{children}</Bounded>
-      </body>
+      <body>{children}</body>
     </html>
   )
 }

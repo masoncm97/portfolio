@@ -14,6 +14,8 @@ export interface Tag extends BaseType {}
 
 export interface Medium extends BaseType {}
 
+export interface Orientation extends BaseType {}
+
 export type SearchParam = {
   name: string
   value: string
@@ -41,6 +43,7 @@ export interface EntryPayload {
   medium?: Medium
   content?: PortableTextBlock[]
   image?: SanityImage
+  orientation?: Orientation
   secondaryImage?: SanityImage
   location?: string
   date?: string

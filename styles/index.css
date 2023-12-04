@@ -1,3 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 html {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -7,4 +11,12 @@ html {
 ol,
 ul {
   margin-left: 1rem;
+}
+
+.center-horizontal {
+  @apply left-1/2 transform -translate-x-1/2;
+}
+
+.center-absolute {
+  @apply top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2;
 }
