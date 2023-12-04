@@ -65,7 +65,7 @@ export function Page({ data, encodeDataAttribute }: PageProps) {
       />
       <ArrowNav
         className={
-          'center-horizontal fixed bottom-2 border border-black w-[20rem] max-h-7 max-w-lg'
+          'center-horizontal fixed bottom-2 w-[20rem] max-h-7 max-w-lg'
         }
         next={data?.next}
         prev={data?.prev}
