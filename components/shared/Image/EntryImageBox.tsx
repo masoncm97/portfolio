@@ -7,6 +7,7 @@ import SanityImage, { SanityImageProps } from './SanityImage'
 import { EncodeDataAttributeCallback } from '@sanity/react-loader/rsc'
 import { ImageBoxProps } from './imageBoxProps'
 import { computeOrientation } from '@/util/styles-helper'
+import Priority from './Priority'
 
 export default function EntryImageBox({
   imageBox,
@@ -16,19 +17,19 @@ export default function EntryImageBox({
 }: ImageBoxProps) {
   const { width, height, size, orientationValue } =
     computeOrientation(orientation)
-  console.log(orientationValue)
+
   return (
-    <div
+    <Priority
       className={classNames(
         className,
         orientationValue === 'Landscape'
           ? ' aspect-[16/9] w-full'
           : ' aspect-[9/16] top-[20%] w-[70vw]',
-        'z-0 absolute center-absolute overflow-hidden',
+        'absolute center-absolute overflow-hidden',
       )}
       data-sanity={imageBox['data-sanity']}
     >
       <SanityImage {...imageBox} width={width} height={height} size={size} />
-    </div>
+    </Priority>
   )
 }

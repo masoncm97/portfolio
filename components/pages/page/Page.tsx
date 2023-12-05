@@ -30,8 +30,8 @@ export function Page({ data, encodeDataAttribute }: PageProps) {
   )
 
   return (
-    <section className="h-screen overflow-hidden grid gap-6">
-      <div className="mt-5 relative grid grid-cols-[min-content_1fr] gap-7 max-h-[10rem]">
+    <section className="h-screen overflow-hidden grid gap-6 relative">
+      <div className="absolute z-10 mt-5 grid grid-cols-[min-content_1fr] gap-7 max-h-[10rem]">
         <Link className="self-start ml-3" href="/">
           <Exit />
         </Link>
