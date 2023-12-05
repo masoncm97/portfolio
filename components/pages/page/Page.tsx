@@ -1,5 +1,4 @@
 import { ArrowNav } from '@/components/shared/Arrow/ArrowNav'
-import SanityImage from '@/components/shared/Image/SanityImage'
 import { Exit } from '@/components/shared/Exit'
 import { EntryPayload } from '@/types'
 import { getTableElementStyle } from '@/util/styles-helper'
