@@ -20,6 +20,18 @@ export default defineType({
       ],
     }),
     defineField({
+      name: 'tags',
+      title: 'Tags',
+      description: 'Tag Filters displayed on the header of the site.',
+      type: 'array',
+      of: [
+        defineArrayMember({
+          type: 'reference',
+          to: [{ type: 'tag' }],
+        }),
+      ],
+    }),
+    defineField({
       name: 'ogImage',
       title: 'Open Graph Image',
       type: 'image',

@@ -69,6 +69,11 @@ export const settingsQuery = groq`
       _type,
       title
     },
+    tags[]->{
+      _type,
+      title,
+      description
+    },
     ogImage,
   }
 `

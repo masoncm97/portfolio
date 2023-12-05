@@ -10,7 +10,9 @@ export interface BaseType {
 
 export interface Category extends BaseType {}
 
-export interface Tag extends BaseType {}
+export interface Tag extends BaseType {
+  description?: string
+}
 
 export interface Medium extends BaseType {}
 
@@ -30,6 +32,7 @@ export interface HomePagePayload {
 export interface SettingsPayload {
   title?: string
   categories?: Category[]
+  tags?: Tag[]
   ogImage?: SanityImage
 }
 

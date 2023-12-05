@@ -1,4 +1,4 @@
-import { BaseType, Medium, SearchParam } from '@/types'
+import { BaseType, Medium, SearchParam, Tag } from '@/types'
 
 export function isSearchParam(object: any): object is SearchParam {
   return (
@@ -26,4 +26,14 @@ export function isMedium(object: any): object is Medium {
   return object == undefined
     ? false
     : isBaseType(object) && object._type === 'medium'
+}
+
+export function isTag(object: any): object is Tag {
+  return object == undefined
+    ? false
+    : isBaseType(object) && object._type === 'tag'
+}
+
+export function isTags(array: any[] | undefined | string): array is Tag[] {
+  return Array.isArray(array) && array.every(isTag)
 }

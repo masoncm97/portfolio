@@ -28,6 +28,12 @@ export function HomePage({
     })
   }
 
+  if (searchParams && searchParams['tag']) {
+    gallery = entries?.filter((entry) => {
+      return entry.tags?.some((tag) => tag.title === searchParams['tag'])
+    })
+  }
+
   return (
     <div className="space-y-20">
       {title && <Header centered title={title} description={overview} />}
