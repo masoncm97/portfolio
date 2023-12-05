@@ -72,7 +72,7 @@ export const loadQuery = ((query, params = {}, options = {}) => {
 export function getSettings() {
   // Not using loadQuery as it's optimized for fetching in the RSC lifecycle
   return serverClient.fetch<SettingsPayload>(settingsQuery, {
-    next: { tags: ['settings', 'home', 'page'] },
+    next: { revalidate: 60, tags: ['settings', 'home', 'page'] },
   })
 }
 
@@ -81,7 +81,7 @@ export function getAllEntries() {
   return serverClient.fetch<HomePagePayload>(
     getAllEntriesQuery,
     {},
-    { next: { tags: ['home', 'entry'] } },
+    { next: { revalidate: 60, tags: ['home', 'entry'] } },
   )
 }
 
