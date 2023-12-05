@@ -64,13 +64,9 @@ export default defineType({
     }),
   ],
   preview: {
-    select: {
-      title: 'title',
-    },
-    prepare({ title }) {
+    prepare() {
       return {
-        subtitle: 'Home',
-        title,
+        title: 'Home',
       }
     },
   },

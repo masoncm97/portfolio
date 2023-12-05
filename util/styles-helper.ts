@@ -1,3 +1,4 @@
+import { Orientation } from '@/types'
 import classNames from 'classnames'
 
 /* Used to ensure that no border is doubled when rendering items in a table
@@ -23,4 +24,34 @@ export function getTableElementStyle(
         ? 'border-b-[1px] md:border-r-[1px]'
         : 'border-b-0 md:border-b-[1px] md:border-r-0',
   )
+}
+
+export function computeOrientation(orientation: Orientation | undefined): {
+  width: number
+  height: number
+  size: string
+  orientationValue: string
+} {
+  if (!orientation) {
+    orientation = { _type: 'Orientation', title: 'Landscape' }
+  }
+  switch (orientation.title) {
+    case 'Portrait':
+      return {
+        width: 2000,
+        height: 3500,
+        size: '70vw',
+        orientationValue: orientation.title,
+      }
+    case 'Landscape':
+      return {
+        width: 3500,
+        height: 2000,
+        size: '100vw',
+        orientationValue: orientation.title,
+      }
+    default:
+      console.warn('Invalid orientation type', orientation.title)
+      return {} as any
+  }
 }

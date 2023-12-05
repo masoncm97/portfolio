@@ -11,7 +11,7 @@ export default defineType({
       name: 'title',
       title: 'Title',
       type: 'string',
-      //   validation: (rule) => rule.max(20).required(),
+      validation: (rule) => rule.required(),
     }),
     defineField({
       name: 'slug',
@@ -20,16 +20,16 @@ export default defineType({
       options: {
         source: 'title',
         maxLength: 96,
-        // isUnique: (value, context) => context.defaultIsUnique(value, context),
+        isUnique: (value, context) => context.defaultIsUnique(value, context),
       },
-      //   validation: (rule) => rule.required(),
+      validation: (rule) => rule.required(),
     }),
     defineField({
       name: 'category',
       title: 'Category',
       type: 'reference',
       to: [{ type: 'category' }],
-      //   validation: (rule) => rule.required(),
+      validation: (rule) => rule.required(),
     }),
     defineField({
       name: 'tags',
@@ -50,8 +50,8 @@ export default defineType({
     defineField({
       name: 'shortDescription',
       title: 'Short Description',
-      type: 'text',
-      //   validation: (rule) => rule.max(20),
+      type: 'string',
+      validation: (rule) => rule.required(),
     }),
     defineField({
       name: 'medium',

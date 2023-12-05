@@ -1,12 +1,13 @@
 import { ArrowNav } from '@/components/shared/Arrow/ArrowNav'
-import ImageBox from '@/components/shared/ImageBox'
-import { Exit } from '@/components/shared/exit'
+import SanityImage from '@/components/shared/Image/SanityImage'
+import { Exit } from '@/components/shared/Exit'
 import { EntryPayload } from '@/types'
 import { getTableElementStyle } from '@/util/styles-helper'
 import { isMedium } from '@/util/type-guards'
 import { EncodeDataAttributeCallback } from '@sanity/react-loader/rsc'
 import classNames from 'classnames'
 import Link from 'next/link'
+import EntryImageBox from '@/components/shared/Image/EntryImageBox'
 
 export interface PageProps {
   data: EntryPayload | undefined
@@ -25,7 +26,7 @@ export function Page({ data, encodeDataAttribute }: PageProps) {
     orientation,
   } = data ?? {}
 
-  const table = [title, location, date, medium, shortDescription].filter(
+  const table = [title, location, date, medium].filter(
     (item) => item !== null && item !== undefined && item !== '',
   )
 
@@ -54,14 +55,13 @@ export function Page({ data, encodeDataAttribute }: PageProps) {
           })}
         </div>
       </div>
-      {/* Image  */}
-      <ImageBox
-        data-sanity={encodeDataAttribute?.('image')}
-        image={image}
-        // @TODO add alt field in schema
-        alt=""
-        className={'absolute'}
+      <EntryImageBox
+        imageBox={{
+          image: image,
+          alt: shortDescription ? `${shortDescription}` : 'Primary image',
+        }}
         orientation={orientation}
+        data-sanity={encodeDataAttribute?.('image')}
       />
       <ArrowNav
         className={

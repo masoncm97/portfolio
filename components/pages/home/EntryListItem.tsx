@@ -1,23 +1,33 @@
-import ImageBox from '@/components/shared/ImageBox'
+import GalleryImageBox from '@/components/shared/Image/GalleryImageBox'
+import SanityImage from '@/components/shared/Image/SanityImage'
 import type { EntryPayload } from '@/types'
+import { EncodeDataAttributeCallback } from '@sanity/react-loader/rsc'
 
 interface EntryProps {
   entry: EntryPayload
-  odd: number
+  encodeDataAttribute?: EncodeDataAttributeCallback
 }
 
 export function EntryListItem(props: EntryProps) {
-  const { entry, odd } = props
+  const { entry, encodeDataAttribute } = props
   return (
-    <div className={`flex flex-col gap-x-5 p-2 transition xl:flex-row`}>
-      <div className="w-full xl:w-9/12">
-        <ImageBox
-          image={entry.image}
-          alt={`Cover image from ${entry.title}`}
-          classesWrapper="relative aspect-[16/9]"
+    <div
+      className={'flex flex-col justify-between h-full gap-x-5 p-2 xl:flex-row'}
+    >
+      <div className="h-full grid w-full xl:w-9/12">
+        <GalleryImageBox
+          imageBox={{
+            image: entry.image,
+            alt: entry.shortDescription
+              ? entry.shortDescription
+              : `Cover image from ${entry.title}`,
+          }}
+          data-sanity={encodeDataAttribute?.('image')}
+          className="place-self-center"
+          orientation={entry.orientation}
         />
       </div>
-      <div className="flex xl:w-1/4">
+      <div className=" h-[3.5rem] xl:w-1/4">
         <TextBox entry={entry} />
       </div>
     </div>
@@ -26,10 +36,10 @@ export function EntryListItem(props: EntryProps) {
 
 function TextBox({ entry }: { entry: EntryPayload }) {
   return (
-    <div className="relative mt-2 flex w-full flex-col justify-between p-3 xl:mt-0">
+    <div className="relative mt-1 flex w-full flex-col justify-between p-2 xl:mt-0">
       <div>
         {/* Title */}
-        <div className="mb-2 text-xs sm:text-sm tracking-tight text-center">
+        <div className="mb-1 text-xs sm:text-sm tracking-tight text-center">
           {entry.title}
         </div>
         {/* Date */}
