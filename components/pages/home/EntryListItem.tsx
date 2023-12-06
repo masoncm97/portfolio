@@ -1,4 +1,4 @@
-import GalleryImageBox from '@/components/shared/Image/GalleryImageBox'
+import { GalleryImageBox } from '@/components/shared/Image/ImageBox'
 import SanityImage from '@/components/shared/Image/SanityImage'
 import type { EntryPayload } from '@/types'
 import { EncodeDataAttributeCallback } from '@sanity/react-loader/rsc'

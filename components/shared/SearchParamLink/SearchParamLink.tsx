@@ -1,8 +1,8 @@
 'use client'
 
 import Link from 'next/link'
-import type { Category, SearchParam as SearchParam, Tag } from '@/types'
-import { usePathname, useSearchParams } from 'next/navigation'
+import type { SearchParam as SearchParam } from '@/types'
+import { useSearchParams } from 'next/navigation'
 import { useCallback } from 'react'
 
 interface SearchParamLinkProps {

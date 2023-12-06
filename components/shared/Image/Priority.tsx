@@ -9,7 +9,6 @@ interface PriorityProps {
 }
 export default function Priority({ children, className }: PriorityProps) {
   const [imagePriority, setImagePriority] = useState(false)
-  console.log(imagePriority)
   return (
     <div
       className={classNames(className, imagePriority ? 'z-20' : 'z-0')}

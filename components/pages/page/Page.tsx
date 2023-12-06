@@ -6,9 +6,10 @@ import { isMedium, isSearchParam, isTags } from '@/util/type-guards'
 import { EncodeDataAttributeCallback } from '@sanity/react-loader/rsc'
 import classNames from 'classnames'
 import Link from 'next/link'
-import EntryImageBox from '@/components/shared/Image/EntryImageBox'
+import { EntryImageBox } from '@/components/shared/Image/ImageBox'
 import { resolveHref } from '@/sanity/lib/utils'
-import SearchParamLink from '@/components/shared/SearchParamLink'
+import SearchParamLink from '@/components/shared/SearchParamLink/SearchParamLink'
+import { getSearchParamLink } from '@/components/shared/SearchParamLink/getSearchParamLink'
 
 export interface PageProps {
   data: EntryPayload | undefined
@@ -40,36 +41,20 @@ export function Page({ data, encodeDataAttribute }: PageProps) {
         </Link>
         <div className="z-10 flex flex-col w-full max-w-[50vw] place-self-end">
           {table.map((item, index) => {
+            const tableElementBaseStyle = classNames(
+              'px-2 text-right text-xs',
+              getTableElementStyle(index, table.length, true),
+            )
             if (isMedium(item)) {
               item = item.title
             }
             if (isTags(item)) {
               return item.map((tag) => {
-                const href = resolveHref(tag._type, tag.title)
-                if (!href || !isSearchParam(href)) {
-                  return null
-                }
-                return (
-                  <SearchParamLink
-                    key={tag.title}
-                    className={classNames(
-                      getTableElementStyle(index, table.length, true),
-                      'pl-2 bg-white text-blue-700 underline text-right pr-2',
-                    )}
-                    link={`#${tag.title}`}
-                    searchParam={href}
-                  />
-                )
+                return getSearchParamLink(tag, tableElementBaseStyle)
               })
             } else {
               return (
-                <p
-                  key={item}
-                  className={classNames(
-                    getTableElementStyle(index, table.length, true),
-                    'pl-2 bg-white text-right pr-2',
-                  )}
-                >
+                <p key={item} className={tableElementBaseStyle}>
                   {`${item}`}
                 </p>
               )

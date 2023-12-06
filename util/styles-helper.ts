@@ -15,7 +15,7 @@ export function getTableElementStyle(
   columnPriority: boolean = false,
 ) {
   return classNames(
-    'border border-black',
+    'border border-black bg-white',
     columnPriority
       ? index === length - 1
         ? 'border-b-[1px]'
@@ -30,7 +30,7 @@ export function computeOrientation(orientation: Orientation | undefined): {
   width: number
   height: number
   size: string
-  orientationValue: string
+  styles: string
 } {
   if (!orientation) {
     orientation = { _type: 'Orientation', title: 'Landscape' }
@@ -41,14 +41,14 @@ export function computeOrientation(orientation: Orientation | undefined): {
         width: 2000,
         height: 3500,
         size: '70vw',
-        orientationValue: orientation.title,
+        styles: classNames('aspect-[9/16] w-[60%]'),
       }
     case 'Landscape':
       return {
         width: 3500,
         height: 2000,
         size: '100vw',
-        orientationValue: orientation.title,
+        styles: classNames('aspect-[16/9] w-full'),
       }
     default:
       console.warn('Invalid orientation type', orientation.title)
