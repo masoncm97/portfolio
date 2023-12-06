@@ -19,11 +19,7 @@ export function EntryImageBox({
 
   return (
     <Priority
-      className={classNames(
-        className,
-        styles,
-        'absolute center-absolute overflow-hidden',
-      )}
+      className={classNames(className, styles, 'absolute overflow-hidden')}
       data-sanity={imageBox['data-sanity']}
     >
       <SanityImage {...imageBox} width={width} height={height} size={size} />
