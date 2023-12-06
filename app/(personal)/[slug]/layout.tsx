@@ -46,9 +46,7 @@ export default async function IndexRoute({
 }) {
   return (
     <>
-      <section className="">
-        <Suspense>{children}</Suspense>
-      </section>
+      <Suspense>{children}</Suspense>
       {draftMode().isEnabled && <VisualEditing />}
     </>
   )
