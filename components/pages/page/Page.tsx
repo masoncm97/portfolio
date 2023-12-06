@@ -11,6 +11,7 @@ import { resolveHref } from '@/sanity/lib/utils'
 import SearchParamLink from '@/components/shared/SearchParamLink/SearchParamLink'
 import { getSearchParamLink } from '@/components/shared/SearchParamLink/getSearchParamLink'
 
+// Make a change
 export interface PageProps {
   data: EntryPayload | undefined
   encodeDataAttribute?: EncodeDataAttributeCallback
