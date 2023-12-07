@@ -70,13 +70,13 @@ export function Page({ data, encodeDataAttribute }: PageProps) {
         data-sanity={encodeDataAttribute?.('image')}
         className="border border-purple-500"
       />
-      {/* <ArrowNav
+      <ArrowNav
         className={
-          'fixed bottom-2 w-[20rem] max-h-7 max-w-lg border border-red-500'
+          'center-horizontal fixed bottom-2 w-[20rem] max-h-7 max-w-lg border border-red-500'
         }
         next={data?.next}
         prev={data?.prev}
-      /> */}
+      />
     </section>
   )
 }
