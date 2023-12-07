@@ -28,18 +28,25 @@ export function HomePage({
     })
   }
 
+  if (searchParams) console.log(searchParams['tag'])
+
+  console.log(gallery.length)
+
   if (searchParams && searchParams['tag']) {
     gallery = entries?.filter((entry) => {
+      console.log(entry.tags?.some((tag) => tag.title === searchParams['tag']))
       return entry.tags?.some((tag) => tag.title === searchParams['tag'])
     })
   }
+
+  console.log(gallery.length)
 
   return (
     <div className="space-y-20">
       {title && <Header centered title={title} description={overview} />}
       {gallery && gallery.length > 0 && (
         <div className="mx-auto grid grid-cols-[repeat(auto-fill,minmax(150px,1fr))]">
-          {entries.map((entry, key) => {
+          {gallery.map((entry, key) => {
             const href = resolveHref(entry._type, entry.slug)
             if (!href || typeof href != 'string') {
               return null

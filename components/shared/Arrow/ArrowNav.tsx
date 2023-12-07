@@ -1,3 +1,5 @@
+'use client'
+
 import { Arrow } from './Arrow'
 import Link from 'next/link'
 import classNames from 'classnames'

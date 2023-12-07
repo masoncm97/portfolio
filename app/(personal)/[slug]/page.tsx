@@ -3,6 +3,7 @@ import { Metadata, ResolvingMetadata } from 'next'
 import dynamic from 'next/dynamic'
 import { draftMode } from 'next/headers'
 import { notFound } from 'next/navigation'
+
 import { Page } from '@/components/pages/page/Page'
 import { generateStaticSlugs } from '@/sanity/loader/generateStaticSlugs'
 import { getAllEntries } from '@/sanity/loader/loadQuery'
