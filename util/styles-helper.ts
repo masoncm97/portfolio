@@ -26,7 +26,10 @@ export function getTableElementStyle(
   )
 }
 
-export function computeOrientation(orientation: Orientation | undefined): {
+export function computeOrientation(
+  orientation: Orientation | undefined,
+  location: string,
+): {
   width: number
   height: number
   size: string
@@ -35,20 +38,27 @@ export function computeOrientation(orientation: Orientation | undefined): {
   if (!orientation) {
     orientation = { _type: 'Orientation', title: 'Landscape' }
   }
+
   switch (orientation.title) {
     case 'Portrait':
       return {
         width: 2000,
         height: 3500,
         size: '70vw',
-        styles: classNames('aspect-[9/16] w-[60%]'),
+        styles: classNames(
+          location === 'Entry' ? 'top-[20%]' : '',
+          'aspect-[9/16] w-[60%]',
+        ),
       }
     case 'Landscape':
       return {
         width: 3500,
         height: 2000,
         size: '100vw',
-        styles: classNames('aspect-[16/9] w-full'),
+        styles: classNames(
+          location === 'Entry' ? 'top-[30%]' : '',
+          'aspect-[16/9] w-full',
+        ),
       }
     default:
       console.warn('Invalid orientation type', orientation.title)

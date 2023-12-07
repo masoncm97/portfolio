@@ -15,7 +15,10 @@ export function EntryImageBox({
   className,
   orientation,
 }: ImageBoxProps) {
-  const { width, height, size, styles } = computeOrientation(orientation)
+  const { width, height, size, styles } = computeOrientation(
+    orientation,
+    'Entry',
+  )
 
   return (
     <Priority
@@ -32,7 +35,10 @@ export function GalleryImageBox({
   className,
   orientation,
 }: ImageBoxProps) {
-  const { width, height, size, styles } = computeOrientation(orientation)
+  const { width, height, size, styles } = computeOrientation(
+    orientation,
+    'Gallery',
+  )
 
   return (
     <div
