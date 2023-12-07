@@ -46,7 +46,7 @@ export function computeOrientation(
         height: 3500,
         size: '70vw',
         styles: classNames(
-          location === 'Entry' ? 'top-[20%]' : '',
+          location === 'Entry' ? 'top-[20%] center-absolute' : '',
           'aspect-[9/16] w-[60%]',
         ),
       }
