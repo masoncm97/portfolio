@@ -42,10 +42,9 @@ export default async function IndexRoute({
   children: React.ReactNode
 }) {
   return (
-    // <>
-    //   <Suspense>{children}</Suspense>
-    //   {draftMode().isEnabled && <VisualEditing />}
-    // </>
-    <Suspense>{children}</Suspense>
+    <section className="overflow-hidden border border-blue-500">
+      <Suspense>{children}</Suspense>
+      {/* {draftMode().isEnabled && <VisualEditing />} */}
+    </section>
   )
 }

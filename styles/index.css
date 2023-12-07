@@ -13,6 +13,10 @@ ul {
   margin-left: 1rem;
 }
 
+body {
+  overflow: hidden;
+}
+
 .center-horizontal {
   @apply left-1/2 transform -translate-x-1/2;
 }
