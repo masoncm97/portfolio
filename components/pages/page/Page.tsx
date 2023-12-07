@@ -7,8 +7,6 @@ import { EncodeDataAttributeCallback } from '@sanity/react-loader/rsc'
 import classNames from 'classnames'
 import Link from 'next/link'
 import { EntryImageBox } from '@/components/shared/Image/ImageBox'
-import { resolveHref } from '@/sanity/lib/utils'
-import SearchParamLink from '@/components/shared/SearchParamLink/SearchParamLink'
 import { getSearchParamLink } from '@/components/shared/SearchParamLink/getSearchParamLink'
 
 // Make a change
@@ -35,7 +33,7 @@ export function Page({ data, encodeDataAttribute }: PageProps) {
   )
 
   return (
-    <section className="h-screen overflow-hidden grid gap-6 relative">
+    <section className="h-screen max-h-screen overflow-hidden overflow-y-hidden grid gap-6 relative">
       <div className="absolute z-10 mt-5 grid grid-cols-[min-content_1fr] gap-7 max-h-[10rem] w-full">
         <Link className="self-start ml-3" href="/">
           <Exit />
