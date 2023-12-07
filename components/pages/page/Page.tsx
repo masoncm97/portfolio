@@ -33,7 +33,7 @@ export function Page({ data, encodeDataAttribute }: PageProps) {
   )
 
   return (
-    <section className="h-screen max-h-screen border border-red-500 overflow-hidden overflow-y-hidden grid gap-6 relative">
+    <section className="h-screen max-h-screen border border-red-500 overflow-hidden grid gap-6">
       <div className="absolute border border-green-500 z-10 mt-5 grid grid-cols-[min-content_1fr] gap-7 max-h-[10rem] w-full">
         <Link className="self-start ml-3" href="/">
           <Exit />
@@ -70,13 +70,13 @@ export function Page({ data, encodeDataAttribute }: PageProps) {
         data-sanity={encodeDataAttribute?.('image')}
         className="border border-purple-500"
       />
-      <ArrowNav
+      {/* <ArrowNav
         className={
           'fixed bottom-2 w-[20rem] max-h-7 max-w-lg border border-red-500'
         }
         next={data?.next}
         prev={data?.prev}
-      />
+      /> */}
     </section>
   )
 }
