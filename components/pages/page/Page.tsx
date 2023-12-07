@@ -68,6 +68,7 @@ export function Page({ data, encodeDataAttribute }: PageProps) {
         }}
         orientation={orientation}
         data-sanity={encodeDataAttribute?.('image')}
+        className="p-2"
       />
       <ArrowNav
         className={
