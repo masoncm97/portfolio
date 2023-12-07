@@ -37,11 +37,11 @@ export function CustomPortableText({
       }) => {
         return (
           <div className="my-6 space-y-2">
-            <SanityImage
+            {/* <SanityImage
               image={value}
               alt={value.alt}
               classesWrapper="relative aspect-[16/9]"
-            />
+            /> */}
             {value?.caption && (
               <div className="font-sans text-sm text-gray-600">
                 {value.caption}

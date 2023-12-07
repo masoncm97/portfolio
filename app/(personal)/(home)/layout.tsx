@@ -45,7 +45,7 @@ export default async function IndexRoute({
 }) {
   return (
     <>
-      <div className="flex min-h-screen border border-blue-500 flex-col bg-white text-black">
+      <div className="flex min-h-screen flex-col bg-white text-black">
         <div className="items-center sm:flex sm:justify-between">
           <Suspense>
             <Navbar />
