@@ -33,12 +33,12 @@ export function Page({ data, encodeDataAttribute }: PageProps) {
   )
 
   return (
-    <section className="h-screen max-h-screen overflow-hidden overflow-y-hidden grid gap-6 relative">
-      <div className="absolute z-10 mt-5 grid grid-cols-[min-content_1fr] gap-7 max-h-[10rem] w-full">
+    <section className="h-screen max-h-screen border border-red-500 overflow-hidden overflow-y-hidden grid gap-6 relative">
+      <div className="absolute border border-green-500 z-10 mt-5 grid grid-cols-[min-content_1fr] gap-7 max-h-[10rem] w-full">
         <Link className="self-start ml-3" href="/">
           <Exit />
         </Link>
-        <div className="z-10 flex flex-col w-full max-w-[50vw] place-self-end">
+        <div className="z-10 border border-blue-500 flex flex-col w-full max-w-[50vw] place-self-end">
           {table.map((item, index) => {
             const tableElementBaseStyle = classNames(
               'px-2 text-right text-xs',
@@ -68,10 +68,11 @@ export function Page({ data, encodeDataAttribute }: PageProps) {
         }}
         orientation={orientation}
         data-sanity={encodeDataAttribute?.('image')}
+        className="border border-purple-500"
       />
       <ArrowNav
         className={
-          'center-horizontal fixed bottom-2 w-[20rem] max-h-7 max-w-lg'
+          'fixed bottom-2 w-[20rem] max-h-7 max-w-lg border border-red-500'
         }
         next={data?.next}
         prev={data?.prev}
