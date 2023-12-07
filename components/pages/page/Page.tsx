@@ -33,7 +33,7 @@ export function Page({ data, encodeDataAttribute }: PageProps) {
   )
 
   return (
-    <section className="h-screen max-h-screen border border-red-500 overflow-hidden grid gap-6">
+    <section className="max-h-screen border border-red-500 overflow-hidden grid gap-6">
       <div className="absolute border border-green-500 z-10 mt-5 grid grid-cols-[min-content_1fr] gap-7 max-h-[10rem] w-full">
         <Link className="self-start ml-3" href="/">
           <Exit />
