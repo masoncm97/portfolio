@@ -39,7 +39,7 @@ function TextBox({ entry }: { entry: EntryPayload }) {
     <div className="relative mt-1 flex w-full flex-col justify-between p-2 xl:mt-0">
       <div>
         {/* Title */}
-        <div className="mb-1 text-xs sm:text-sm tracking-tight text-center italic">
+        <div className="mb-1 text-xs sm:text-sm tracking-tight text-center">
           {entry.title}
         </div>
         {/* Date */}
