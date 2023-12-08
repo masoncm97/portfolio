@@ -8,6 +8,7 @@ import { Page } from '@/components/pages/page/Page'
 import { generateStaticSlugs } from '@/sanity/loader/generateStaticSlugs'
 import { getAllEntries } from '@/sanity/loader/loadQuery'
 import { generateSiblingRoutes, getNextRoute } from '@/util/routes-helper'
+import SiblingsProvider from './SiblingsProvider'
 
 const PagePreview = dynamic(() => import('@/components/pages/page/PagePreview'))
 
@@ -59,5 +60,9 @@ export default async function PageSlugRoute({ params }: Props) {
     notFound()
   }
 
-  return <Page data={entry} />
+  return (
+    <SiblingsProvider entries={initial.entries}>
+      <Page data={entry} />
+    </SiblingsProvider>
+  )
 }

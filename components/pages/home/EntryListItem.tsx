@@ -12,7 +12,9 @@ export function EntryListItem(props: EntryProps) {
   const { entry, encodeDataAttribute } = props
   return (
     <div
-      className={'flex flex-col justify-between h-full gap-x-5 p-2 xl:flex-row'}
+      className={
+        'border border-red-500 flex flex-col justify-between h-full gap-x-5 p-2 xl:flex-row'
+      }
     >
       <div className="h-full grid w-full xl:w-9/12">
         <GalleryImageBox

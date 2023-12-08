@@ -28,18 +28,12 @@ export function HomePage({
     })
   }
 
-  if (searchParams) console.log(searchParams['tag'])
-
-  console.log(gallery.length)
-
   if (searchParams && searchParams['tag']) {
     gallery = entries?.filter((entry) => {
       console.log(entry.tags?.some((tag) => tag.title === searchParams['tag']))
       return entry.tags?.some((tag) => tag.title === searchParams['tag'])
     })
   }
-
-  console.log(gallery.length)
 
   return (
     <div className="space-y-20">

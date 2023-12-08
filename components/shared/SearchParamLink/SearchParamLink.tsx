@@ -2,7 +2,7 @@
 
 import Link from 'next/link'
 import type { SearchParam as SearchParam } from '@/types'
-import { useSearchParams } from 'next/navigation'
+import { usePathname, useSearchParams } from 'next/navigation'
 import { useCallback } from 'react'
 
 interface SearchParamLinkProps {
@@ -16,9 +16,9 @@ export default function SearchParamLink({
   searchParam,
   className,
 }: SearchParamLinkProps) {
+  const pathname = usePathname()
   const searchParams = useSearchParams()!
   const { name, value } = searchParam
-
   const createQueryString = useCallback(
     (name: string, value: string) => {
       const params = new URLSearchParams()
@@ -32,7 +32,7 @@ export default function SearchParamLink({
   return (
     <Link
       className={className}
-      href={'/' + '?' + createQueryString(name, value)}
+      href={pathname + '?' + createQueryString(name, value)}
     >
       {link}
     </Link>
