@@ -3,6 +3,7 @@
 import { Arrow } from './Arrow'
 import Link from 'next/link'
 import classNames from 'classnames'
+import { NavigationLink } from '@/components/shared/SearchParamLink/client/NavigationLink'
 
 export interface ArrowNavProps {
   className?: string
@@ -18,12 +19,12 @@ export function ArrowNav({ className, next, prev }: ArrowNavProps) {
         'grid grid-rows-1 gap-6 py-4 px-10 [&>*]:row-start-1 bg-white',
       )}
     >
-      <Link className="grid" href={`/${next}`}>
+      <NavigationLink className="grid" href={`/${next}`}>
         <Arrow className="translate-y-[1px] rotate-180 place-self-end" />
-      </Link>
-      <Link className="grid" href={`/${prev}`}>
+      </NavigationLink>
+      <NavigationLink className="grid" href={`/${prev}`}>
         <Arrow />
-      </Link>
+      </NavigationLink>
     </div>
   )
 }

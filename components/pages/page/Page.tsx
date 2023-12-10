@@ -7,7 +7,8 @@ import { EncodeDataAttributeCallback } from '@sanity/react-loader/rsc'
 import classNames from 'classnames'
 import Link from 'next/link'
 import { EntryImageBox } from '@/components/shared/Image/ImageBox'
-import { getSearchParamLink } from '@/components/shared/SearchParamLink/getSearchParamLink'
+import { getSearchParamLink } from '@/components/shared/SearchParamLink/server/getSearchParamLink'
+import { NavigationLink } from '@/components/shared/SearchParamLink/client/NavigationLink'
 
 // Make a change
 export interface PageProps {
@@ -35,9 +36,9 @@ export function Page({ data, encodeDataAttribute }: PageProps) {
   return (
     <section className="max-h-screen overflow-hidden grid gap-6">
       <div className="absolute z-10 mt-5 grid grid-cols-[min-content_1fr] gap-7 max-h-[10rem] w-full">
-        <Link className="self-start ml-3" href="/">
+        <NavigationLink className="self-start ml-3" href="/">
           <Exit />
-        </Link>
+        </NavigationLink>
         <div className="z-10 flex flex-col w-full max-w-[50vw] place-self-end">
           {table.map((item, index) => {
             const tableElementBaseStyle = classNames(

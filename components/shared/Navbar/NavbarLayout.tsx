@@ -2,7 +2,7 @@ import type { Category, SettingsPayload, Tag } from '@/types'
 import classNames from 'classnames'
 import { getTableElementStyle } from '@/util/styles-helper'
 import TagContainer from './TagContainer'
-import { getSearchParamLink } from '@/components/shared/SearchParamLink/getSearchParamLink'
+import { getSearchParamLink } from '@/components/shared/SearchParamLink/server/getSearchParamLink'
 
 interface NavbarProps {
   data: SettingsPayload

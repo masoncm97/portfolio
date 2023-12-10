@@ -12,9 +12,7 @@ export function EntryListItem(props: EntryProps) {
   const { entry, encodeDataAttribute } = props
   return (
     <div
-      className={
-        'border border-red-500 flex flex-col justify-between h-full gap-x-5 p-2 xl:flex-row'
-      }
+      className={'flex flex-col justify-between h-full p-1 gap-x-5 xl:flex-row'}
     >
       <div className="h-full grid w-full xl:w-9/12">
         <GalleryImageBox
@@ -29,9 +27,9 @@ export function EntryListItem(props: EntryProps) {
           orientation={entry.orientation}
         />
       </div>
-      <div className=" h-[3.5rem] xl:w-1/4">
+      {/* <div className=" h-[3.5rem] xl:w-1/4">
         <TextBox entry={entry} />
-      </div>
+      </div> */}
     </div>
   )
 }
