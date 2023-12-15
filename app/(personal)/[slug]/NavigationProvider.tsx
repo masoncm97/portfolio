@@ -1,52 +1,93 @@
 'use client'
 
 import { EntryPayload } from '@/types'
-import classNames from 'classnames'
-import { useSearchParams } from 'next/navigation'
-import { useState } from 'react'
+import { usePathname, useSearchParams } from 'next/navigation'
+import { createContext } from 'react'
+
+export const NavigationContext = createContext<NavigationState | null>(null)
 
 interface NavigationProviderProps {
   children: React.ReactNode
-  className?: string
   entries: EntryPayload[] | undefined
 }
+
+interface NavigationState {
+  next: string
+  prev: string
+}
+
 export default function NavigationProvider({
   children,
-  className,
   entries,
 }: NavigationProviderProps) {
-  const [imagePriority, setImagePriority] = useState(false)
   const searchParams = useSearchParams()
-  const navigatableEntries: EntryPayload[] = []
+  const pathName = usePathname()
 
-  for (const key of searchParams.keys()) {
-    console.log(key)
-    console.log(searchParams.get(key))
-    const filteredEntries = entries?.filter((entry) => {
-      // console.log(key)
-      // if (entry.tags)
-      //   console.log('yes', entry.tags[0].title === searchParams.get(key))
-      entry.tags?.some((tag) => tag.title === searchParams.get(key))
-    })
-    // console.log('shit', filteredEntries1)
-    // const filteredEntries = entries?.filter((entry) => {
-    //   entry.tags?.some((tag) => tag.title === key) ||
-    //     entry.category?.title === key
-    // })
-    console.log('yes', filteredEntries)
-    if (filteredEntries) {
-      navigatableEntries.push(...filteredEntries)
+  let navigatableEntries: EntryPayload[] = entries || []
+
+  if (Array.from(searchParams.keys()).length > 0) {
+    navigatableEntries = []
+    for (const key of searchParams.keys()) {
+      const filteredEntries = entries?.filter(
+        (entry) =>
+          entry.tags?.some(
+            (tag) =>
+              tag.title === searchParams.get(key) ||
+              entry.category?.title === searchParams.get(key),
+          ),
+      )
+      if (filteredEntries) {
+        navigatableEntries.push(...filteredEntries)
+      }
     }
   }
-  console.log(entries)
-  console.log(navigatableEntries)
+
+  const siblingRoutes = generateSiblingRoutes(navigatableEntries)
+
+  const navigationState = {
+    prev: getNextRoute(
+      trimLeadingSlash(pathName),
+      siblingRoutes,
+      (index) => index + 1,
+    ),
+    next: getNextRoute(
+      trimLeadingSlash(pathName),
+      siblingRoutes,
+      (index) => index - 1,
+    ),
+  }
 
   return (
-    <div
-      className={classNames(className, imagePriority ? 'z-20' : 'z-0')}
-      onTouchStart={() => setImagePriority((prev) => !prev)}
-    >
+    <NavigationContext.Provider value={navigationState}>
       {children}
-    </div>
+    </NavigationContext.Provider>
   )
+}
+
+function generateSiblingRoutes(entries: EntryPayload[] | undefined): string[] {
+  if (!entries) return []
+  return entries.map((entry) => `${entry.slug}`)
+}
+
+function getNextRoute(
+  currentRoute: string,
+  siblingRoutes: string[],
+  modifier: (number) => number,
+) {
+  if (!siblingRoutes || siblingRoutes.length === 0) return ''
+
+  const currentIndex = siblingRoutes.indexOf(currentRoute)
+  if (currentIndex === -1) return ''
+
+  // Apply the modifier function and ensure the result is within bounds using modulo
+  const newIndex = modifier(currentIndex) % siblingRoutes.length
+
+  // Adjust for negative indices resulting from the modifier function
+  return siblingRoutes[
+    newIndex < 0 ? newIndex + siblingRoutes.length : newIndex
+  ]
+}
+
+function trimLeadingSlash(str: string): string {
+  return str.replace(/^\//, '')
 }
