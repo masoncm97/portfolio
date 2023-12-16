@@ -2,6 +2,8 @@ import 'tailwindcss/tailwind.css'
 
 import { IBM_Plex_Mono, Inter, PT_Serif } from 'next/font/google'
 import Bounded from '@/components/shared/Bounded'
+import NavigationProvider from './(personal)/[slug]/NavigationProvider'
+import { getAllEntries } from '@/sanity/loader/loadQuery'
 
 const serif = PT_Serif({
   variable: '--font-serif',
@@ -26,12 +28,17 @@ export default async function RootLayout({
 }: {
   children: React.ReactNode
 }) {
+  const initial = await getAllEntries()
   return (
     <html
       lang="en"
       className={`${mono.variable} ${sans.variable} ${serif.variable}`}
     >
-      <body>{children}</body>
+      <body>
+        <NavigationProvider entries={initial.entries}>
+          {children}
+        </NavigationProvider>
+      </body>
     </html>
   )
 }

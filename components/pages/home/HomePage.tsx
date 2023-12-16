@@ -1,12 +1,17 @@
 'use client'
 
+// TODO:
+// refactor to use searchParams instead of query string
+// refactor to use entries from NavigationContext instead of props
+
 import type { EncodeDataAttributeCallback } from '@sanity/react-loader/rsc'
 import { Header } from '@/components/shared/Header'
-import type { HomePagePayload } from '@/types'
+import type { EntryPayload, HomePagePayload } from '@/types'
 import { EntryListItem } from './EntryListItem'
 import { SearchParamLink } from '@/components/shared/SearchParamLink/server/SearchParamLink'
 import { shuffle } from '@/util/functions'
-import { useEffect } from 'react'
+import { useContext, useEffect, useState } from 'react'
+import { NavigationContext } from '@/app/(personal)/[slug]/NavigationProvider'
 
 export interface HomePageProps {
   data: HomePagePayload | null
@@ -22,24 +27,40 @@ export function HomePage({
   // Default to an empty object to allow previews on non-existent documents
   const { overview = [], entries = [], title = '' } = data ?? {}
 
-  let gallery = entries
+  // let gallery = entries
 
-  if (searchParams && searchParams['category']) {
-    gallery = entries?.filter((entry) => {
-      return entry.category?.title === searchParams['category']
-    })
-  }
+  // const [gallery, setGallery] = useState(entries)
+  let navigationContext = useContext(NavigationContext)
+  if (!navigationContext) return
 
-  if (searchParams && searchParams['tag']) {
-    gallery = entries?.filter((entry) => {
-      console.log(entry.tags?.some((tag) => tag.title === searchParams['tag']))
-      return entry.tags?.some((tag) => tag.title === searchParams['tag'])
-    })
-  }
+  let gallery = navigationContext.navigatableEntries
+
+  useEffect(() => {
+    let filteredGallery = entries
+
+    if (searchParams && searchParams['category']) {
+      filteredGallery = entries?.filter((entry) => {
+        return entry.category?.title === searchParams['category']
+      })
+    }
+
+    if (searchParams && searchParams['tag']) {
+      filteredGallery = entries?.filter((entry) => {
+        return entry.tags?.some((tag) => tag.title === searchParams['tag'])
+      })
+    }
+
+    // setGallery(filteredGallery)
+  }, [searchParams, entries])
 
   const queryString = createQueryString(searchParams)
 
-  // gallery = shuffle(gallery)
+  const shuffleGallery = () => {
+    const shuffled = shuffle([...gallery])
+    //  setGallery(shuffled) // Shuffle and set the gallery state
+    console.log(gallery)
+    navigationContext?.updateNavigatableEntries(shuffled)
+  }
 
   useEffect(() => {
     const lastViewedImageId = sessionStorage.getItem('lastViewedImage')
@@ -52,7 +73,7 @@ export function HomePage({
   }, [])
 
   return (
-    <div className="space-y-20">
+    <div className="space-y-20 border border-red-600">
       {title && <Header centered title={title} description={overview} />}
       {gallery && gallery.length > 0 && (
         <div className="mx-auto grid grid-cols-[repeat(auto-fill,minmax(150px,1fr))]">
@@ -69,6 +90,12 @@ export function HomePage({
           })}
         </div>
       )}
+      <button
+        className="fixed bottom-2 border-red-500 border w-[75px] right-2 h-[75px]"
+        onClick={shuffleGallery}
+      >
+        Shuffle
+      </button>
     </div>
   )
 }

@@ -2,9 +2,15 @@
 
 import { EntryPayload } from '@/types'
 import { usePathname, useSearchParams } from 'next/navigation'
-import { createContext, useEffect } from 'react'
+import {
+  Dispatch,
+  SetStateAction,
+  createContext,
+  useEffect,
+  useState,
+} from 'react'
 
-export const NavigationContext = createContext<NavigationState | null>(null)
+export const NavigationContext = createContext<NavigationContext | null>(null)
 
 interface NavigationProviderProps {
   children: React.ReactNode
@@ -12,23 +18,44 @@ interface NavigationProviderProps {
 }
 
 interface NavigationState {
+  navigatableEntries: EntryPayload[]
   next: string
   prev: string
 }
+
+interface NavigationContext extends NavigationState {
+  updateNavigatableEntries: (navigatableEntries: EntryPayload[]) => void
+}
+
+// type NavigationContext = NavigationState & NavigationAction
 
 export default function NavigationProvider({
   children,
   entries,
 }: NavigationProviderProps) {
+  const [navigatableEntries, setNavigatableEntries] = useState(entries)
+  const [navigationState, setNavigationState] = useState<NavigationState>({
+    navigatableEntries: [],
+    prev: '',
+    next: '',
+  })
   const searchParams = useSearchParams()
   const pathName = usePathname()
 
-  let navigatableEntries: EntryPayload[] = entries || []
+  const updateNavigatableEntries = (navigatableEntries: EntryPayload[]) => {
+    console.log('updating')
+    setNavigatableEntries(navigatableEntries)
+  }
+
+  // let navigatableEntries: EntryPayload[] = entries || []
 
   if (Array.from(searchParams.keys()).length > 0) {
-    navigatableEntries = []
+    // navigatableEntries = []
+    // setNavigatableEntries([])
+    let filteredEntries: EntryPayload[] = [] // Temporary array to accumulate entries
+
     for (const key of searchParams.keys()) {
-      const filteredEntries = entries?.filter(
+      const filteredEntriesByKey = entries?.filter(
         (entry) =>
           entry.tags?.some(
             (tag) =>
@@ -36,29 +63,61 @@ export default function NavigationProvider({
               entry.category?.title === searchParams.get(key),
           ),
       )
-      if (filteredEntries) {
-        navigatableEntries.push(...filteredEntries)
+      if (filteredEntriesByKey) {
+        // setNavigatableEntries((prev) => [...prev, ...filteredEntries])
+        // navigatableEntries.push(...filteredEntries)
+        filteredEntries = [...filteredEntries, ...filteredEntriesByKey]
       }
     }
+    setNavigatableEntries(filteredEntries)
   }
 
-  const siblingRoutes = generateSiblingRoutes(navigatableEntries)
   const current = trimLeadingSlash(pathName)
 
-  // console.log(pathName)
-  // console.log('fuck')
+  useEffect(() => {
+    if (current) {
+      sessionStorage.setItem('lastViewedImage', current)
+    }
+  }, [current])
 
   useEffect(() => {
-    sessionStorage.setItem('lastViewedImage', current)
-  }, [])
+    const siblingRoutes = generateSiblingRoutes(navigatableEntries)
+    if (navigatableEntries) {
+      setNavigationState({
+        navigatableEntries: navigatableEntries,
+        prev: getNextRoute(current, siblingRoutes, (index) => index + 1),
+        next: getNextRoute(current, siblingRoutes, (index) => index - 1),
+      })
+    }
+  }, [navigatableEntries, current])
 
-  const navigationState = {
-    prev: getNextRoute(current, siblingRoutes, (index) => index + 1),
-    next: getNextRoute(current, siblingRoutes, (index) => index - 1),
-  }
+  // const navigationContext: NavigationContext = {
+  //   prev: getNextRoute(current, siblingRoutes, (index) => index + 1),
+  //   next: getNextRoute(current, siblingRoutes, (index) => index - 1),
+  //   setNavigatableEntries: setNavigatableEntries,
+  // }
+
+  // useEffect(() => {
+  //   setNavigationState({
+  //     prev: getNextRoute(current, siblingRoutes, (index) => index + 1),
+  //     next: getNextRoute(current, siblingRoutes, (index) => index - 1),
+  //   })
+  // }, [current, siblingRoutes])
+
+  // setNavigationState({
+  //   prev: getNextRoute(current, siblingRoutes, (index) => index + 1),
+  //   next: getNextRoute(current, siblingRoutes, (index) => index - 1),
+  // })
+
+  // const navigationContext: NavigationContext = {
+  //   ...navigationState,
+  //   updateNavigatableEntries: updateNavigatableEntries,
+  // }
 
   return (
-    <NavigationContext.Provider value={navigationState}>
+    <NavigationContext.Provider
+      value={{ ...navigationState, updateNavigatableEntries }}
+    >
       {children}
     </NavigationContext.Provider>
   )

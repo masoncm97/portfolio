@@ -46,9 +46,5 @@ export default async function PageSlugRoute({ params }: Props) {
     notFound()
   }
 
-  return (
-    <NavigationProvider entries={initial.entries}>
-      <Page data={entry} />
-    </NavigationProvider>
-  )
+  return <Page data={entry} />
 }
