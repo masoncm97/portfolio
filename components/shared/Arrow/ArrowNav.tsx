@@ -8,13 +8,11 @@ import { useContext } from 'react'
 
 export interface ArrowNavProps {
   className?: string
-  next?: string
-  prev?: string
 }
 
-export function ArrowNav({ className, next, prev }: ArrowNavProps) {
+export function ArrowNav({ className }: ArrowNavProps) {
   let navigationState = useContext(NavigationContext)
-  console.log('uuu', navigationState)
+
   return (
     navigationState && (
       <div

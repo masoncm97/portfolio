@@ -43,6 +43,8 @@ export default function NavigationProvider({
   }
 
   const siblingRoutes = generateSiblingRoutes(navigatableEntries)
+  console.log(siblingRoutes)
+  console.log('fuck')
 
   const navigationState = {
     prev: getNextRoute(

@@ -1,4 +1,4 @@
-import { ColorWheelIcon, ImageIcon } from '@sanity/icons'
+import { ColorWheelIcon } from '@sanity/icons'
 import { defineArrayMember, defineField, defineType } from 'sanity'
 
 export default defineType({

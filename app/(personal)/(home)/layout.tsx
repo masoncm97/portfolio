@@ -8,6 +8,7 @@ import { Suspense } from 'react'
 import { Navbar } from '@/components/shared/Navbar'
 import { urlForOpenGraphImage } from '@/sanity/lib/utils'
 import { getAllEntries, getSettings } from '@/sanity/loader/loadQuery'
+import Loading from './loading'
 
 const VisualEditing = dynamic(() => import('@/sanity/loader/VisualEditing'))
 
@@ -53,7 +54,7 @@ export default async function IndexRoute({
           <h1 className="hidden sm:block">Mason Mathai</h1>
         </div>
         <div className="mt-5 flex-grow px-4 md:px-16 lg:px-32">
-          <Suspense>{children}</Suspense>
+          <Suspense fallback={<Loading />}>{children}</Suspense>
         </div>
       </div>
       {draftMode().isEnabled && <VisualEditing />}
