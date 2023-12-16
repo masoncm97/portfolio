@@ -51,21 +51,12 @@ export function computeOrientation(
         ),
       }
     case 'Landscape':
-      // return {
-      //   width: 3500,
-      //   height: 2000,
-      //   size: '100vw',
-      //   styles: classNames(
-      //     location === 'Entry' ? 'top-[30%]' : '',
-      //     'aspect-[16/9] w-full',
-      //   ),
-      // }
       return {
         width: 2000,
         height: 1500,
         size: '100vw',
         styles: classNames(
-          location === 'Entry' ? 'top-[30%]' : '',
+          location === 'Entry' ? 'top-[25%]' : '',
           'aspect-[4/3] w-full',
         ),
       }

@@ -2,7 +2,7 @@
 
 import { EntryPayload } from '@/types'
 import { usePathname, useSearchParams } from 'next/navigation'
-import { createContext } from 'react'
+import { createContext, useEffect } from 'react'
 
 export const NavigationContext = createContext<NavigationState | null>(null)
 
@@ -43,20 +43,18 @@ export default function NavigationProvider({
   }
 
   const siblingRoutes = generateSiblingRoutes(navigatableEntries)
-  console.log(siblingRoutes)
-  console.log('fuck')
+  const current = trimLeadingSlash(pathName)
+
+  // console.log(pathName)
+  // console.log('fuck')
+
+  useEffect(() => {
+    sessionStorage.setItem('lastViewedImage', current)
+  }, [])
 
   const navigationState = {
-    prev: getNextRoute(
-      trimLeadingSlash(pathName),
-      siblingRoutes,
-      (index) => index + 1,
-    ),
-    next: getNextRoute(
-      trimLeadingSlash(pathName),
-      siblingRoutes,
-      (index) => index - 1,
-    ),
+    prev: getNextRoute(current, siblingRoutes, (index) => index + 1),
+    next: getNextRoute(current, siblingRoutes, (index) => index - 1),
   }
 
   return (

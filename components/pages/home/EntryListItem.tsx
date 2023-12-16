@@ -12,6 +12,7 @@ export function EntryListItem(props: EntryProps) {
   const { entry, encodeDataAttribute } = props
   return (
     <div
+      id={entry.slug}
       className={'flex flex-col justify-between h-full p-1 gap-x-5 xl:flex-row'}
     >
       <div className="h-full grid w-full xl:w-9/12">

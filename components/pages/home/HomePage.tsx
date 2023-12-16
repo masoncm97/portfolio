@@ -1,8 +1,12 @@
+'use client'
+
 import type { EncodeDataAttributeCallback } from '@sanity/react-loader/rsc'
 import { Header } from '@/components/shared/Header'
 import type { HomePagePayload } from '@/types'
 import { EntryListItem } from './EntryListItem'
 import { SearchParamLink } from '@/components/shared/SearchParamLink/server/SearchParamLink'
+import { shuffle } from '@/util/functions'
+import { useEffect } from 'react'
 
 export interface HomePageProps {
   data: HomePagePayload | null
@@ -34,6 +38,18 @@ export function HomePage({
   }
 
   const queryString = createQueryString(searchParams)
+
+  // gallery = shuffle(gallery)
+
+  useEffect(() => {
+    const lastViewedImageId = sessionStorage.getItem('lastViewedImage')
+    console.log(lastViewedImageId)
+    if (lastViewedImageId != null) {
+      const imageToScrollTo = document.getElementById(lastViewedImageId)
+      imageToScrollTo?.scrollIntoView()
+      sessionStorage.removeItem('lastViewedImage')
+    }
+  }, [])
 
   return (
     <div className="space-y-20">
