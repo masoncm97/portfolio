@@ -16,7 +16,7 @@ export function getSearchParamLink(item: Tag | Category, className?: string) {
       key={item.title}
       className={classNames(
         className,
-        isTag ? 'text-blue-700 underline text-xs pr-2 pt-1' : '',
+        isTag ? 'text-blue-700 underline text-xs pt-1' : '',
       )}
       searchParam={href}
     >

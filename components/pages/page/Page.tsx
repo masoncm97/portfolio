@@ -53,7 +53,7 @@ export function Page({ data, encodeDataAttribute }: PageProps) {
                 <div
                   className={classNames(
                     tableElementBaseStyle,
-                    'flex flex-wrap px-0 justify-end',
+                    'flex flex-wrap px-0 justify-end gap-1',
                   )}
                 >
                   {item.map((tag) => {
@@ -84,8 +84,6 @@ export function Page({ data, encodeDataAttribute }: PageProps) {
         className={
           'center-horizontal fixed bottom-2 w-[20rem] max-h-7 max-w-lg'
         }
-        next={data?.next}
-        prev={data?.prev}
       />
     </section>
   )

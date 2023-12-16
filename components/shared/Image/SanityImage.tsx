@@ -12,11 +12,15 @@ export interface SanityImageProps {
 
 export default function SanityImage({
   image,
-  width = 3500,
-  height = 2000,
+  width = 2000,
+  height = 1500,
   size,
   alt = 'Cover image',
 }: SanityImageProps) {
+  // width = 2000
+  // height = 1500
+  // console.log(width)
+  // console.log(height)
   const imageUrl =
     image && urlForImage(image)?.height(height).width(width).url()
 
