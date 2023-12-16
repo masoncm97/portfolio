@@ -49,9 +49,18 @@ export function Page({ data, encodeDataAttribute }: PageProps) {
               item = item.title
             }
             if (isTags(item)) {
-              return item.map((tag) => {
-                return getSearchParamLink(tag, tableElementBaseStyle)
-              })
+              return (
+                <div
+                  className={classNames(
+                    tableElementBaseStyle,
+                    'flex flex-wrap px-0 justify-end',
+                  )}
+                >
+                  {item.map((tag) => {
+                    return getSearchParamLink(tag)
+                  })}
+                </div>
+              )
             } else {
               return (
                 <p key={item} className={tableElementBaseStyle}>

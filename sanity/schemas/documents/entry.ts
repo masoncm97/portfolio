@@ -11,7 +11,7 @@ export default defineType({
       name: 'title',
       title: 'Title',
       type: 'string',
-      validation: (rule) => rule.max(21).required(),
+      validation: (rule) => rule.max(25).required(),
     }),
     defineField({
       name: 'slug',
