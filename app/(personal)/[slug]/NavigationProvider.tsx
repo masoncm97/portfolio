@@ -33,7 +33,9 @@ export default function NavigationProvider({
   children,
   entries,
 }: NavigationProviderProps) {
+  const [stashedEntries, setStashedEntries] = useState(entries)
   const [navigatableEntries, setNavigatableEntries] = useState(entries)
+  const [shuffled, setShuffled] = useState(false)
   const [navigationState, setNavigationState] = useState<NavigationState>({
     navigatableEntries: [],
     prev: '',
@@ -41,38 +43,49 @@ export default function NavigationProvider({
   })
   const searchParams = useSearchParams()
   const pathName = usePathname()
+  const current = trimLeadingSlash(pathName)
 
   const updateNavigatableEntries = (navigatableEntries: EntryPayload[]) => {
     console.log('updating')
     setNavigatableEntries(navigatableEntries)
+    setStashedEntries(navigatableEntries)
+    setShuffled(true)
   }
 
-  // let navigatableEntries: EntryPayload[] = entries || []
+  // Used to reset navigatable entries based on search param
+  // Only want to run this on the homepage when changing search params
 
-  if (Array.from(searchParams.keys()).length > 0) {
-    // navigatableEntries = []
-    // setNavigatableEntries([])
-    let filteredEntries: EntryPayload[] = [] // Temporary array to accumulate entries
-
-    for (const key of searchParams.keys()) {
-      const filteredEntriesByKey = entries?.filter(
-        (entry) =>
-          entry.tags?.some(
-            (tag) =>
-              tag.title === searchParams.get(key) ||
-              entry.category?.title === searchParams.get(key),
-          ),
-      )
-      if (filteredEntriesByKey) {
-        // setNavigatableEntries((prev) => [...prev, ...filteredEntries])
-        // navigatableEntries.push(...filteredEntries)
-        filteredEntries = [...filteredEntries, ...filteredEntriesByKey]
+  useEffect(() => {
+    if (pathName !== '/') return
+    console.log('changed')
+    if (Array.from(searchParams.keys()).length > 0) {
+      let filteredEntries: EntryPayload[] = [] // Temporary array to accumulate entries
+      for (const key of searchParams.keys()) {
+        const filteredEntriesByKey = entries?.filter(
+          (entry) =>
+            entry.tags?.some(
+              (tag) =>
+                tag.title === searchParams.get(key) ||
+                entry.category?.title === searchParams.get(key),
+            ),
+        )
+        if (filteredEntriesByKey) {
+          filteredEntries = [...filteredEntries, ...filteredEntriesByKey]
+        }
       }
-    }
-    setNavigatableEntries(filteredEntries)
-  }
+      setNavigatableEntries(filteredEntries)
+    } else {
+      // Setting to navigatableEntries doesn't reset all entries when visiting homepage
+      // But it should
+      console.log('stashed')
+      console.log(stashedEntries)
+      setNavigatableEntries(stashedEntries)
 
-  const current = trimLeadingSlash(pathName)
+      // Setting to entries restores all entries when visiting homepage
+      // But doesn't preserve shuffled state
+      // setNavigatableEntries(entries)
+    }
+  }, [searchParams, entries])
 
   useEffect(() => {
     if (current) {
@@ -83,7 +96,13 @@ export default function NavigationProvider({
   useEffect(() => {
     const siblingRoutes = generateSiblingRoutes(navigatableEntries)
     if (navigatableEntries) {
+      console.log('updating navigation state')
       setNavigationState({
+        navigatableEntries: navigatableEntries,
+        prev: getNextRoute(current, siblingRoutes, (index) => index + 1),
+        next: getNextRoute(current, siblingRoutes, (index) => index - 1),
+      })
+      console.log({
         navigatableEntries: navigatableEntries,
         prev: getNextRoute(current, siblingRoutes, (index) => index + 1),
         next: getNextRoute(current, siblingRoutes, (index) => index - 1),

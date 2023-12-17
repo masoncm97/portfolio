@@ -12,7 +12,7 @@ export default async function IndexRoute({
   [key: string]: string | string[] | undefined
 }) {
   const initial = await getAllEntries()
-
+  
   // if (draftMode().isEnabled) {
   //   return <HomePagePreview initial={initial} />
   // }

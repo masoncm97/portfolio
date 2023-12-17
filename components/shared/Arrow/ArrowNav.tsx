@@ -12,7 +12,7 @@ export interface ArrowNavProps {
 
 export function ArrowNav({ className }: ArrowNavProps) {
   let navigationState = useContext(NavigationContext)
-
+  console.log(navigationState)
   return (
     navigationState && (
       <div

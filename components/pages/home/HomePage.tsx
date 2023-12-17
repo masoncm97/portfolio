@@ -6,11 +6,11 @@
 
 import type { EncodeDataAttributeCallback } from '@sanity/react-loader/rsc'
 import { Header } from '@/components/shared/Header'
-import type { EntryPayload, HomePagePayload } from '@/types'
+import type { HomePagePayload } from '@/types'
 import { EntryListItem } from './EntryListItem'
 import { SearchParamLink } from '@/components/shared/SearchParamLink/server/SearchParamLink'
 import { shuffle } from '@/util/functions'
-import { useContext, useEffect, useState } from 'react'
+import { useContext, useEffect } from 'react'
 import { NavigationContext } from '@/app/(personal)/[slug]/NavigationProvider'
 
 export interface HomePageProps {
@@ -35,23 +35,23 @@ export function HomePage({
 
   let gallery = navigationContext.navigatableEntries
 
-  useEffect(() => {
-    let filteredGallery = entries
+  // useEffect(() => {
+  //   let filteredGallery = entries
 
-    if (searchParams && searchParams['category']) {
-      filteredGallery = entries?.filter((entry) => {
-        return entry.category?.title === searchParams['category']
-      })
-    }
+  //   if (searchParams && searchParams['category']) {
+  //     filteredGallery = entries?.filter((entry) => {
+  //       return entry.category?.title === searchParams['category']
+  //     })
+  //   }
 
-    if (searchParams && searchParams['tag']) {
-      filteredGallery = entries?.filter((entry) => {
-        return entry.tags?.some((tag) => tag.title === searchParams['tag'])
-      })
-    }
+  //   if (searchParams && searchParams['tag']) {
+  //     filteredGallery = entries?.filter((entry) => {
+  //       return entry.tags?.some((tag) => tag.title === searchParams['tag'])
+  //     })
+  //   }
 
-    // setGallery(filteredGallery)
-  }, [searchParams, entries])
+  //   // setGallery(filteredGallery)
+  // }, [searchParams, entries])
 
   const queryString = createQueryString(searchParams)
 
@@ -62,15 +62,15 @@ export function HomePage({
     navigationContext?.updateNavigatableEntries(shuffled)
   }
 
-  useEffect(() => {
-    const lastViewedImageId = sessionStorage.getItem('lastViewedImage')
-    console.log(lastViewedImageId)
-    if (lastViewedImageId != null) {
-      const imageToScrollTo = document.getElementById(lastViewedImageId)
-      imageToScrollTo?.scrollIntoView()
-      sessionStorage.removeItem('lastViewedImage')
-    }
-  }, [])
+  // useEffect(() => {
+  //   const lastViewedImageId = sessionStorage.getItem('lastViewedImage')
+  //   console.log(lastViewedImageId)
+  //   if (lastViewedImageId != null) {
+  //     const imageToScrollTo = document.getElementById(lastViewedImageId)
+  //     imageToScrollTo?.scrollIntoView()
+  //     sessionStorage.removeItem('lastViewedImage')
+  //   }
+  // }, [])
 
   return (
     <div className="space-y-20 border border-red-600">
