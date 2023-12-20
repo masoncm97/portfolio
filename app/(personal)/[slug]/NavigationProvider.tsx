@@ -45,9 +45,6 @@ export default function NavigationProvider({
   const siblingRoutes = generateSiblingRoutes(navigatableEntries)
   const current = trimLeadingSlash(pathName)
 
-  // console.log(pathName)
-  // console.log('fuck')
-
   useEffect(() => {
     sessionStorage.setItem('lastViewedImage', current)
   }, [])
