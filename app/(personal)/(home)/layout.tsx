@@ -46,7 +46,7 @@ export default async function IndexRoute({
 }) {
   return (
     <>
-      <div className="flex min-h-screen flex-col bg-white text-black">
+      <div className="flex min-h-screen flex-col text-black">
         <div className="items-center sm:flex sm:justify-between">
           <Suspense>
             <Navbar />
@@ -56,6 +56,7 @@ export default async function IndexRoute({
         <div className="mt-5 flex-grow px-4 md:px-16 lg:px-32">
           <Suspense fallback={<Loading />}>{children}</Suspense>
         </div>
+        <h1 className="fixed center-absolute -z-10 text-xl">Mason Mathai</h1>
       </div>
       {draftMode().isEnabled && <VisualEditing />}
     </>

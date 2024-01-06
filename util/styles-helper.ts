@@ -42,12 +42,12 @@ export function computeOrientation(
   switch (orientation.title) {
     case 'Portrait':
       return {
-        width: 2000,
-        height: 3500,
+        width: 3000,
+        height: 4000,
         size: '70vw',
         styles: classNames(
           location === 'Entry' ? 'top-[20%] center-absolute' : '',
-          'aspect-[9/16] w-[60%]',
+          'w-full',
         ),
       }
     case 'Landscape':
@@ -58,6 +58,16 @@ export function computeOrientation(
         styles: classNames(
           location === 'Entry' ? 'top-[25%]' : '',
           'aspect-[4/3] w-full',
+        ),
+      }
+    case 'Square':
+      return {
+        width: 2000,
+        height: 2000,
+        size: '100vw',
+        styles: classNames(
+          location === 'Entry' ? 'top-[25%]' : '',
+          'aspect-square w-full',
         ),
       }
     default:
