@@ -46,8 +46,7 @@ export function computeOrientation(
         height: 4000,
         size: '70vw',
         styles: classNames(
-          location === 'Entry' ? 'top-[20%] center-absolute' : '',
-          'w-full',
+          location === 'Entry' ? 'top-[20%] center-absolute w-[80%]' : 'w-full',
         ),
       }
     case 'Landscape':

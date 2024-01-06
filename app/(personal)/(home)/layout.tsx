@@ -47,6 +47,7 @@ export default async function IndexRoute({
   return (
     <>
       <div className="flex min-h-screen flex-col text-black">
+        <h1 className="mt-3 w-screen text-center text-2xl">Mason Mathai</h1>
         <div className="items-center sm:flex sm:justify-between">
           <Suspense>
             <Navbar />

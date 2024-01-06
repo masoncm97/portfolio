@@ -44,6 +44,7 @@ export interface EntryPayload {
   tags?: Tag[]
   shortDescription?: string
   medium?: Medium
+  size?: string
   content?: PortableTextBlock[]
   image?: SanityImage
   orientation?: Orientation

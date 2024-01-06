@@ -26,7 +26,7 @@ export default function Navbar(props: NavbarProps) {
       <div
         className={classNames(
           getTableElementStyle(categories.length - 1, categories.length),
-          'w-[15rem] md:max-w-[8rem] p-2 gap-1 relative h-[8rem]',
+          'w-[15rem] md:max-w-[8rem] p-2 gap-1 relative h-[5rem]',
         )}
       >
         <div className="flex flex-wrap absolute text-center gap-1">

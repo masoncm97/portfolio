@@ -23,13 +23,14 @@ export function Page({ data, encodeDataAttribute }: PageProps) {
     location,
     date,
     medium,
+    size,
     image,
     shortDescription,
     orientation,
     tags,
   } = data ?? {}
 
-  const table = [title, location, date, medium, tags].filter(
+  const table = [title, location, medium, size, date, tags].filter(
     (item) => item !== null && item !== undefined && item !== '',
   )
 

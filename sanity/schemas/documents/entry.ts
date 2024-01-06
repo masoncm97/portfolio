@@ -60,6 +60,11 @@ export default defineType({
       to: [{ type: 'medium' }],
     }),
     defineField({
+      name: 'size',
+      title: 'Size',
+      type: 'string',
+    }),
+    defineField({
       name: 'content',
       description: 'Any text content for the entry.',
       title: 'Content',

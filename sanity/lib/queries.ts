@@ -14,6 +14,7 @@ export const getAllEntriesQuery = groq`
         title
       },
       shortDescription, 
+      size,
       medium->{_type,title},
       content, 
       image{
