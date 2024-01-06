@@ -56,7 +56,9 @@ export default async function IndexRoute({
         <div className="mt-5 flex-grow px-4 md:px-16 lg:px-32">
           <Suspense fallback={<Loading />}>{children}</Suspense>
         </div>
-        <h1 className="fixed center-absolute -z-10 text-xl">Mason Mathai</h1>
+        <h1 className="fixed bottom-0 center-horizontal z-10 text-5xl w-screen text-center text-white">
+          Mason Mathai
+        </h1>
       </div>
       {draftMode().isEnabled && <VisualEditing />}
     </>
