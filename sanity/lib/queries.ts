@@ -20,7 +20,8 @@ export const getAllEntriesQuery = groq`
       image{
         asset,
         "lqip": asset->metadata.lqip,
-        "palette": asset->metadata.palette
+        "palette": asset->metadata.palette,
+        "blurHash": asset->metadata.blurHash
       },
       orientation->{_type,title},
       secondaryImage,
