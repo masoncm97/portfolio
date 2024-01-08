@@ -9,7 +9,6 @@ import { Suspense } from 'react'
 import { urlForOpenGraphImage } from '@/sanity/lib/utils'
 import { getAllEntries, getSettings } from '@/sanity/loader/loadQuery'
 import Loading from './loading'
-import Delayed from '@/components/shared/Delayed'
 import Navbar from '@/components/shared/Navbar-2/Navbar'
 import { Tag } from '@/types'
 

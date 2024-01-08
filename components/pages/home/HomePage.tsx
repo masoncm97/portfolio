@@ -4,7 +4,7 @@ import type { EncodeDataAttributeCallback } from '@sanity/react-loader/rsc'
 import { Header } from '@/components/shared/Header'
 import type { HomePagePayload } from '@/types'
 import { EntryListItem } from './EntryListItem'
-import { SearchParamLink } from '@/components/shared/SearchParamLink/server/SearchParamLink'
+import { SearchParamLink } from '@/components/shared/Links/server/SearchParamLink'
 import { shuffle } from '@/util/functions'
 import { useEffect } from 'react'
 

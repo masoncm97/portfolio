@@ -7,8 +7,8 @@ import { EncodeDataAttributeCallback } from '@sanity/react-loader/rsc'
 import classNames from 'classnames'
 import Link from 'next/link'
 import { EntryImageBox } from '@/components/shared/Image/ImageBox'
-import { getSearchParamLink } from '@/components/shared/SearchParamLink/server/getSearchParamLink'
-import { NavigationLink } from '@/components/shared/SearchParamLink/client/NavigationLink'
+import { getSearchParamLink } from '@/components/shared/Links/server/getSearchParamLink'
+import { NavigationLink } from '@/components/shared/Links/client/NavigationLink'
 
 // Make a change
 export interface PageProps {

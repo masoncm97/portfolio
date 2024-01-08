@@ -2,8 +2,13 @@ import Link from 'next/link'
 import { AnimatePresence, motion } from 'framer-motion'
 import { Exit } from '../Exit'
 import { Tag } from '@/types'
-import { useSearchParams } from 'next/navigation'
-import { getSearchParamLink } from '../SearchParamLink/server/getSearchParamLink'
+import { usePathname, useSearchParams } from 'next/navigation'
+import { getSearchParamLink } from '../Links/server/getSearchParamLink'
+import { resolveHref } from '@/sanity/lib/utils'
+import { isSearchParam } from '@/util/type-guards'
+import { useState } from 'react'
+import classNames from 'classnames'
+import TextElement from '../TextElement'
 
 export interface NavBarMenuProps {
   isOpen: boolean
@@ -40,8 +45,18 @@ export default function NavBarMenu({
   tags,
 }: NavBarMenuProps) {
   const searchParams = useSearchParams()
+  const pathName = usePathname()
   const searchTag = searchParams.get('tag')
   const tag = tags.find((tag) => tag.title === searchTag)
+  const [selected, setSelected] = useState(tag?.title || '')
+  if (!tag) {
+    return null
+  }
+  const href = resolveHref(tag._type, tag.title)
+  const isTag = tag._type === 'tag'
+  if (!href || !isSearchParam(href)) {
+    return null
+  }
 
   console.log(tags)
   return (
@@ -59,13 +74,40 @@ export default function NavBarMenu({
               <Exit />
             </button>
             <div className="border border-black m-4 p-2">
-              <h2 className="text-left">Filter By:</h2>
-              <ul>
+              <h2 className="text-left mb-3">Filter By Tag:</h2>
+              <ul className="grid place-items-end">
                 {tags &&
-                  tags.map((tag) => {
-                    return getSearchParamLink(tag)
-                  })}
+                  tags.map((tag) => (
+                    <Link
+                      href={
+                        pathName
+                          ? `${pathName}?tag=${tag.title}`
+                          : `/?tag=${tag.title}`
+                      }
+                      onClick={() => (tag.title ? setSelected(tag.title) : '')}
+                      className={classNames(
+                        'px-2 py-1',
+                        tag.title === selected
+                          ? 'border border-black rounded-full'
+                          : '',
+                      )}
+                    >
+                      {tag.title}
+                    </Link>
+                  ))}
               </ul>
+            </div>
+            <TextElement className="px-3" as={'p'} size={'sm'}>
+              {tag.description}
+            </TextElement>
+            <div className="fixed left-3 bottom-3 grid place-items-end gap-1">
+              <TextElement className=" mb-5 text-right" as={'p'} size={'xs'}>
+                Touch the art to view more information
+              </TextElement>
+              <TextElement className="max-w-[50%]" as={'h1'} size={'lg'}>
+                Mason Mathai
+              </TextElement>
+              <>Contact</>
             </div>
           </div>
         </motion.div>

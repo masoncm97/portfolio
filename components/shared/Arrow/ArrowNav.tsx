@@ -2,7 +2,7 @@
 
 import { Arrow } from './Arrow'
 import classNames from 'classnames'
-import { NavigationLink } from '@/components/shared/SearchParamLink/client/NavigationLink'
+import { NavigationLink } from '@/components/shared/Links/client/NavigationLink'
 import { NavigationContext } from '@/app/(personal)/[slug]/NavigationProvider'
 import { useContext } from 'react'
 

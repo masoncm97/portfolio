@@ -17,7 +17,6 @@ function isBaseType(object: any): object is BaseType {
     typeof object === 'object' &&
     '_type' in object &&
     typeof object._type === 'string' &&
-    // Check for optional property 'title'
     (object.title === undefined || typeof object.title === 'string')
   )
 }

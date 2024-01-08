@@ -3,7 +3,6 @@
 import { useRef, useState } from 'react'
 import NavbarMenu from './NavbarMenu'
 import { motion, useInView, AnimatePresence } from 'framer-motion'
-import classNames from 'classnames'
 import { Tag } from '@/types'
 
 export default function Navbar({ tags }: { tags: Tag[] }) {
