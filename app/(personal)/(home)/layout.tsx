@@ -11,6 +11,7 @@ import { getAllEntries, getSettings } from '@/sanity/loader/loadQuery'
 import Loading from './loading'
 import Delayed from '@/components/shared/Delayed'
 import Navbar from '@/components/shared/Navbar-2/Navbar'
+import { Tag } from '@/types'
 
 const VisualEditing = dynamic(() => import('@/sanity/loader/VisualEditing'))
 
@@ -42,6 +43,8 @@ export default async function IndexRoute({
 }: {
   children: React.ReactNode
 }) {
+  const data = await getSettings()
+  const tags = data?.tags || ([] as Tag[])
   return (
     <Suspense fallback={<Loading />}>
       <div className="flex min-h-screen flex-col text-black">
@@ -51,7 +54,7 @@ export default async function IndexRoute({
           </Suspense>
           <h1 className="hidden sm:block">Mason Mathai</h1>
         </div> */}
-        <Navbar />
+        <Navbar tags={tags} />
         <div className="mt-20 flex-grow px-4 md:px-16 lg:px-32">{children}</div>
       </div>
       {draftMode().isEnabled && <VisualEditing />}

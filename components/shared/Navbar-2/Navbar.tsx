@@ -4,8 +4,9 @@ import { useRef, useState } from 'react'
 import NavbarMenu from './NavbarMenu'
 import { motion, useInView, AnimatePresence } from 'framer-motion'
 import classNames from 'classnames'
+import { Tag } from '@/types'
 
-export default function Navbar() {
+export default function Navbar({ tags }: { tags: Tag[] }) {
   const [isOpen, setIsOpen] = useState(false)
   const ref = useRef(null)
   const isInView = useInView(ref, { once: true })
@@ -18,7 +19,7 @@ export default function Navbar() {
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              transition={{ type: 'tween', duration: 0.5, delay: 0.2 }}
+              transition={{ type: 'tween', duration: 0.5 }}
             >
               <button
                 onClick={() => setIsOpen(!isOpen)}
@@ -28,7 +29,7 @@ export default function Navbar() {
           )}
         </AnimatePresence>
       </div>
-      <NavbarMenu isOpen={isOpen} setIsOpen={setIsOpen} />
+      <NavbarMenu isOpen={isOpen} setIsOpen={setIsOpen} tags={tags} />
     </>
   )
 }
