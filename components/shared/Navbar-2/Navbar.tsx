@@ -18,7 +18,7 @@ export default function Navbar() {
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              transition={{ type: 'tween', duration: 0.5 }}
+              transition={{ type: 'tween', duration: 0.5, delay: 0.2 }}
             >
               <button
                 onClick={() => setIsOpen(!isOpen)}
