@@ -8,7 +8,6 @@ import { Suspense } from 'react'
 // import { Navbar } from '@/components/shared/Navbar'
 import { urlForOpenGraphImage } from '@/sanity/lib/utils'
 import { getAllEntries, getSettings } from '@/sanity/loader/loadQuery'
-import Loading from './loading'
 import Navbar from '@/components/shared/Navbar-2/Navbar'
 import { Tag } from '@/types'
 
@@ -45,7 +44,7 @@ export default async function IndexRoute({
   const data = await getSettings()
   const tags = data?.tags || ([] as Tag[])
   return (
-    <Suspense fallback={<Loading />}>
+    <>
       <div className="flex min-h-screen flex-col text-black">
         {/* <div className="items-center sm:flex sm:justify-between">
           <Suspense>
@@ -57,6 +56,6 @@ export default async function IndexRoute({
         <div className="mt-20 flex-grow px-4 md:px-16 lg:px-32">{children}</div>
       </div>
       {draftMode().isEnabled && <VisualEditing />}
-    </Suspense>
+    </>
   )
 }
