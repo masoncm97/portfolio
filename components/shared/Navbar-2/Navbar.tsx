@@ -6,7 +6,7 @@ import { motion, useInView, AnimatePresence } from 'framer-motion'
 import { Tag } from '@/types'
 
 export default function Navbar({ tags }: { tags: Tag[] }) {
-  const [isOpen, setIsOpen] = useState(false)
+  const [isOpen, setIsOpen] = useState(true)
   const ref = useRef(null)
   const isInView = useInView(ref, { once: true })
   console.log(isOpen)
@@ -18,7 +18,7 @@ export default function Navbar({ tags }: { tags: Tag[] }) {
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              transition={{ type: 'tween', duration: 0.5 }}
+              transition={{ type: 'tween', duration: 0.5, delay: 0.2 }}
             >
               <button
                 onClick={() => setIsOpen(!isOpen)}

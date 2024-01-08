@@ -114,7 +114,7 @@ export default function NavBarMenu({
                 {tag.description}
               </TextElement>
             )}
-            <div className="fixed bottom-24 left-3 grid place-items-end gap-1">
+            <div className="fixed bottom-28 left-3 grid place-items-end gap-1">
               <TextElement className="mb-1 text-right" as={'p'} size={'xs'}>
                 Touch the art to view more information
               </TextElement>
@@ -124,7 +124,7 @@ export default function NavBarMenu({
               <>Contact</>
             </div>
             <TextElement
-              className="fixed bottom-1 left-[50%] transform translate-x-[-50%]"
+              className="fixed bottom-1 right-1"
               as={'p'}
               size={'xs'}
             >
