@@ -9,7 +9,7 @@ export default function Navbar({ tags }: { tags: Tag[] }) {
   const [isOpen, setIsOpen] = useState(false)
   const ref = useRef(null)
   const isInView = useInView(ref, { once: true })
-
+  console.log(isOpen)
   return (
     <>
       <div ref={ref}>

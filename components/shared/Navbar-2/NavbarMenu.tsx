@@ -49,13 +49,12 @@ export default function NavBarMenu({
   const searchTag = searchParams.get('tag')
   const tag = tags.find((tag) => tag.title === searchTag)
   const [selected, setSelected] = useState(tag?.title || '')
-  if (!tag) {
-    return null
-  }
-  const href = resolveHref(tag._type, tag.title)
-  const isTag = tag._type === 'tag'
-  if (!href || !isSearchParam(href)) {
-    return null
+  if (tag) {
+    const href = resolveHref(tag._type, tag.title)
+    const isTag = tag._type === 'tag'
+    if (!href || !isSearchParam(href)) {
+      return null
+    }
   }
 
   console.log(tags)
@@ -76,6 +75,18 @@ export default function NavBarMenu({
             <div className="border border-black m-4 p-2">
               <h2 className="text-left mb-3">Filter By Tag:</h2>
               <ul className="grid place-items-end">
+                <Link
+                  href={'/'}
+                  onClick={() => setSelected('')}
+                  className={classNames(
+                    !tag
+                      ? 'border border-black rounded-full'
+                      : 'border-[#ffff55]',
+                    'px-2 py-1 border',
+                  )}
+                >
+                  all
+                </Link>
                 {tags &&
                   tags.map((tag) => (
                     <Link
@@ -86,22 +97,25 @@ export default function NavBarMenu({
                       }
                       onClick={() => (tag.title ? setSelected(tag.title) : '')}
                       className={classNames(
-                        'px-2 py-1',
+                        'px-2 py-1 border ',
                         tag.title === selected
-                          ? 'border border-black rounded-full'
-                          : '',
+                          ? 'border-black rounded-full'
+                          : 'border-[#ffff55]',
                       )}
+                      key={tag.title}
                     >
                       {tag.title}
                     </Link>
                   ))}
               </ul>
             </div>
-            <TextElement className="px-3" as={'p'} size={'sm'}>
-              {tag.description}
-            </TextElement>
-            <div className="fixed left-3 bottom-3 grid place-items-end gap-1">
-              <TextElement className=" mb-5 text-right" as={'p'} size={'xs'}>
+            {tag && (
+              <TextElement className="px-3" as={'p'} size={'sm'}>
+                {tag.description}
+              </TextElement>
+            )}
+            <div className="fixed left-3 bottom-5 grid place-items-end gap-1">
+              <TextElement className=" mb-1 text-right" as={'p'} size={'xs'}>
                 Touch the art to view more information
               </TextElement>
               <TextElement className="max-w-[50%]" as={'h1'} size={'lg'}>
