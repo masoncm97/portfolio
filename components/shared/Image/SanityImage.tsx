@@ -1,6 +1,6 @@
 'use client'
 
-// import Image from 'next/image'
+import Image from 'next/image'
 import { urlForImage } from '@/sanity/lib/utils'
 import { decode } from 'blurhash'
 import { useEffect, useRef, useState } from 'react'
@@ -96,30 +96,19 @@ export default function SanityImage({
   return (
     <>
       {imageUrl && (
-        // <Image
-        //   className="image"
-        //   alt={alt}
-        //   width={width}
-        //   height={height}
-        //   sizes={size}
-        //   src={imageUrl}
-        //   placeholder="blur"
-        //   blurDataURL={image?.lqip}
-        //   onLoad={(event) => {
-        //     const target = event.target
-
-        //     // next/image use an 1x1 px git as placeholder. We only want the onLoad event on the actual image
-        //     // if (target.src.indexOf('data:image/gif;base64') < 0) {
-        //     //   setImageIsLoaded(true)
-        //     // }
-        //     setImageIsLoaded(true)
-        //   }}
-        // />
-        <>
-          <div className="max-w-lg max-h-lg mx-auto">
-            <ImageCanvas imageUrl={imageUrl} maxWidth={500} maxHeight={700} />
-          </div>
-        </>
+        <Image
+          className="image"
+          alt={alt}
+          width={width}
+          height={height}
+          sizes={size}
+          src={imageUrl}
+          placeholder="blur"
+          blurDataURL={image?.lqip}
+          onLoad={(event) => {
+            setImageIsLoaded(true)
+          }}
+        />
       )}
     </>
   )

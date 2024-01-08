@@ -55,7 +55,7 @@ export function HomePage({
     <div className="space-y-20">
       {title && <Header centered title={title} description={overview} />}
       {gallery && gallery.length > 0 && (
-        <div className="mx-auto grid grid-cols-[repeat(auto-fill,minmax(150px,1fr))]">
+        <div className="mx-auto grid">
           {gallery.map((entry, key) => {
             return (
               <SearchParamLink

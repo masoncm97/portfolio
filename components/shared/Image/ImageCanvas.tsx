@@ -64,7 +64,6 @@ const ImageCanvas: React.FC<ImageCanvasProps> = ({
         var scaledWidth = img.width * scale * percent
         var scaledHeight = img.height * scale * percent
 
-        console.log(scaledWidth, scaledHeight)
         canvas.width = maxWidth
         canvas.height = maxHeight
 
@@ -91,36 +90,31 @@ const ImageCanvas: React.FC<ImageCanvasProps> = ({
 
   const animatePixels = (index: number) => {
     if (index < pxFactorValues.length) {
-      //console.log('pxIndex', pxIndex)
       setTimeout(
         () => {
-          // Render the image with the current pixelation factor
           renderImage(pxFactorValues[index])
-          // setPxIndex((prev) => prev + 1)
-          console.log(index)
           animatePixels(index + 1)
         },
         index === 0 ? 300 : 80,
-      ) // The first time should be the longest.
+      )
     }
   }
 
   useEffect(() => {
-    console.log()
     animatePixels(0)
   }, [isInView])
 
   return (
-    <div ref={viewRef}>
+    <div className="h-full grid place-items-center" ref={viewRef}>
       <AnimatePresence>
         {isInView && (
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ type: 'tween', duration: 0.5, delay: 0.5 }}
-            className={classNames('border border-red-500')}
+            className={classNames('border border-red-500 w-full h-full')}
           >
-            <canvas ref={canvasRef} className="w-full h-auto" />
+            <canvas ref={canvasRef} className="w-full" />
           </motion.div>
         )}
       </AnimatePresence>
