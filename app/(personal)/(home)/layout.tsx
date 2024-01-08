@@ -54,6 +54,7 @@ export default async function IndexRoute({
           </Suspense>
           <h1 className="hidden sm:block">Mason Mathai</h1>
         </div> */}
+        <div className="bg-[#ffff55] aspect-square rounded-full fixed z-10 w-6 right-5 top-5"></div>
         <div className="mt-5 flex-grow px-4 md:px-16 lg:px-32">{children}</div>
       </div>
       {draftMode().isEnabled && <VisualEditing />}
