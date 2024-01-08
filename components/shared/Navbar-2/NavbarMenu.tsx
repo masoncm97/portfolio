@@ -114,8 +114,12 @@ export default function NavBarMenu({
                 {tag.description}
               </TextElement>
             )}
-            <div className="fixed left-3 bottom-5 grid place-items-end gap-1">
-              <TextElement className=" mb-1 text-right" as={'p'} size={'xs'}>
+            <div className="fixed left-3 grid place-items-end gap-1">
+              <TextElement
+                className="mt-3 mb-1 text-right"
+                as={'p'}
+                size={'xs'}
+              >
                 Touch the art to view more information
               </TextElement>
               <TextElement className="max-w-[50%]" as={'h1'} size={'lg'}>
