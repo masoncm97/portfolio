@@ -34,65 +34,6 @@ export default function SanityImage({
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const targetRef = useRef<HTMLImageElement>(null)
 
-  // useEffect(() => {
-  //   const canvas = canvasRef.current
-  //   const target = targetRef.current
-  //   if (!canvas || !target) return
-  //   const image = new Image()
-  //   if (imageUrl) {
-  //     image.src = imageUrl
-  //     console.log(image.src)
-  //     const canvas = canvasRef.current
-
-  //     if (canvas == null) throw new Error('Could not get canvas')
-
-  //     const context = canvas.getContext('2d')
-
-  //     if (context == null) throw new Error('Could not get context')
-
-  //     image.crossOrigin = 'anonymous'
-
-  //     image.onload = () => {
-  //       // Now draw the image onto the canvas
-  //       console.log('image loaded')
-  //       context.drawImage(image, 10, 10, width)
-
-  //       // Your pixelation or other image processing logic can go here
-  //     }
-
-  //     // canvas.width = width
-  //     // canvas.height = height
-  //     // We'll be pixelating the image by 80% (20% of original size).
-  //     // var percent = 0.2
-
-  //     // Calculate the scaled dimensions.
-  //     // var scaledWidth = width * percent
-  //     // var scaledHeight = height * percent
-
-  //     // Render image smaller.
-  //     // context!.drawImage(target, 0, 0, scaledWidth, scaledHeight)
-
-  //     // // Stretch the smaller image onto larger context.
-  //     // context!.drawImage(
-  //     //   target,
-  //     //   0,
-  //     //   0,
-  //     //   scaledWidth,
-  //     //   scaledHeight,
-  //     //   0,
-  //     //   0,
-  //     //   width,
-  //     //   height,
-  //     // )
-
-  //     // Here are what the above parameters mean:
-  //     // canvasElement, canvasXOffsetForImage, canvasYOffsetForImage, imageWidth, imageHeight, imageXOffset, imageYOffset, destinationImageWidth, destinationImageHeight
-
-  //     // Append canvas to body.
-  //     // document.body.appendChild(canvas)
-  //   }
-  // }, [])
-
   return (
     <>
       {imageUrl && (
@@ -105,9 +46,6 @@ export default function SanityImage({
           src={imageUrl}
           placeholder="blur"
           blurDataURL={image?.lqip}
-          onLoad={(event) => {
-            setImageIsLoaded(true)
-          }}
         />
       )}
     </>

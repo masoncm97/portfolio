@@ -48,12 +48,12 @@ export default async function IndexRoute({
     <>
       <div className="flex min-h-screen flex-col text-black">
         <h1 className="mt-3 w-screen text-center text-2xl">Mason Mathai</h1>
-        <div className="items-center sm:flex sm:justify-between">
+        {/* <div className="items-center sm:flex sm:justify-between">
           <Suspense>
             <Navbar />
           </Suspense>
           <h1 className="hidden sm:block">Mason Mathai</h1>
-        </div>
+        </div> */}
         <div className="mt-5 flex-grow px-4 md:px-16 lg:px-32">
           <Suspense fallback={<Loading />}>{children}</Suspense>
         </div>
