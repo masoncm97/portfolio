@@ -76,10 +76,8 @@ function getNextRoute(
   const currentIndex = siblingRoutes.indexOf(currentRoute)
   if (currentIndex === -1) return ''
 
-  // Apply the modifier function and ensure the result is within bounds using modulo
   const newIndex = modifier(currentIndex) % siblingRoutes.length
 
-  // Adjust for negative indices resulting from the modifier function
   return siblingRoutes[
     newIndex < 0 ? newIndex + siblingRoutes.length : newIndex
   ]

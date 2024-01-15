@@ -1,14 +1,12 @@
 import 'styles/index.css'
 
 import { toPlainText } from '@portabletext/react'
-import { Metadata, Viewport } from 'next'
+import { Metadata } from 'next'
 import dynamic from 'next/dynamic'
 import { draftMode } from 'next/headers'
-import { Suspense } from 'react'
-// import { Navbar } from '@/components/shared/Navbar'
 import { urlForOpenGraphImage } from '@/sanity/lib/utils'
 import { getAllEntries, getSettings } from '@/sanity/loader/loadQuery'
-import Navbar from '@/components/shared/Navbar-2/Navbar'
+import Navbar from '@/components/shared/Navbar/Navbar'
 import { Tag } from '@/types'
 
 const VisualEditing = dynamic(() => import('@/sanity/loader/VisualEditing'))
@@ -46,12 +44,6 @@ export default async function IndexRoute({
   return (
     <>
       <div className="flex min-h-screen flex-col text-black">
-        {/* <div className="items-center sm:flex sm:justify-between">
-          <Suspense>
-            <Navbar />
-          </Suspense>
-          <h1 className="hidden sm:block">Mason Mathai</h1>
-        </div> */}
         <Navbar tags={tags} />
         <div className="mt-20 flex-grow px-4 md:px-16 lg:px-32">{children}</div>
       </div>

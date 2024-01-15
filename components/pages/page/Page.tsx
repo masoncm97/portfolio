@@ -2,23 +2,18 @@ import { ArrowNav } from '@/components/shared/Arrow/ArrowNav'
 import { Exit } from '@/components/shared/Exit'
 import { EntryPayload } from '@/types'
 import { getTableElementStyle } from '@/util/styles-helper'
-import { isMedium, isSearchParam, isTags } from '@/util/type-guards'
+import { isMedium, isTags } from '@/util/type-guards'
 import { EncodeDataAttributeCallback } from '@sanity/react-loader/rsc'
 import classNames from 'classnames'
-import Link from 'next/link'
 import { EntryImageBox } from '@/components/shared/Image/ImageBox'
-import { getSearchParamLink } from '@/components/shared/Links/server/getSearchParamLink'
-import { NavigationLink } from '@/components/shared/Links/client/NavigationLink'
-import InternalLink from '@/components/shared/Links/InternalLink'
+import InternalLink from '@/components/shared/InternalLink'
 
-// Make a change
 export interface PageProps {
   data: EntryPayload | undefined
   encodeDataAttribute?: EncodeDataAttributeCallback
 }
 
 export function Page({ data, encodeDataAttribute }: PageProps) {
-  // Default to an empty object to allow previews on non-existent documents
   const {
     title,
     location,
@@ -38,9 +33,9 @@ export function Page({ data, encodeDataAttribute }: PageProps) {
   return (
     <section className="max-h-screen overflow-hidden grid gap-6">
       <div className="absolute z-10 mt-5 grid grid-cols-[min-content_1fr] gap-7 max-h-[10rem] w-full">
-        <NavigationLink className="self-start ml-3" href="/">
+        <InternalLink className="self-start ml-3" href="/" isNav={false}>
           <Exit />
-        </NavigationLink>
+        </InternalLink>
         <div className="z-10 flex flex-col w-full max-w-[50vw] place-self-end">
           {table.map((item, index) => {
             const tableElementBaseStyle = classNames(
@@ -62,6 +57,7 @@ export function Page({ data, encodeDataAttribute }: PageProps) {
                     <InternalLink
                       isNav={true}
                       tag={tag}
+                      href="/"
                       className="text-blue-700 underline text-xs pt-1"
                     >
                       {`#${tag.title}`}

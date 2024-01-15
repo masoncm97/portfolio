@@ -1,16 +1,9 @@
-import { toPlainText } from '@portabletext/react'
 import { Metadata, ResolvingMetadata } from 'next'
-import dynamic from 'next/dynamic'
-import { draftMode } from 'next/headers'
 import { notFound } from 'next/navigation'
-
 import { Page } from '@/components/pages/page/Page'
 import { generateStaticSlugs } from '@/sanity/loader/generateStaticSlugs'
 import { getAllEntries } from '@/sanity/loader/loadQuery'
-import { generateSiblingRoutes, getNextRoute } from '@/util/routes-helper'
 import NavigationProvider from './NavigationProvider'
-
-const PagePreview = dynamic(() => import('@/components/pages/page/PagePreview'))
 
 type Props = {
   params: { slug: string }
@@ -37,10 +30,6 @@ export default async function PageSlugRoute({ params }: Props) {
   const initial = await getAllEntries()
 
   const entry = initial.entries?.find((entry) => entry?.slug === params.slug)
-
-  // if (draftMode().isEnabled) {
-  //   return <PagePreview params={params} initial={initial} />
-  // }
 
   if (!initial) {
     notFound()

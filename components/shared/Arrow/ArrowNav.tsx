@@ -2,9 +2,10 @@
 
 import { Arrow } from './Arrow'
 import classNames from 'classnames'
-import { NavigationLink } from '@/components/shared/Links/client/NavigationLink'
+// import { NavigationLink } from '@/components/shared/Links/client/NavigationLink'
 import { NavigationContext } from '@/app/(personal)/[slug]/NavigationProvider'
 import { useContext } from 'react'
+import InternalLink from '../InternalLink'
 
 export interface ArrowNavProps {
   className?: string
@@ -21,12 +22,20 @@ export function ArrowNav({ className }: ArrowNavProps) {
           'grid grid-rows-1 gap-6 py-4 px-10 [&>*]:row-start-1 bg-white',
         )}
       >
-        <NavigationLink className="grid" href={`/${navigationState.next}`}>
+        <InternalLink
+          className="grid"
+          href={`/${navigationState.next}`}
+          isNav={false}
+        >
           <Arrow className="translate-y-[1px] rotate-180 place-self-end" />
-        </NavigationLink>
-        <NavigationLink className="grid" href={`/${navigationState.prev}`}>
+        </InternalLink>
+        <InternalLink
+          className="grid"
+          href={`/${navigationState.prev}`}
+          isNav={false}
+        >
           <Arrow />
-        </NavigationLink>
+        </InternalLink>
       </div>
     )
   )

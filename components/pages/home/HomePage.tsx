@@ -3,9 +3,8 @@
 import type { EncodeDataAttributeCallback } from '@sanity/react-loader/rsc'
 import type { HomePagePayload } from '@/types'
 import { EntryListItem } from './EntryListItem'
-import { SearchParamLink } from '@/components/shared/Links/server/SearchParamLink'
 import { useEffect } from 'react'
-import InternalLink from '@/components/shared/Links/InternalLink'
+import InternalLink from '@/components/shared/InternalLink'
 import { useSearchParams } from 'next/navigation'
 
 export interface HomePageProps {
@@ -20,24 +19,15 @@ export function HomePage({
   encodeDataAttribute,
 }: HomePageProps) {
   // Default to an empty object to allow previews on non-existent documents
-  const { overview = [], entries = [], title = '' } = data ?? {}
+  const { entries = [] } = data ?? {}
 
   let gallery = entries
 
-  if (searchParams && searchParams['category']) {
-    gallery = entries?.filter((entry) => {
-      return entry.category?.title === searchParams['category']
-    })
-  }
-
   if (searchParams && searchParams['tag']) {
     gallery = entries?.filter((entry) => {
-      console.log(entry.tags?.some((tag) => tag.title === searchParams['tag']))
       return entry.tags?.some((tag) => tag.title === searchParams['tag'])
     })
   }
-
-  const queryString = createQueryString(searchParams)
 
   const params = useSearchParams()
   const tagParam = params
@@ -61,8 +51,11 @@ export function HomePage({
         <div className="mx-auto grid">
           {gallery.map((entry, key) => {
             return (
-              <InternalLink key={key} pathName={entry.slug} isNav={false}>
-                <EntryListItem entry={entry} />
+              <InternalLink key={key} href={entry.slug} isNav={false}>
+                <EntryListItem
+                  entry={entry}
+                  encodeDataAttribute={encodeDataAttribute}
+                />
               </InternalLink>
             )
           })}
@@ -70,19 +63,6 @@ export function HomePage({
       )}
     </div>
   )
-}
-
-const createQueryString = (searchParams: string | string[] | undefined) => {
-  let queryString = ''
-  if (!searchParams) return queryString
-  if (typeof searchParams === 'string') return searchParams
-  for (const [key, value] of Object.entries(searchParams)) {
-    if (queryString !== '') {
-      queryString += '&'
-    }
-    queryString += `${encodeURIComponent(key)}=${encodeURIComponent(value)}`
-  }
-  return queryString
 }
 
 export default HomePage

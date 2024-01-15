@@ -5,6 +5,7 @@ import NavbarMenu from './NavbarMenu'
 import { motion, useInView, AnimatePresence } from 'framer-motion'
 import { Tag } from '@/types'
 import { useSearchParams } from 'next/navigation'
+import { track } from '@vercel/analytics'
 
 export default function Navbar({ tags }: { tags: Tag[] }) {
   const [isOpen, setIsOpen] = useState(false)
@@ -12,6 +13,7 @@ export default function Navbar({ tags }: { tags: Tag[] }) {
   const isInView = useInView(ref, { once: true })
 
   const searchParams = useSearchParams()
+
   const tagParam = searchParams
     .toString()
     .split('&')
@@ -22,6 +24,11 @@ export default function Navbar({ tags }: { tags: Tag[] }) {
       setIsOpen(true)
     }
   }, [tagParam])
+
+  const triggerNav = () => {
+    track('Trigger Nav', { isOpen: isOpen })
+    setIsOpen(!isOpen)
+  }
 
   return (
     <>
@@ -34,7 +41,7 @@ export default function Navbar({ tags }: { tags: Tag[] }) {
               transition={{ type: 'tween', duration: 0.5, delay: 0.2 }}
             >
               <button
-                onClick={() => setIsOpen(!isOpen)}
+                onClick={() => triggerNav()}
                 className="bg-[#ee4539] aspect-square rounded-full absolute z-10 w-6 right-5 top-3"
               />
             </motion.div>

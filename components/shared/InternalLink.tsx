@@ -11,8 +11,9 @@ import { Tag } from '@/types'
 export interface InternalLinkProps {
   tag?: Tag
   className?: string
-  pathName?: string
+  href?: string
   isNav: boolean
+  isBase?: boolean
   onClick?: () => void
   children: React.ReactNode
 }
@@ -20,8 +21,9 @@ export interface InternalLinkProps {
 export default function InternalLink({
   tag,
   className,
-  pathName,
+  href,
   isNav,
+  isBase = false,
   onClick,
   children,
 }: InternalLinkProps) {
@@ -32,28 +34,17 @@ export default function InternalLink({
     .split('&')
     .find((param) => param.includes('tag'))
 
-  if (tag) {
-    const href = resolveHref(tag._type, tag.title)
-    if (!href || !isSearchParam(href)) {
-      return null
-    }
-  }
-
   const computeHref = (tag: Tag | undefined): string => {
-    let href = '/'
-    if (pathName) {
-      href += pathName
-    }
+    let computedHref = href ? href : '/'
     if (tag) {
-      href += `?tag=${tag.title}`
-    } else if (tagParam) {
-      href += `?${tagParam}`
+      computedHref += `?tag=${tag.title}`
+    } else if (tagParam && !isBase) {
+      computedHref += `?${tagParam}`
     }
-
     if (isNav) {
-      href += '&nav=true'
+      computedHref += '&nav=true'
     }
-    return href
+    return computedHref
   }
 
   return (

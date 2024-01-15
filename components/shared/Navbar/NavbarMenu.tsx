@@ -3,12 +3,12 @@ import { AnimatePresence, motion } from 'framer-motion'
 import { Exit } from '../Exit'
 import { Tag } from '@/types'
 import { usePathname, useSearchParams } from 'next/navigation'
-import { getSearchParamLink } from '../Links/server/getSearchParamLink'
 import { resolveHref } from '@/sanity/lib/utils'
 import { isSearchParam } from '@/util/type-guards'
 import { useState } from 'react'
 import classNames from 'classnames'
 import TextElement from '../TextElement'
+import InternalLink from '../InternalLink'
 
 export interface NavBarMenuProps {
   isOpen: boolean
@@ -42,7 +42,6 @@ export default function NavBarMenu({
     }
   }
 
-  console.log(tags)
   return (
     <AnimatePresence>
       {isOpen && (
@@ -60,37 +59,37 @@ export default function NavBarMenu({
             <div className="border border-black m-4 p-2">
               <h2 className="text-left mb-3">Filter By Tag:</h2>
               <ul className="grid place-items-end">
-                <Link
+                <InternalLink
                   href={'/'}
-                  onClick={() => setChooseTag('')}
                   className={classNames(
                     !tag
                       ? 'border border-black rounded-full'
                       : 'border-[#ffff55]',
                     'px-2 py-1 border',
                   )}
+                  onClick={() => setChooseTag('')}
+                  isNav={false}
+                  isBase={true}
                 >
                   all
-                </Link>
+                </InternalLink>
                 {tags &&
                   tags.map((tag) => (
-                    <Link
-                      href={
-                        pathName
-                          ? `${pathName}?tag=${tag.title}`
-                          : `/?tag=${tag.title}`
-                      }
-                      onClick={() => setChooseTag(tag.title)}
+                    <InternalLink
+                      href={'/'}
                       className={classNames(
                         'px-2 py-1 border ',
                         tag.title === selected
                           ? 'border-black rounded-full'
                           : 'border-[#ffff55]',
                       )}
+                      onClick={() => setChooseTag(tag.title)}
+                      isNav={false}
                       key={tag.title}
+                      tag={tag}
                     >
                       {tag.title}
-                    </Link>
+                    </InternalLink>
                   ))}
               </ul>
             </div>

@@ -43,28 +43,6 @@ export const pagesBySlugQuery = groq`
   }
 `
 
-// export const entryBySlugQuery = groq`
-//   *[_type == "entry" && slug.current == $slug][0] {
-//     _id,
-//     "slug": slug.current,
-//     category->{title},
-//     tags[]->{
-//       title
-//     },
-//     shortDescription,
-//     medium,
-//     content,
-//     image{
-//       asset,
-//       "lqip": asset->metadata.lqip,
-//       "palette": asset->metadata.palette
-//     },
-//     secondaryImage,
-//     location,
-//     title,
-//   }
-// `
-
 export const settingsQuery = groq`
   *[_type == "settings"][0]{
     categories[]->{
