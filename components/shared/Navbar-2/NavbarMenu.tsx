@@ -16,29 +16,6 @@ export interface NavBarMenuProps {
   tags: Tag[]
 }
 
-const navBarData = [
-  {
-    id: 0,
-    title: 'Home',
-    link: '/',
-  },
-  {
-    id: 1,
-    title: 'Services',
-    link: '/services',
-  },
-  {
-    id: 2,
-    title: 'About Me',
-    link: '/about',
-  },
-  {
-    id: 3,
-    title: 'My Approach',
-    link: '/approach',
-  },
-]
-
 export default function NavBarMenu({
   isOpen,
   setIsOpen,
@@ -49,9 +26,17 @@ export default function NavBarMenu({
   const searchTag = searchParams.get('tag')
   const tag = tags.find((tag) => tag.title === searchTag)
   const [selected, setSelected] = useState(tag?.title || '')
+
+  const setChooseTag = (tag: string | undefined) => {
+    if (!tag) {
+      tag = ''
+    }
+    setSelected(tag)
+    setIsOpen(false)
+  }
+
   if (tag) {
     const href = resolveHref(tag._type, tag.title)
-    const isTag = tag._type === 'tag'
     if (!href || !isSearchParam(href)) {
       return null
     }
@@ -77,7 +62,7 @@ export default function NavBarMenu({
               <ul className="grid place-items-end">
                 <Link
                   href={'/'}
-                  onClick={() => setSelected('')}
+                  onClick={() => setChooseTag('')}
                   className={classNames(
                     !tag
                       ? 'border border-black rounded-full'
@@ -95,7 +80,7 @@ export default function NavBarMenu({
                           ? `${pathName}?tag=${tag.title}`
                           : `/?tag=${tag.title}`
                       }
-                      onClick={() => (tag.title ? setSelected(tag.title) : '')}
+                      onClick={() => setChooseTag(tag.title)}
                       className={classNames(
                         'px-2 py-1 border ',
                         tag.title === selected
@@ -124,7 +109,7 @@ export default function NavBarMenu({
               <>Contact</>
             </div>
             <TextElement
-              className="fixed bottom-1 right-1"
+              className="fixed bottom-5 left-[50%] transform -translate-x-1/2"
               as={'p'}
               size={'xs'}
             >

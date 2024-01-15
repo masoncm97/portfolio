@@ -9,6 +9,7 @@ import Link from 'next/link'
 import { EntryImageBox } from '@/components/shared/Image/ImageBox'
 import { getSearchParamLink } from '@/components/shared/Links/server/getSearchParamLink'
 import { NavigationLink } from '@/components/shared/Links/client/NavigationLink'
+import InternalLink from '@/components/shared/Links/InternalLink'
 
 // Make a change
 export interface PageProps {
@@ -57,9 +58,15 @@ export function Page({ data, encodeDataAttribute }: PageProps) {
                     'flex flex-wrap px-0 justify-end gap-1',
                   )}
                 >
-                  {item.map((tag) => {
-                    return getSearchParamLink(tag)
-                  })}
+                  {item.map((tag) => (
+                    <InternalLink
+                      isNav={true}
+                      tag={tag}
+                      className="text-blue-700 underline text-xs pt-1"
+                    >
+                      {`#${tag.title}`}
+                    </InternalLink>
+                  ))}
                 </div>
               )
             } else {

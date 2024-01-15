@@ -4,24 +4,18 @@ import type { SearchParam as SearchParam } from '@/types'
 interface SearchParamProps {
   searchParam: SearchParam
   queryString?: never
+  isTag?: boolean
   className?: string
   pathName?: string
   children: React.ReactNode
 }
 
-interface QueryStringProps {
-  searchParam?: never
-  queryString: string
-  className?: string
-  pathName?: string
-  children: React.ReactNode
-}
-
-type SearchParamLinkProps = SearchParamProps | QueryStringProps
+type SearchParamLinkProps = SearchParamProps
 
 export function SearchParamLink({
   searchParam,
   queryString,
+  isTag,
   className,
   pathName,
   children,

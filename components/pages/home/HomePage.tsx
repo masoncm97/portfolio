@@ -1,12 +1,12 @@
 'use client'
 
 import type { EncodeDataAttributeCallback } from '@sanity/react-loader/rsc'
-import { Header } from '@/components/shared/Header'
 import type { HomePagePayload } from '@/types'
 import { EntryListItem } from './EntryListItem'
 import { SearchParamLink } from '@/components/shared/Links/server/SearchParamLink'
-import { shuffle } from '@/util/functions'
 import { useEffect } from 'react'
+import InternalLink from '@/components/shared/Links/InternalLink'
+import { useSearchParams } from 'next/navigation'
 
 export interface HomePageProps {
   data: HomePagePayload | null
@@ -39,12 +39,16 @@ export function HomePage({
 
   const queryString = createQueryString(searchParams)
 
-  // gallery = shuffle(gallery)
+  const params = useSearchParams()
+  const tagParam = params
+    .toString()
+    .split('&')
+    .find((param) => param.includes('nav'))
 
   useEffect(() => {
     const lastViewedImageId = sessionStorage.getItem('lastViewedImage')
     console.log(lastViewedImageId)
-    if (lastViewedImageId != null) {
+    if (lastViewedImageId != null && !tagParam) {
       const imageToScrollTo = document.getElementById(lastViewedImageId)
       imageToScrollTo?.scrollIntoView()
       sessionStorage.removeItem('lastViewedImage')
@@ -53,18 +57,13 @@ export function HomePage({
 
   return (
     <div className="space-y-20">
-      {title && <Header centered title={title} description={overview} />}
       {gallery && gallery.length > 0 && (
         <div className="mx-auto grid">
           {gallery.map((entry, key) => {
             return (
-              <SearchParamLink
-                key={key}
-                queryString={queryString}
-                pathName={entry.slug}
-              >
+              <InternalLink key={key} pathName={entry.slug} isNav={false}>
                 <EntryListItem entry={entry} />
-              </SearchParamLink>
+              </InternalLink>
             )
           })}
         </div>

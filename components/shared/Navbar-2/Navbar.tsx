@@ -1,15 +1,28 @@
 'use client'
 
-import { useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import NavbarMenu from './NavbarMenu'
 import { motion, useInView, AnimatePresence } from 'framer-motion'
 import { Tag } from '@/types'
+import { useSearchParams } from 'next/navigation'
 
 export default function Navbar({ tags }: { tags: Tag[] }) {
-  const [isOpen, setIsOpen] = useState(true)
+  const [isOpen, setIsOpen] = useState(false)
   const ref = useRef(null)
   const isInView = useInView(ref, { once: true })
-  console.log(isOpen)
+
+  const searchParams = useSearchParams()
+  const tagParam = searchParams
+    .toString()
+    .split('&')
+    .find((param) => param.includes('nav'))
+
+  useEffect(() => {
+    if (tagParam) {
+      setIsOpen(true)
+    }
+  }, [tagParam])
+
   return (
     <>
       <div ref={ref}>
