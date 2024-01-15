@@ -8,7 +8,6 @@ import { deskTool } from 'sanity/desk'
 import { presentationTool } from 'sanity/presentation'
 import { unsplashImageAsset } from 'sanity-plugin-asset-source-unsplash'
 import { apiVersion, dataset, projectId, studioUrl } from '@/sanity/lib/api'
-import { locate } from '@/sanity/plugins/locate'
 import { pageStructure, singletonPlugin } from '@/sanity/plugins/settings'
 import entry from '@/sanity/schemas/documents/entry'
 import home from '@/sanity/schemas/singletons/home'
@@ -44,18 +43,6 @@ export default defineConfig({
   plugins: [
     deskTool({
       structure: pageStructure([home, settings]),
-    }),
-    presentationTool({
-      locate,
-      previewUrl: {
-        origin:
-          typeof location === 'undefined'
-            ? 'http://localhost:3000'
-            : location.origin,
-        draftMode: {
-          enable: '/api/draft',
-        },
-      },
     }),
     // Configures the global "new document" button, and document actions, to suit the Settings document singleton
     singletonPlugin([home.name, settings.name]),
