@@ -46,17 +46,17 @@ export function HomePage({
   }, [])
 
   return (
-    <div className="space-y-20">
+    <div className="space-y-20 w-full border border-green-500">
       {gallery && gallery.length > 0 && (
-        <div className="mx-auto grid">
-          {gallery.map((entry, key) => {
+        <div className="mx-auto grid w-screen min-h-screen">
+          {gallery.map((entry, index) => {
             return (
-              <InternalLink key={key} href={entry.slug} isNav={false}>
-                <EntryListItem
-                  entry={entry}
-                  encodeDataAttribute={encodeDataAttribute}
-                />
-              </InternalLink>
+              <EntryListItem
+                key={index}
+                entry={entry}
+                index={index}
+                encodeDataAttribute={encodeDataAttribute}
+              />
             )
           })}
         </div>

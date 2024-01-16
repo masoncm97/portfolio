@@ -1,17 +1,15 @@
 'use client'
 
-import { resolveHref } from '@/sanity/lib/utils'
-import { isSearchParam } from '@/util/type-guards'
-import classNames from 'classnames'
 import Link from 'next/link'
-import { useSearchParams, usePathname } from 'next/navigation'
-import { useState } from 'react'
+import { useSearchParams } from 'next/navigation'
+import { RefObject } from 'react'
 import { Tag } from '@/types'
 
 export interface InternalLinkProps {
   tag?: Tag
   className?: string
   href?: string
+  reference?: RefObject<HTMLAnchorElement>
   isNav: boolean
   isBase?: boolean
   onClick?: () => void
@@ -22,6 +20,7 @@ export default function InternalLink({
   tag,
   className,
   href,
+  reference,
   isNav,
   isBase = false,
   onClick,
@@ -50,6 +49,7 @@ export default function InternalLink({
   return (
     <Link
       href={computeHref(tag)}
+      ref={reference}
       onClick={onClick}
       className={className}
       key={tag ? tag.title : Math.random()}

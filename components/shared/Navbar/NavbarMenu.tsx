@@ -57,7 +57,7 @@ export default function NavBarMenu({
               <Exit />
             </button>
             <div className="border border-black m-4 p-2">
-              <h2 className="text-left mb-3">Filter By Tag:</h2>
+              <h2 className="text-left mb-3">View</h2>
               <ul className="grid place-items-end">
                 <InternalLink
                   href={'/'}

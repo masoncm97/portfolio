@@ -31,7 +31,7 @@ export default async function RootLayout({
       lang="en"
       className={`${mono.variable} ${sans.variable} ${serif.variable}`}
     >
-      <body>
+      <body className="overflow-x-hidden">
         {children}
         <Analytics />
       </body>
