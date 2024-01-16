@@ -7,6 +7,7 @@ import { EncodeDataAttributeCallback } from '@sanity/react-loader/rsc'
 import { useRef, useEffect, useState, RefObject } from 'react'
 import { motion, useInView, AnimatePresence } from 'framer-motion'
 import Draggable from 'react-draggable' // The default
+import classNames from 'classnames'
 
 interface EntryProps {
   entry: EntryPayload
@@ -61,7 +62,7 @@ export function EntryListItem({
     ) {
       ref.current.style.zIndex = `${z.current}`
       imageRef.current.style.border = `5px solid yellow`
-      parentReference.current.style.overflow = 'hidden'
+      parentReference.current.style.overflowY = 'hidden'
       z.current++
     }
   }
@@ -69,17 +70,13 @@ export function EntryListItem({
   const handleStopDrag = () => {
     if (imageRef.current && parentReference && parentReference.current) {
       imageRef.current.style.border = `none`
-      parentReference.current.style.overflow = 'scroll'
+      parentReference.current.style.overflowY = 'scroll'
+      parentReference.current.style.overflowX = 'hidden'
     }
   }
 
   return (
-    <Draggable
-      allowAnyClick={true}
-      onStart={handleStartDrag}
-      onStop={handleStopDrag}
-      nodeRef={ref}
-    >
+    <Draggable onStart={handleStartDrag} onStop={handleStopDrag} nodeRef={ref}>
       <div className="relative" ref={ref}>
         <InternalLink
           href={entry.slug}
