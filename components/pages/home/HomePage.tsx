@@ -3,7 +3,7 @@
 import type { EncodeDataAttributeCallback } from '@sanity/react-loader/rsc'
 import type { HomePagePayload } from '@/types'
 import { EntryListItem } from './EntryListItem'
-import { useEffect } from 'react'
+import { useEffect, useRef } from 'react'
 import InternalLink from '@/components/shared/InternalLink'
 import { useSearchParams } from 'next/navigation'
 
@@ -20,7 +20,7 @@ export function HomePage({
 }: HomePageProps) {
   // Default to an empty object to allow previews on non-existent documents
   const { entries = [] } = data ?? {}
-
+  const ref = useRef<HTMLDivElement>(null)
   let gallery = entries
 
   if (searchParams && searchParams['tag']) {
@@ -46,9 +46,9 @@ export function HomePage({
   }, [])
 
   return (
-    <div className="space-y-20 w-full border border-green-500">
+    <>
       {gallery && gallery.length > 0 && (
-        <div className="mx-auto grid w-screen min-h-screen">
+        <div ref={ref} className="mx-auto grid w-screen min-h-screen">
           {gallery.map((entry, index) => {
             return (
               <EntryListItem
@@ -56,12 +56,13 @@ export function HomePage({
                 entry={entry}
                 index={index}
                 encodeDataAttribute={encodeDataAttribute}
+                parentReference={ref}
               />
             )
           })}
         </div>
       )}
-    </div>
+    </>
   )
 }
 

@@ -45,7 +45,7 @@ export default async function IndexRoute({
     <>
       <div className="flex min-h-screen flex-col text-black">
         <Navbar tags={tags} />
-        <div className="mt-20 flex-grow px-4 md:px-16 lg:px-32">{children}</div>
+        <div className="translate-y-[20px]">{children}</div>
       </div>
       {draftMode().isEnabled && <VisualEditing />}
     </>

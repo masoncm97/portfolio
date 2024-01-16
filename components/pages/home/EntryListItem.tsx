@@ -4,13 +4,14 @@ import { GalleryImageBox } from '@/components/shared/Image/ImageBox'
 import InternalLink from '@/components/shared/InternalLink'
 import type { EntryPayload } from '@/types'
 import { EncodeDataAttributeCallback } from '@sanity/react-loader/rsc'
-import { useRef, useEffect, useState } from 'react'
+import { useRef, useEffect, useState, RefObject } from 'react'
 import { motion, useInView, AnimatePresence } from 'framer-motion'
 import Draggable from 'react-draggable' // The default
 
 interface EntryProps {
   entry: EntryPayload
   index: number
+  parentReference?: RefObject<HTMLDivElement>
   encodeDataAttribute?: EncodeDataAttributeCallback
 }
 
@@ -18,12 +19,15 @@ export function EntryListItem({
   entry,
   encodeDataAttribute,
   index,
+  parentReference,
 }: EntryProps) {
   const ref = useRef<HTMLDivElement>(null)
   const imageRef = useRef<HTMLDivElement>(null)
   const linkRef = useRef<HTMLAnchorElement>(null)
   const isInView = useInView(linkRef, { once: true })
+
   // const [z, setZ] = useState(0)
+
   const z = useRef(1000)
   const nodeRef = useRef(null)
 
@@ -48,16 +52,24 @@ export function EntryListItem({
   }, [])
 
   const handleStartDrag = () => {
-    if (ref.current && z.current && imageRef.current) {
+    if (
+      ref.current &&
+      z.current &&
+      imageRef.current &&
+      parentReference &&
+      parentReference.current
+    ) {
       ref.current.style.zIndex = `${z.current}`
       imageRef.current.style.border = `5px solid yellow`
+      parentReference.current.style.overflow = 'hidden'
       z.current++
     }
   }
 
   const handleStopDrag = () => {
-    if (imageRef.current) {
+    if (imageRef.current && parentReference && parentReference.current) {
       imageRef.current.style.border = `none`
+      parentReference.current.style.overflow = 'scroll'
     }
   }
 
