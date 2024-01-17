@@ -46,23 +46,24 @@ export function HomePage({
   }, [])
 
   return (
-    <>
-      {gallery && gallery.length > 0 && (
-        <div ref={ref} className="mx-auto grid w-screen min-h-screen">
-          {gallery.map((entry, index) => {
-            return (
-              <EntryListItem
-                key={index}
-                entry={entry}
-                index={index}
-                encodeDataAttribute={encodeDataAttribute}
-                parentReference={ref}
-              />
-            )
-          })}
-        </div>
-      )}
-    </>
+    <div
+      ref={ref}
+      className="border-red-500 border mx-auto grid w-screen min-h-screen overflow-x-hidden overflow-y-hidden"
+    >
+      {gallery &&
+        gallery.length > 0 &&
+        gallery.map((entry, index) => {
+          return (
+            <EntryListItem
+              key={index}
+              entry={entry}
+              index={index}
+              encodeDataAttribute={encodeDataAttribute}
+              parentReference={ref}
+            />
+          )
+        })}
+    </div>
   )
 }
 

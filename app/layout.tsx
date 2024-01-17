@@ -1,10 +1,6 @@
-'use client'
-
 import 'tailwindcss/tailwind.css'
 import { IBM_Plex_Mono, Inter, PT_Serif } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/react'
-import { useRef } from 'react'
-import BodyProvider from './(personal)/BodyProvider'
 
 const serif = PT_Serif({
   variable: '--font-serif',
@@ -29,14 +25,13 @@ export default async function RootLayout({
 }: {
   children: React.ReactNode
 }) {
-  const bodyRef = useRef<HTMLBodyElement>(null)
   return (
     <html
       lang="en"
       className={`${mono.variable} ${sans.variable} ${serif.variable}`}
     >
-      <body className="overflow-x-hidden" ref={bodyRef}>
-        <BodyProvider body={bodyRef}>{children}</BodyProvider>
+      <body>
+        {children}
         <Analytics />
       </body>
     </html>

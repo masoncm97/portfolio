@@ -7,9 +7,8 @@ import { EncodeDataAttributeCallback } from '@sanity/react-loader/rsc'
 import { useRef, useEffect, useState, RefObject } from 'react'
 import { motion, useInView, AnimatePresence } from 'framer-motion'
 import Draggable from 'react-draggable' // The default
-import classNames from 'classnames'
 import { useContext } from 'react'
-import { BodyContext } from '@/app/(personal)/BodyProvider'
+import { WrapperContext } from '@/app/(personal)/WrapperProvider'
 
 interface EntryProps {
   entry: EntryPayload
@@ -41,7 +40,7 @@ export function EntryListItem({
   //   api.start({ x: mx * 10, y: my * 10 })
   // })
 
-  const bodyRef = useContext(BodyContext)
+  const wrapper = useContext(WrapperContext)
 
   useEffect(() => {
     if (ref.current) {
@@ -57,20 +56,21 @@ export function EntryListItem({
   }, [])
 
   const handleStartDrag = () => {
-    if (ref.current && z.current && imageRef.current && bodyRef) {
+    console.log(wrapper)
+    if (ref.current && z.current && imageRef.current && wrapper) {
       console.log('start drag')
       ref.current.style.zIndex = `${z.current}`
       imageRef.current.style.border = `5px solid yellow`
-      bodyRef.style.overflowY = 'hidden'
+      wrapper.style.overflowY = 'hidden'
       z.current++
     }
   }
 
   const handleStopDrag = () => {
-    if (imageRef.current && bodyRef) {
+    if (imageRef.current && wrapper) {
       imageRef.current.style.border = `none`
-      bodyRef.style.overflowY = 'scroll'
-      bodyRef.style.overflowX = 'hidden'
+      wrapper.style.overflowY = 'scroll'
+      wrapper.style.overflowX = 'hidden'
     }
   }
 
