@@ -8,6 +8,8 @@ import { useRef, useEffect, useState, RefObject } from 'react'
 import { motion, useInView, AnimatePresence } from 'framer-motion'
 import Draggable from 'react-draggable' // The default
 import classNames from 'classnames'
+import { useContext } from 'react'
+import { BodyContext } from '@/app/(personal)/BodyProvider'
 
 interface EntryProps {
   entry: EntryPayload
@@ -39,6 +41,8 @@ export function EntryListItem({
   //   api.start({ x: mx * 10, y: my * 10 })
   // })
 
+  const bodyRef = useContext(BodyContext)
+
   useEffect(() => {
     if (ref.current) {
       console.log('adjusting')
@@ -53,25 +57,20 @@ export function EntryListItem({
   }, [])
 
   const handleStartDrag = () => {
-    if (
-      ref.current &&
-      z.current &&
-      imageRef.current &&
-      parentReference &&
-      parentReference.current
-    ) {
+    if (ref.current && z.current && imageRef.current && bodyRef) {
+      console.log('start drag')
       ref.current.style.zIndex = `${z.current}`
       imageRef.current.style.border = `5px solid yellow`
-      parentReference.current.style.overflowY = 'hidden'
+      bodyRef.style.overflowY = 'hidden'
       z.current++
     }
   }
 
   const handleStopDrag = () => {
-    if (imageRef.current && parentReference && parentReference.current) {
+    if (imageRef.current && bodyRef) {
       imageRef.current.style.border = `none`
-      parentReference.current.style.overflowY = 'scroll'
-      parentReference.current.style.overflowX = 'hidden'
+      bodyRef.style.overflowY = 'scroll'
+      bodyRef.style.overflowX = 'hidden'
     }
   }
 
