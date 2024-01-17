@@ -4,7 +4,7 @@ import { GalleryImageBox } from '@/components/shared/Image/ImageBox'
 import InternalLink from '@/components/shared/InternalLink'
 import type { EntryPayload } from '@/types'
 import { EncodeDataAttributeCallback } from '@sanity/react-loader/rsc'
-import { useRef, useEffect, useState, RefObject } from 'react'
+import { useRef, useEffect, useState, RefObject, MutableRefObject } from 'react'
 import { motion, useInView, AnimatePresence } from 'framer-motion'
 import Draggable from 'react-draggable' // The default
 import { useContext } from 'react'
@@ -13,6 +13,7 @@ import { WrapperContext } from '@/app/(personal)/WrapperProvider'
 interface EntryProps {
   entry: EntryPayload
   index: number
+  zIndex: MutableRefObject<number>
   parentReference?: RefObject<HTMLDivElement>
   encodeDataAttribute?: EncodeDataAttributeCallback
 }
@@ -21,6 +22,7 @@ export function EntryListItem({
   entry,
   encodeDataAttribute,
   index,
+  zIndex,
   parentReference,
 }: EntryProps) {
   const ref = useRef<HTMLDivElement>(null)
@@ -34,58 +36,40 @@ export function EntryListItem({
   const nodeRef = useRef(null)
   let touchDownTime = 0
 
-  // const [{ x, y }, api] = useSpring(() => ({ x: 0, y: 0 }))
-
-  // // Set the drag hook and define component movement based on gesture data
-  // const bind = useDrag(({ movement: [mx, my] }) => {
-  //   api.start({ x: mx * 10, y: my * 10 })
-  // })
-
   const wrapper = useContext(WrapperContext)
 
   useEffect(() => {
     if (ref.current) {
       console.log('adjusting')
-      const height = index * 10
-      const width = (Math.random() * 1.5 * window.innerWidth) / 5
+      let height = (Math.random() - 0.5) * 50
+      if (index === 0) {
+        height = Math.abs(height)
+      }
+      const width = (Math.random() * 2 * window.innerWidth) / 5
       const z = Math.ceil((index + 1) * Math.random() * 10)
       console.log(width)
-      ref.current.style.top = `${height}px`
-      ref.current.style.left = `${width}px`
       ref.current.style.marginLeft = `${width}px`
       ref.current.style.marginTop = `${height}px`
       ref.current.style.zIndex = `${z}`
     }
   }, [])
 
-  // Set a timer in startDrag
   const handleStartDrag = (e) => {
     touchDownTime = e.timeStamp
-    if (
-      ref.current &&
-      z.current &&
-      imageRef.current &&
-      wrapper &&
-      linkRef.current
-    ) {
-      console.log('start drag')
-      ref.current.style.zIndex = `${z.current}`
-      imageRef.current.style.border = `5px solid yellow`
-      wrapper.style.overflowY = 'hidden'
-      z.current++
+    if (ref.current && zIndex.current) {
+      ref.current.style.zIndex = `${zIndex.current}`
+      ref.current.style.outline = `5px solid yellow`
+      zIndex.current++
     }
   }
 
   const handleStopDrag = (e) => {
     if (Math.abs(touchDownTime - e.timeStamp) < 200 && linkRef.current) {
-      console.log('click')
       linkRef.current.click()
     }
-    console.log('dragStop')
-    if (imageRef.current && wrapper) {
-      imageRef.current.style.border = `none`
-      wrapper.style.overflowY = 'scroll'
-      wrapper.style.overflowX = 'hidden'
+
+    if (ref.current) {
+      ref.current.style.outline = `none`
     }
   }
 

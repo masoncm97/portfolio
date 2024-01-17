@@ -21,6 +21,7 @@ export function HomePage({
   // Default to an empty object to allow previews on non-existent documents
   const { entries = [] } = data ?? {}
   const ref = useRef<HTMLDivElement>(null)
+  const zIndex = useRef(1000)
   let gallery = entries
 
   if (searchParams && searchParams['tag']) {
@@ -58,6 +59,7 @@ export function HomePage({
               key={index}
               entry={entry}
               index={index}
+              zIndex={zIndex}
               encodeDataAttribute={encodeDataAttribute}
               parentReference={ref}
             />

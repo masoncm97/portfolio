@@ -42,7 +42,7 @@ export default function Navbar({ tags }: { tags: Tag[] }) {
             >
               <button
                 onClick={() => triggerNav()}
-                className="bg-[#ee4539] aspect-square rounded-full absolute z-10 w-6 right-5 top-3"
+                className="bg-[#ee4539] aspect-square rounded-full fixed z-10 w-6 right-5 top-3"
               />
             </motion.div>
           )}
