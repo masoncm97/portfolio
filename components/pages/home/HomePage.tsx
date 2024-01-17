@@ -48,7 +48,7 @@ export function HomePage({
   return (
     <div
       ref={ref}
-      className="border-red-500 border mx-auto grid w-screen overflow-x-hidden overflow-y-hidden"
+      className="border-red-500 border mx-auto grid w-screen min-h-screen overflow-x-hidden overflow-y-hidden"
     >
       {gallery &&
         gallery.length > 0 &&

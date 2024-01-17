@@ -45,12 +45,14 @@ export function EntryListItem({
   useEffect(() => {
     if (ref.current) {
       console.log('adjusting')
-      const height = index * 200
+      const height = index * 10
       const width = (Math.random() * 1.5 * window.innerWidth) / 5
       const z = Math.ceil((index + 1) * Math.random() * 10)
       console.log(width)
       ref.current.style.top = `${height}px`
       ref.current.style.left = `${width}px`
+      ref.current.style.marginLeft = `${width}px`
+      ref.current.style.marginTop = `${height}px`
       ref.current.style.zIndex = `${z}`
     }
   }, [])
@@ -76,11 +78,11 @@ export function EntryListItem({
 
   return (
     <Draggable onStart={handleStartDrag} onStop={handleStopDrag} nodeRef={ref}>
-      <div className="relative" ref={ref}>
+      <div className="float-left w-[60%]" ref={ref}>
         <InternalLink
           href={entry.slug}
           isNav={false}
-          className={'absolute w-[60%] h-full xl:w-9/12'}
+          className={'w-[60%] h-full xl:w-9/12'}
           reference={linkRef}
         >
           <AnimatePresence>
