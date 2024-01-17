@@ -32,6 +32,7 @@ export function EntryListItem({
 
   const z = useRef(1000)
   const nodeRef = useRef(null)
+  let touchDownTime = 0
 
   // const [{ x, y }, api] = useSpring(() => ({ x: 0, y: 0 }))
 
@@ -57,9 +58,16 @@ export function EntryListItem({
     }
   }, [])
 
-  const handleStartDrag = () => {
-    console.log(wrapper)
-    if (ref.current && z.current && imageRef.current && wrapper) {
+  // Set a timer in startDrag
+  const handleStartDrag = (e) => {
+    touchDownTime = e.timeStamp
+    if (
+      ref.current &&
+      z.current &&
+      imageRef.current &&
+      wrapper &&
+      linkRef.current
+    ) {
       console.log('start drag')
       ref.current.style.zIndex = `${z.current}`
       imageRef.current.style.border = `5px solid yellow`
@@ -68,7 +76,12 @@ export function EntryListItem({
     }
   }
 
-  const handleStopDrag = () => {
+  const handleStopDrag = (e) => {
+    if (Math.abs(touchDownTime - e.timeStamp) < 200 && linkRef.current) {
+      console.log('click')
+      linkRef.current.click()
+    }
+    console.log('dragStop')
     if (imageRef.current && wrapper) {
       imageRef.current.style.border = `none`
       wrapper.style.overflowY = 'scroll'
