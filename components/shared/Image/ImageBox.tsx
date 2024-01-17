@@ -4,12 +4,15 @@ import Priority from './Priority'
 import { Orientation } from '@/types'
 import classNames from 'classnames'
 import { RefObject } from 'react'
+import InternalLink from '../InternalLink'
 
 export interface ImageBoxProps {
   imageBox: SanityImageProps
   className?: string
   orientation?: Orientation
   reference?: RefObject<HTMLDivElement>
+  linkReference?: RefObject<HTMLAnchorElement>
+  slug?: string | undefined
 }
 
 export function EntryImageBox({
@@ -37,6 +40,8 @@ export function GalleryImageBox({
   className,
   orientation,
   reference,
+  slug,
+  linkReference,
 }: ImageBoxProps) {
   const { width, height, size, styles } = computeOrientation(
     orientation,
@@ -45,11 +50,18 @@ export function GalleryImageBox({
 
   return (
     <div
-      className={classNames(className, styles, 'relative z-0 content-box')}
+      className={classNames(className, styles, 'm-auto flex z-0 content-box')}
       data-sanity={imageBox['data-sanity']}
       ref={reference}
     >
-      <SanityImage {...imageBox} width={width} height={height} size={size} />
+      <InternalLink
+        href={slug}
+        isNav={false}
+        className={'m-auto overflow-hidden'}
+        reference={linkReference}
+      >
+        <SanityImage {...imageBox} width={width} height={height} size={size} />
+      </InternalLink>
     </div>
   )
 }

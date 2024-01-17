@@ -43,8 +43,10 @@ export default async function IndexRoute({
   const tags = data?.tags || ([] as Tag[])
   return (
     <>
-      <Navbar tags={tags} />
-      {children}
+      <div className="flex min-h-screen flex-col text-black">
+        <Navbar tags={tags} />
+        {children}
+      </div>
       {draftMode().isEnabled && <VisualEditing />}
     </>
   )

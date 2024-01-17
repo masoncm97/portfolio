@@ -3,7 +3,7 @@
 import type { EncodeDataAttributeCallback } from '@sanity/react-loader/rsc'
 import type { HomePagePayload } from '@/types'
 import { EntryListItem } from './EntryListItem'
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import InternalLink from '@/components/shared/InternalLink'
 import { useSearchParams } from 'next/navigation'
 
@@ -21,6 +21,7 @@ export function HomePage({
   // Default to an empty object to allow previews on non-existent documents
   const { entries = [] } = data ?? {}
   const ref = useRef<HTMLDivElement>(null)
+  const [imagesLoaded, setImagesLoaded] = useState(false)
   const zIndex = useRef(1000)
   let gallery = entries
 
@@ -47,25 +48,24 @@ export function HomePage({
   }, [])
 
   return (
-    <div
-      ref={ref}
-      className="border-red-500 border mx-auto grid w-screen min-h-screen overflow-x-hidden overflow-y-hidden"
-    >
-      {gallery &&
-        gallery.length > 0 &&
-        gallery.map((entry, index) => {
-          return (
-            <EntryListItem
-              key={index}
-              entry={entry}
-              index={index}
-              zIndex={zIndex}
-              encodeDataAttribute={encodeDataAttribute}
-              parentReference={ref}
-            />
-          )
-        })}
-    </div>
+    <>
+      {gallery && gallery.length > 0 && (
+        <div ref={ref} className="mx-auto grid w-screen min-h-screen relative">
+          {gallery.map((entry, index) => {
+            return (
+              <EntryListItem
+                key={index}
+                entry={entry}
+                index={index}
+                zIndex={zIndex}
+                encodeDataAttribute={encodeDataAttribute}
+                parentReference={ref}
+              />
+            )
+          })}
+        </div>
+      )}
+    </>
   )
 }
 

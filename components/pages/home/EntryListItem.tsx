@@ -9,6 +9,7 @@ import { motion, useInView, AnimatePresence } from 'framer-motion'
 import Draggable from 'react-draggable' // The default
 import { useContext } from 'react'
 import { WrapperContext } from '@/app/(personal)/WrapperProvider'
+import classNames from 'classnames'
 
 interface EntryProps {
   entry: EntryPayload
@@ -28,26 +29,21 @@ export function EntryListItem({
   const ref = useRef<HTMLDivElement>(null)
   const imageRef = useRef<HTMLDivElement>(null)
   const linkRef = useRef<HTMLAnchorElement>(null)
-  const isInView = useInView(linkRef, { once: true })
+  const isInView = useInView(ref, { once: true })
 
+  console.log(isInView)
   // const [z, setZ] = useState(0)
 
-  const z = useRef(1000)
-  const nodeRef = useRef(null)
   let touchDownTime = 0
-
-  const wrapper = useContext(WrapperContext)
 
   useEffect(() => {
     if (ref.current) {
-      console.log('adjusting')
-      let height = (Math.random() - 0.5) * 50
+      let height = (Math.random() - 0.5) * 100
       if (index === 0) {
         height = Math.abs(height)
       }
       const width = (Math.random() * 2 * window.innerWidth) / 5
       const z = Math.ceil((index + 1) * Math.random() * 10)
-      console.log(width)
       ref.current.style.marginLeft = `${width}px`
       ref.current.style.marginTop = `${height}px`
       ref.current.style.zIndex = `${z}`
@@ -56,9 +52,9 @@ export function EntryListItem({
 
   const handleStartDrag = (e) => {
     touchDownTime = e.timeStamp
-    if (ref.current && zIndex.current) {
-      ref.current.style.zIndex = `${zIndex.current}`
-      ref.current.style.outline = `5px solid yellow`
+    if (imageRef.current && zIndex.current) {
+      imageRef.current.style.zIndex = `${zIndex.current}`
+      imageRef.current.style.outline = `5px solid yellow`
       zIndex.current++
     }
   }
@@ -68,26 +64,32 @@ export function EntryListItem({
       linkRef.current.click()
     }
 
-    if (ref.current) {
-      ref.current.style.outline = `none`
+    if (imageRef.current) {
+      imageRef.current.style.outline = `none`
     }
   }
 
   return (
-    <Draggable onStart={handleStartDrag} onStop={handleStopDrag} nodeRef={ref}>
-      <div className="float-left w-[60%]" ref={ref}>
-        <InternalLink
-          href={entry.slug}
-          isNav={false}
-          className={'w-[60%] h-full xl:w-9/12'}
-          reference={linkRef}
-        >
+    <div
+      className={classNames(
+        entry.orientation?.title == 'Portrait'
+          ? 'min-h-[25rem]'
+          : 'min-h-[13rem]',
+      )}
+    >
+      <Draggable
+        onStart={handleStartDrag}
+        onStop={handleStopDrag}
+        nodeRef={ref}
+      >
+        <div ref={ref}>
           <AnimatePresence>
             {isInView && (
               <motion.div
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
-                transition={{ type: 'tween', duration: 0.5, delay: 1 }}
+                transition={{ type: 'tween', duration: 1, delay: 1 }}
+                className="max-w-[15rem]"
               >
                 <GalleryImageBox
                   imageBox={{
@@ -97,15 +99,16 @@ export function EntryListItem({
                       : `Cover image from ${entry.title}`,
                   }}
                   data-sanity={encodeDataAttribute?.('image')}
-                  className="place-self-center"
                   orientation={entry.orientation}
+                  slug={entry.slug}
+                  linkReference={linkRef}
                   reference={imageRef}
                 />
               </motion.div>
             )}
           </AnimatePresence>
-        </InternalLink>
-      </div>
-    </Draggable>
+        </div>
+      </Draggable>
+    </div>
   )
 }
