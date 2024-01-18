@@ -28,6 +28,7 @@ export function EntryListItem({
 }: EntryProps) {
   const ref = useRef<HTMLDivElement>(null)
   const ref3 = useRef<HTMLDivElement>(null)
+  const ref4 = useRef<HTMLDivElement>(null)
   const imageRef = useRef<HTMLDivElement>(null)
   const linkRef = useRef<HTMLAnchorElement>(null)
   const isInView = useInView(ref, { once: true })
@@ -70,8 +71,9 @@ export function EntryListItem({
     }
     console.log(e.changedTouches.item(0).clientX)
     console.log(e.changedTouches.item(0).clientY)
-    if (imageRef.current && zIndex.current) {
-      imageRef.current.style.zIndex = `${zIndex.current}`
+    if (ref.current && zIndex.current && imageRef.current && ref4.current) {
+      console.log(zIndex.current)
+      ref4.current.style.zIndex = `${zIndex.current}`
       imageRef.current.style.outline = `5px solid yellow`
       zIndex.current++
     }
@@ -109,7 +111,9 @@ export function EntryListItem({
         entry.orientation?.title == 'Portrait'
           ? 'min-h-[25rem]'
           : 'min-h-[13rem]',
+        'relative',
       )}
+      ref={ref4}
     >
       <Draggable
         onStart={handleStartDrag}
