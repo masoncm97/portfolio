@@ -13,7 +13,7 @@ ul {
 }
 
 body {
-  touch-action: none;
+  touch-action: pan-y;
   overflow-x: hidden;
 }
 
