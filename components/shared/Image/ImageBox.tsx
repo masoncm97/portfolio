@@ -54,14 +54,7 @@ export function GalleryImageBox({
       data-sanity={imageBox['data-sanity']}
       ref={reference}
     >
-      <InternalLink
-        href={slug}
-        isNav={false}
-        className={'m-auto overflow-hidden'}
-        reference={linkReference}
-      >
-        <SanityImage {...imageBox} width={width} height={height} size={size} />
-      </InternalLink>
+      <SanityImage {...imageBox} width={width} height={height} size={size} />
     </div>
   )
 }
