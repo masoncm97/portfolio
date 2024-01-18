@@ -44,7 +44,7 @@ export function HomePage({
     console.log(lastViewedImageId)
     if (lastViewedImageId != null && !tagParam) {
       const imageToScrollTo = document.getElementById(lastViewedImageId)
-      imageToScrollTo?.scrollIntoView()
+      imageToScrollTo?.scrollIntoView({ block: 'center' })
       sessionStorage.removeItem('lastViewedImage')
     }
   }, [])

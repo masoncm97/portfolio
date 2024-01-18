@@ -113,6 +113,7 @@ export function EntryListItem({
           : 'min-h-[13rem]',
         'relative',
       )}
+      id={entry.slug}
       ref={ref4}
     >
       <Draggable
