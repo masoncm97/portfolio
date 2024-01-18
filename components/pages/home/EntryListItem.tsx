@@ -51,28 +51,28 @@ export function EntryListItem({
       ref.current.style.marginRight = `${window.innerWidth - (width + 240)}px`
       ref.current.style.marginTop = `${height}px`
       ref.current.style.zIndex = `${z}`
-      console.log(
-        'left',
-        window.innerWidth -
-          (width + ref3.current.getBoundingClientRect().width),
-      )
-      console.log('rect', ref3.current.getBoundingClientRect())
-      console.log('innerWidth', window.innerWidth)
-      console.log('right', width)
+      // console.log(
+      //   'left',
+      //   window.innerWidth -
+      //     (width + ref3.current.getBoundingClientRect().width),
+      // )
+      // console.log('rect', ref3.current.getBoundingClientRect())
+      // console.log('innerWidth', window.innerWidth)
+      // console.log('right', width)
     }
   }, [imageRef])
 
   const handleStartDrag = (e) => {
     touchDownTime = e.timeStamp
-    console.log(e.changedTouches.item(0))
+    // console.log(e.changedTouches.item(0))
     if (e.changedTouches) {
       touchX = e.changedTouches.item(0).clientX
       touchY = e.changedTouches.item(0).clientY
     }
-    console.log(e.changedTouches.item(0).clientX)
-    console.log(e.changedTouches.item(0).clientY)
+    // console.log(e.changedTouches.item(0).clientX)
+    // console.log(e.changedTouches.item(0).clientY)
     if (ref.current && zIndex.current && imageRef.current && ref4.current) {
-      console.log(zIndex.current)
+      // console.log(zIndex.current)
       ref4.current.style.zIndex = `${zIndex.current}`
       imageRef.current.style.outline = `5px solid yellow`
       zIndex.current++
@@ -80,8 +80,8 @@ export function EntryListItem({
   }
 
   const handleStopDrag = (e) => {
-    console.log(e.changedTouches.item(0))
-    console.log(e.changedTouches.item(0).clientY)
+    // console.log(e.changedTouches.item(0))
+    // console.log(e.changedTouches.item(0).clientY)
     // let touch: Touch = new Touch()
     if (e.changedTouches) {
       const stopTouchX = e.changedTouches.item(0).clientX

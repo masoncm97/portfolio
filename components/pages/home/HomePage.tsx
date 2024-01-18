@@ -6,6 +6,7 @@ import { EntryListItem } from './EntryListItem'
 import { useEffect, useRef, useState } from 'react'
 import InternalLink from '@/components/shared/InternalLink'
 import { useSearchParams } from 'next/navigation'
+import useDisableZoom from '@/hooks/useDisableZoom'
 
 export interface HomePageProps {
   data: HomePagePayload | null
@@ -24,6 +25,7 @@ export function HomePage({
   const [imagesLoaded, setImagesLoaded] = useState(false)
   const zIndex = useRef(1000)
   let gallery = entries
+  useDisableZoom()
 
   if (searchParams && searchParams['tag']) {
     gallery = entries?.filter((entry) => {

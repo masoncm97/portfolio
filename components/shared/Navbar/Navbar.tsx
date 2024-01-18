@@ -32,22 +32,10 @@ export default function Navbar({ tags }: { tags: Tag[] }) {
 
   return (
     <>
-      <div ref={ref}>
-        <AnimatePresence>
-          {isInView && (
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ type: 'tween', duration: 0.5, delay: 0.2 }}
-            >
-              <button
-                onClick={() => triggerNav()}
-                className="bg-[#ee4539] aspect-square rounded-full fixed z-10 w-6 right-5 top-3"
-              />
-            </motion.div>
-          )}
-        </AnimatePresence>
-      </div>
+      <button
+        onClick={() => triggerNav()}
+        className="bg-[#ee4539] aspect-square rounded-full fixed w-6 right-5 top-3 z-[1000000]"
+      />
       <NavbarMenu isOpen={isOpen} setIsOpen={setIsOpen} tags={tags} />
     </>
   )

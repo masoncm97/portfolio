@@ -12,10 +12,6 @@ ul {
   margin-left: 1rem;
 }
 
-body {
-  touch-action: pan-x pan-y;
-}
-
 /* body {
   overflow: hidden;
 } */
