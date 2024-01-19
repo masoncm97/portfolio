@@ -7,6 +7,7 @@ import { useEffect, useRef, useState } from 'react'
 import InternalLink from '@/components/shared/InternalLink'
 import { useSearchParams } from 'next/navigation'
 import useDisableZoom from '@/hooks/useDisableZoom'
+import useDrawDots, { DotsCanvas } from '@/hooks/DotsCanvas'
 
 export interface HomePageProps {
   data: HomePagePayload | null
@@ -25,7 +26,8 @@ export function HomePage({
   const [imagesLoaded, setImagesLoaded] = useState(false)
   const zIndex = useRef(1000)
   let gallery = entries
-  useDisableZoom()
+  // useDisableZoom()
+  // useDrawDots(canvas)
 
   if (searchParams && searchParams['tag']) {
     gallery = entries?.filter((entry) => {
@@ -53,6 +55,7 @@ export function HomePage({
     <>
       {gallery && gallery.length > 0 && (
         <div ref={ref} className="mx-auto grid w-screen min-h-screen relative">
+          <DotsCanvas />
           {gallery.map((entry, index) => {
             return (
               <EntryListItem
