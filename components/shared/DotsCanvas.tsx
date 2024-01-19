@@ -1,4 +1,9 @@
-import { RefObject, useEffect, useRef } from 'react'
+import {
+  InteractionMode,
+  InteractionModeContext,
+} from '@/app/(personal)/InteractionModeProvider'
+import classNames from 'classnames'
+import { RefObject, useContext, useEffect, useRef } from 'react'
 
 interface TouchObject {
   pageX: number
@@ -25,6 +30,7 @@ function copyTouch(touch: Touch): TouchObject {
 export function DotsCanvas(props) {
   const ongoingTouches = useRef<TouchObject[]>([])
   const canvas = useRef<HTMLCanvasElement>(null)
+  const { interactionMode } = useContext(InteractionModeContext)
 
   useEffect(() => {
     if (canvas.current) {
@@ -88,7 +94,12 @@ export function DotsCanvas(props) {
     <div>
       <canvas
         {...props}
-        className="z-[1000000000] absolute border border-red-500"
+        className={classNames(
+          interactionMode == InteractionMode.Draw
+            ? 'pointer-events-auto'
+            : 'pointer-events-none',
+          'z-[1000000000] absolute border border-red-500 ',
+        )}
         ref={canvas}
         width={370}
         height={10000}

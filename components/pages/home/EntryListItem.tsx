@@ -4,14 +4,19 @@ import { GalleryImageBox } from '@/components/shared/Image/ImageBox'
 import InternalLink from '@/components/shared/InternalLink'
 import type { EntryPayload } from '@/types'
 import { EncodeDataAttributeCallback } from '@sanity/react-loader/rsc'
-import { useRef, useEffect, useState, RefObject, MutableRefObject } from 'react'
+import {
+  useRef,
+  useEffect,
+  useState,
+  RefObject,
+  MutableRefObject,
+  memo,
+} from 'react'
 import { motion, useInView, AnimatePresence } from 'framer-motion'
 import Draggable from 'react-draggable' // The default
-import { useContext } from 'react'
-import { WrapperContext } from '@/app/(personal)/WrapperProvider'
 import classNames from 'classnames'
 
-interface EntryProps {
+export interface EntryProps {
   entry: EntryPayload
   index: number
   zIndex: MutableRefObject<number>
@@ -19,7 +24,7 @@ interface EntryProps {
   encodeDataAttribute?: EncodeDataAttributeCallback
 }
 
-export function EntryListItem({
+export const EntryListItem = memo(function EntryListItem({
   entry,
   encodeDataAttribute,
   index,
@@ -159,4 +164,4 @@ export function EntryListItem({
       </Draggable>
     </div>
   )
-}
+})

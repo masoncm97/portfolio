@@ -3,7 +3,7 @@
 import type { EncodeDataAttributeCallback } from '@sanity/react-loader/rsc'
 import type { HomePagePayload } from '@/types'
 import { EntryListItem } from './EntryListItem'
-import { useContext, useEffect, useRef, useState } from 'react'
+import { useCallback, useContext, useEffect, useRef, useState } from 'react'
 import { useSearchParams } from 'next/navigation'
 import { DotsCanvas } from '@/components/shared/DotsCanvas'
 import {
@@ -55,26 +55,22 @@ export function HomePage({
     InteractionModeContext,
   )
 
+  const handleDrawClick = useCallback(() => {
+    setInteractionMode(InteractionMode.Draw)
+  }, [setInteractionMode])
+
+  const handleLayerClick = useCallback(() => {
+    setInteractionMode(InteractionMode.Layer)
+  }, [setInteractionMode])
+
   return (
     <>
       {gallery && gallery.length > 0 && (
         <div ref={ref} className="mx-auto grid w-screen min-h-screen relative">
           <DotsCanvas />
           <div className="z-[1000000001] fixed">
-            <button
-              onClick={() => {
-                setInteractionMode(InteractionMode.Draw)
-              }}
-            >
-              Draw
-            </button>
-            <button
-              onClick={() => {
-                setInteractionMode(InteractionMode.Layer)
-              }}
-            >
-              Layer
-            </button>
+            <button onClick={handleDrawClick}>Draw</button>
+            <button onClick={handleLayerClick}>Layer</button>
           </div>
           {gallery.map((entry, index) => {
             return (
