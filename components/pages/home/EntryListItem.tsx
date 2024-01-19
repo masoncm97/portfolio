@@ -29,7 +29,6 @@ export const EntryListItem = memo(function EntryListItem({
   encodeDataAttribute,
   index,
   zIndex,
-  parentReference,
 }: EntryProps) {
   const ref = useRef<HTMLDivElement>(null)
   const ref3 = useRef<HTMLDivElement>(null)
@@ -56,14 +55,6 @@ export const EntryListItem = memo(function EntryListItem({
       ref.current.style.marginRight = `${window.innerWidth - (width + 240)}px`
       ref.current.style.marginTop = `${height}px`
       ref.current.style.zIndex = `${z}`
-      // console.log(
-      //   'left',
-      //   window.innerWidth -
-      //     (width + ref3.current.getBoundingClientRect().width),
-      // )
-      // console.log('rect', ref3.current.getBoundingClientRect())
-      // console.log('innerWidth', window.innerWidth)
-      // console.log('right', width)
     }
   }, [imageRef])
 
@@ -111,20 +102,21 @@ export const EntryListItem = memo(function EntryListItem({
   }
 
   return (
-    <div
-      className={classNames(
-        entry.orientation?.title == 'Portrait'
-          ? 'min-h-[25rem]'
-          : 'min-h-[13rem]',
-        'relative',
-      )}
-      id={entry.slug}
-      ref={ref4}
+    <Draggable
+      handle=".image"
+      onStart={handleStartDrag}
+      onStop={handleStopDrag}
+      nodeRef={ref4}
     >
-      <Draggable
-        onStart={handleStartDrag}
-        onStop={handleStopDrag}
-        nodeRef={ref}
+      <div
+        className={classNames(
+          entry.orientation?.title == 'Portrait'
+            ? 'min-h-[25rem]'
+            : 'min-h-[13rem]',
+          'pointer-events-none',
+        )}
+        id={entry.slug}
+        ref={ref4}
       >
         <div ref={ref} className="flex mr-auto">
           <div ref={ref3} className="flex width-full">
@@ -143,6 +135,7 @@ export const EntryListItem = memo(function EntryListItem({
                     reference={linkRef}
                   >
                     <GalleryImageBox
+                      className=".image pointer-events-auto"
                       imageBox={{
                         image: entry.image,
                         alt: entry.shortDescription
@@ -161,7 +154,7 @@ export const EntryListItem = memo(function EntryListItem({
             </AnimatePresence>
           </div>
         </div>
-      </Draggable>
-    </div>
+      </div>
+    </Draggable>
   )
 })

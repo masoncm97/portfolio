@@ -3,7 +3,13 @@ import {
   InteractionModeContext,
 } from '@/app/(personal)/InteractionModeProvider'
 import classNames from 'classnames'
-import { RefObject, useContext, useEffect, useRef } from 'react'
+import {
+  MutableRefObject,
+  RefObject,
+  useContext,
+  useEffect,
+  useRef,
+} from 'react'
 
 interface TouchObject {
   pageX: number
@@ -27,9 +33,30 @@ function copyTouch(touch: Touch): TouchObject {
   return { pageX: touch.pageX, pageY: touch.pageY }
 }
 
+const dotColors = [
+  '#EE4439',
+  '#3367FF',
+  '#FFF933',
+  '#8803E9',
+  '#F99E03',
+  '#129317',
+]
+
+const incrementColorIndex = (
+  colorIndex: MutableRefObject<number>,
+  dotColors: string[],
+) => {
+  if (colorIndex.current === dotColors.length - 1) {
+    colorIndex.current = 0
+  } else {
+    colorIndex.current += 1
+  }
+}
+
 export function DotsCanvas(props) {
   const ongoingTouches = useRef<TouchObject[]>([])
   const canvas = useRef<HTMLCanvasElement>(null)
+  const colorIndex = useRef(0)
   const { interactionMode } = useContext(InteractionModeContext)
 
   useEffect(() => {
@@ -42,7 +69,6 @@ export function DotsCanvas(props) {
         console.log(touches)
         if (ctx) {
           console.log('ty')
-          ctx.fillStyle = '#75FF33'
           // ctx.fillRect(0, 0, ctx.canvas.width, ctx.canvas.height)
           for (let i = 0; i < touches.length; i++) {
             ongoingTouches.current.push(copyTouch(touches[i]))
@@ -56,8 +82,9 @@ export function DotsCanvas(props) {
               2 * Math.PI,
               false,
             )
-            ctx.fillStyle = '#75FF33'
+            ctx.fillStyle = dotColors[colorIndex.current]
             ctx.fill()
+            incrementColorIndex(colorIndex, dotColors)
           }
         }
       }
