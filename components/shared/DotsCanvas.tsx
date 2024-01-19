@@ -90,7 +90,7 @@ export function DotsCanvas(props) {
         {...props}
         className="z-[1000000000] absolute border border-red-500"
         ref={canvas}
-        width={10000}
+        width={370}
         height={10000}
       />
     </div>
