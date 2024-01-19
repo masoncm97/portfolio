@@ -3,9 +3,13 @@
 import type { EncodeDataAttributeCallback } from '@sanity/react-loader/rsc'
 import type { HomePagePayload } from '@/types'
 import { EntryListItem } from './EntryListItem'
-import { useEffect, useRef, useState } from 'react'
+import { useContext, useEffect, useRef, useState } from 'react'
 import { useSearchParams } from 'next/navigation'
 import { DotsCanvas } from '@/components/shared/DotsCanvas'
+import {
+  InteractionMode,
+  InteractionModeContext,
+} from '@/app/(personal)/InteractionModeProvider'
 
 export interface HomePageProps {
   data: HomePagePayload | null
@@ -47,11 +51,31 @@ export function HomePage({
     }
   }, [])
 
+  const { interactionMode, setInteractionMode } = useContext(
+    InteractionModeContext,
+  )
+
   return (
     <>
       {gallery && gallery.length > 0 && (
         <div ref={ref} className="mx-auto grid w-screen min-h-screen relative">
           <DotsCanvas />
+          <div className="z-[1000000001] fixed">
+            <button
+              onClick={() => {
+                setInteractionMode(InteractionMode.Draw)
+              }}
+            >
+              Draw
+            </button>
+            <button
+              onClick={() => {
+                setInteractionMode(InteractionMode.Layer)
+              }}
+            >
+              Layer
+            </button>
+          </div>
           {gallery.map((entry, index) => {
             return (
               <EntryListItem

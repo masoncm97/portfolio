@@ -43,8 +43,9 @@ export default async function IndexRoute({
   const tags = data?.tags || ([] as Tag[])
   return (
     <>
-      <div className="flex min-h-screen flex-col text-black">
+      <div className="flex min-h-screen flex-col text-black relative">
         <Navbar tags={tags} />
+        <h1 className="text-2xl fixed center-absolute">Mason Mathai</h1>
         {children}
       </div>
       {draftMode().isEnabled && <VisualEditing />}

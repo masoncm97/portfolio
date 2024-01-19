@@ -1,6 +1,9 @@
 import { HomePage } from '@/components/pages/home/HomePage'
 import { getAllEntries } from '@/sanity/loader/loadQuery'
 import type { Viewport } from 'next'
+import InteractionModeProvider, {
+  InteractionMode,
+} from '../InteractionModeProvider'
 
 export const viewport: Viewport = {
   width: 'device-width',
@@ -16,5 +19,9 @@ export default async function IndexRoute({
 }) {
   const initial = await getAllEntries()
 
-  return <HomePage data={initial} searchParams={searchParams} />
+  return (
+    <InteractionModeProvider>
+      <HomePage data={initial} searchParams={searchParams} />
+    </InteractionModeProvider>
+  )
 }
