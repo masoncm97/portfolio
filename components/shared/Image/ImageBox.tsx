@@ -10,9 +10,6 @@ export interface ImageBoxProps {
   imageBox: SanityImageProps
   className?: string
   orientation?: Orientation
-  reference?: RefObject<HTMLDivElement>
-  linkReference?: RefObject<HTMLAnchorElement>
-  slug?: string | undefined
 }
 
 export function EntryImageBox({
@@ -39,9 +36,6 @@ export function GalleryImageBox({
   imageBox,
   className,
   orientation,
-  reference,
-  slug,
-  linkReference,
 }: ImageBoxProps) {
   const { width, height, size, styles } = computeOrientation(
     orientation,
@@ -52,7 +46,6 @@ export function GalleryImageBox({
     <div
       className={classNames(className, styles, 'm-auto flex z-0 content-box')}
       data-sanity={imageBox['data-sanity']}
-      ref={reference}
     >
       <SanityImage {...imageBox} width={width} height={height} size={size} />
     </div>

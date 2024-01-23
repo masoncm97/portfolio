@@ -12,16 +12,12 @@ export const viewport: Viewport = {
   userScalable: false,
 }
 
-export default async function IndexRoute({
-  searchParams,
-}: {
-  [key: string]: string | string[] | undefined
-}) {
+export default async function IndexRoute() {
   const initial = await getAllEntries()
 
   return (
     <InteractionModeProvider>
-      <HomePage data={initial} searchParams={searchParams} />
+      <HomePage data={initial} />
     </InteractionModeProvider>
   )
 }
