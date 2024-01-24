@@ -70,6 +70,7 @@ export const EntryListItem = memo(function EntryListItem({
                   isNav={false}
                   className={'m-auto overflow-hidden'}
                   index={index}
+                  reference={linkRef}
                 >
                   <GalleryImageBox
                     className=".image pointer-events-auto"

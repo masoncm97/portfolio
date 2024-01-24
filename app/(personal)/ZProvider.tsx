@@ -29,10 +29,7 @@ export default function ZProvider({ children, length }: ZProviderProps) {
 }
 
 function getRandomPermutation(n: number): number[] {
-  // Create an array from 0 to n
   let array = Array.from({ length: n + 1 }, (_, i) => i)
-
-  // Shuffle the array using Fisher-Yates algorithm
   for (let i = n; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1))
     ;[array[i], array[j]] = [array[j], array[i]]

@@ -7,13 +7,16 @@ import { useState, useContext, useCallback, MutableRefObject } from 'react'
 
 interface Canvases {
   canvases: JSX.Element[]
+  interactionMode: InteractionMode
   handleDrawClick: () => void
-  handleLayerClick: () => void
+  handleArrangeClick: () => void
 }
 
 export const useCanvases = (topZ: MutableRefObject<number>): Canvases => {
   const [canvases, setCanvases] = useState<JSX.Element[]>([])
-  const { setInteractionMode } = useContext(InteractionModeContext)
+  const { interactionMode, setInteractionMode } = useContext(
+    InteractionModeContext,
+  )
 
   const handleDrawClick = useCallback(() => {
     // topZ.current += 1
@@ -27,12 +30,13 @@ export const useCanvases = (topZ: MutableRefObject<number>): Canvases => {
     // will receive the most up-to-date state (functional update)
     // Because we're not using the 'canvases' variable directly in our update, we don't need to include it
     // in our dependency array
-    setInteractionMode(InteractionMode.Draw)
+    setInteractionMode(InteractionMode.Dot)
   }, [setInteractionMode])
 
-  const handleLayerClick = useCallback(() => {
-    setInteractionMode(InteractionMode.Layer)
+  const handleArrangeClick = useCallback(() => {
+    setInteractionMode(InteractionMode.Arrange)
+    console.log('set')
   }, [setInteractionMode])
 
-  return { canvases, handleDrawClick, handleLayerClick }
+  return { canvases, interactionMode, handleDrawClick, handleArrangeClick }
 }

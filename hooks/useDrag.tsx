@@ -36,13 +36,14 @@ export const useDrag = ({
 
       const deltaX = Math.abs(touchX - stopTouchX)
       const deltaY = Math.abs(touchY - stopTouchY)
-
+      console.log(linkRef)
       if (
         deltaX < 5 &&
         deltaY < 5 &&
         Math.abs(touchDownTime - e.timeStamp) < 200 &&
         linkRef.current
       ) {
+        console.log('ye')
         linkRef.current.click()
       }
     }

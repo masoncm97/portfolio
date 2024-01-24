@@ -87,7 +87,7 @@ export function DotsCanvas({ z }) {
     <>
       <canvas
         className={classNames(
-          interactionMode == InteractionMode.Draw
+          interactionMode == InteractionMode.Dot
             ? 'pointer-events-auto'
             : 'pointer-events-none',
           'absolute border border-red-500 ',

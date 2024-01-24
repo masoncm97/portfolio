@@ -1,16 +1,10 @@
 'use client'
 
-import {
-  Dispatch,
-  RefObject,
-  SetStateAction,
-  createContext,
-  useState,
-} from 'react'
+import { Dispatch, SetStateAction, createContext, useState } from 'react'
 
 export enum InteractionMode {
-  Draw,
-  Layer,
+  Dot,
+  Arrange,
 }
 
 export interface InteractionModeState {
@@ -23,14 +17,16 @@ interface InteractionModeProviderProps {
 }
 
 export const InteractionModeContext = createContext<InteractionModeState>({
-  interactionMode: InteractionMode.Layer,
+  interactionMode: InteractionMode.Arrange,
   setInteractionMode: () => {},
 })
 
 export default function InteractionModeProvider({
   children,
 }: InteractionModeProviderProps) {
-  const [interactionMode, setInteractionMode] = useState(InteractionMode.Layer)
+  const [interactionMode, setInteractionMode] = useState(
+    InteractionMode.Arrange,
+  )
   const interactionModeState = {
     interactionMode,
     setInteractionMode,

@@ -1,4 +1,5 @@
 import { EntryPayload } from '@/types'
+import { ReadonlyURLSearchParams } from 'next/navigation'
 
 export function generateSiblingRoutes(
   entries: EntryPayload[] | undefined,
@@ -24,4 +25,15 @@ export function getNextRoute(
   return siblingRoutes[
     newIndex < 0 ? newIndex + siblingRoutes.length : newIndex
   ]
+}
+
+export function getParamValue(
+  params: ReadonlyURLSearchParams,
+  key: string,
+): string | undefined {
+  return params
+    .toString()
+    .split('&')
+    .find((param) => param.includes(key))
+    ?.split('=')[1]
 }

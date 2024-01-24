@@ -7,6 +7,8 @@ import { useRef } from 'react'
 import { ReadonlyURLSearchParams, useSearchParams } from 'next/navigation'
 import { useCanvases } from '@/hooks/useCanvases'
 import { useScrollToSelected } from '@/hooks/useScrollToSelected'
+import { InteractionMode } from '@/app/(personal)/InteractionModeProvider'
+import { getParamValue } from '@/util/routes-helper'
 
 export interface HomePageProps {
   data: HomePagePayload | null
@@ -18,10 +20,16 @@ export function HomePage({ data, encodeDataAttribute }: HomePageProps) {
   const ref = useRef<HTMLDivElement>(null)
   const params = useSearchParams()
   useScrollToSelected(params)
-  const filteredEntries = filterEntries(entries, params)
+  const tag = getParamValue(params, 'tag')
+  let filteredEntries = filterEntries(entries, tag)
   const zIndices = getRandomPermutation(filteredEntries.length)
   const topZ = useRef(filteredEntries.length + 1)
-  const { canvases, handleDrawClick, handleLayerClick } = useCanvases(topZ)
+  const {
+    canvases,
+    interactionMode,
+    handleDrawClick: handleDotClick,
+    handleArrangeClick,
+  } = useCanvases(topZ)
 
   return (
     <>
@@ -29,8 +37,11 @@ export function HomePage({ data, encodeDataAttribute }: HomePageProps) {
         <div ref={ref} className="mx-auto grid w-screen min-h-screen relative">
           <div>{canvases.map((element) => element)}</div>
           <div className="z-[1000000001] fixed">
-            <button onClick={handleDrawClick}>Draw</button>
-            <button onClick={handleLayerClick}>Layer</button>
+            {interactionMode == InteractionMode.Arrange ? (
+              <button onClick={handleDotClick}>Dot</button>
+            ) : (
+              <button onClick={handleArrangeClick}>Arrange</button>
+            )}
           </div>
           {filteredEntries.map((entry, index) => {
             return (
@@ -52,11 +63,11 @@ export function HomePage({ data, encodeDataAttribute }: HomePageProps) {
 
 const filterEntries = (
   entries: EntryPayload[],
-  params: ReadonlyURLSearchParams,
+  tag: string | undefined,
 ): EntryPayload[] => {
-  if (params && params['tag']) {
+  if (tag) {
     entries = entries?.filter((entry) => {
-      return entry.tags?.some((tag) => tag.title === params['tag'])
+      return entry.tags?.some((entryTag) => entryTag.title === tag)
     })
   }
   return entries
