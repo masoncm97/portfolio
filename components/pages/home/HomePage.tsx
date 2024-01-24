@@ -3,12 +3,14 @@
 import type { EncodeDataAttributeCallback } from '@sanity/react-loader/rsc'
 import type { EntryPayload, HomePagePayload } from '@/types'
 import { EntryListItem } from './EntryListItem'
-import { useRef } from 'react'
+import { useEffect, useRef } from 'react'
 import { ReadonlyURLSearchParams, useSearchParams } from 'next/navigation'
 import { useCanvases } from '@/hooks/useCanvases'
 import { useScrollToSelected } from '@/hooks/useScrollToSelected'
 import { InteractionMode } from '@/app/(personal)/InteractionModeProvider'
 import { getParamValue } from '@/util/routes-helper'
+import { createContext, useContext } from 'react'
+import TagProvider from '@/app/(personal)/TagProvider'
 
 export interface HomePageProps {
   data: HomePagePayload | null
@@ -21,6 +23,7 @@ export function HomePage({ data, encodeDataAttribute }: HomePageProps) {
   const params = useSearchParams()
   useScrollToSelected(params)
   const tag = getParamValue(params, 'tag')
+  const tagRef = useRef<string | undefined>(tag)
   let filteredEntries = filterEntries(entries, tag)
   const zIndices = getRandomPermutation(filteredEntries.length)
   const topZ = useRef(filteredEntries.length + 1)
@@ -29,13 +32,13 @@ export function HomePage({ data, encodeDataAttribute }: HomePageProps) {
     interactionMode,
     handleDrawClick: handleDotClick,
     handleArrangeClick,
-  } = useCanvases(topZ)
+  } = useCanvases(topZ, tag)
 
   return (
-    <>
+    <TagProvider tag={tag}>
       {filteredEntries && filteredEntries.length > 0 && (
         <div ref={ref} className="mx-auto grid w-screen min-h-screen relative">
-          <div>{canvases.map((element) => element)}</div>
+          {canvases.map((element) => element)}
           <div className="z-[1000000001] fixed">
             {interactionMode == InteractionMode.Arrange ? (
               <button onClick={handleDotClick}>Dot</button>
@@ -57,7 +60,7 @@ export function HomePage({ data, encodeDataAttribute }: HomePageProps) {
           })}
         </div>
       )}
-    </>
+    </TagProvider>
   )
 }
 

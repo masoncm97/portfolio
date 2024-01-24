@@ -12,30 +12,28 @@ interface Canvases {
   handleArrangeClick: () => void
 }
 
-export const useCanvases = (topZ: MutableRefObject<number>): Canvases => {
+export const useCanvases = (
+  topZ: MutableRefObject<number>,
+  tag: string | undefined,
+): Canvases => {
   const [canvases, setCanvases] = useState<JSX.Element[]>([])
   const { interactionMode, setInteractionMode } = useContext(
     InteractionModeContext,
   )
 
   const handleDrawClick = useCallback(() => {
-    // topZ.current += 1
     setCanvases((prevCanvases) => {
       const newCanvas = (
-        <DotsCanvas key={prevCanvases.length} z={topZ.current} />
+        <DotsCanvas key={prevCanvases.length} z={topZ.current} tag={tag} />
       )
       return [...prevCanvases, newCanvas]
     })
-    // When you use a function inside your state setter, React guarantees that this function
-    // will receive the most up-to-date state (functional update)
-    // Because we're not using the 'canvases' variable directly in our update, we don't need to include it
-    // in our dependency array
+
     setInteractionMode(InteractionMode.Dot)
-  }, [setInteractionMode])
+  }, [setInteractionMode, tag])
 
   const handleArrangeClick = useCallback(() => {
     setInteractionMode(InteractionMode.Arrange)
-    console.log('set')
   }, [setInteractionMode])
 
   return { canvases, interactionMode, handleDrawClick, handleArrangeClick }
