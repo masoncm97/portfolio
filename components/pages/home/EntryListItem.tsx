@@ -29,14 +29,12 @@ export const EntryListItem = memo(function EntryListItem({
   const containerRef = useRef<HTMLDivElement>(null)
   const linkRef = useRef<HTMLAnchorElement>(null)
   const isInView = useInView(entryRef, { once: true })
-
   const { handleStartDrag, handleStopDrag } = useDrag({
     entryRef,
     containerRef,
     linkRef,
     topZ,
   })
-
   useScatterEffect(entryRef, index, z)
 
   return (

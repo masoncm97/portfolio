@@ -46,7 +46,7 @@ export function HomePage({ data, encodeDataAttribute }: HomePageProps) {
           {filteredEntries.map((entry, index) => {
             return (
               <EntryListItem
-                key={index}
+                key={`${tag}:${index}`}
                 entry={entry}
                 index={index}
                 topZ={topZ}
