@@ -3,7 +3,7 @@ import {
   InteractionMode,
 } from '@/app/(personal)/InteractionModeProvider'
 import DotsCanvas from '@/components/shared/DotsCanvas'
-import { useState, useContext, useCallback } from 'react'
+import { useState, useContext, useCallback, MutableRefObject } from 'react'
 
 interface Canvases {
   canvases: JSX.Element[]
@@ -11,13 +11,16 @@ interface Canvases {
   handleLayerClick: () => void
 }
 
-export const useCanvases = (): Canvases => {
+export const useCanvases = (topZ: MutableRefObject<number>): Canvases => {
   const [canvases, setCanvases] = useState<JSX.Element[]>([])
   const { setInteractionMode } = useContext(InteractionModeContext)
 
   const handleDrawClick = useCallback(() => {
+    // topZ.current += 1
     setCanvases((prevCanvases) => {
-      const newCanvas = <DotsCanvas key={prevCanvases.length} />
+      const newCanvas = (
+        <DotsCanvas key={prevCanvases.length} z={topZ.current} />
+      )
       return [...prevCanvases, newCanvas]
     })
     // When you use a function inside your state setter, React guarantees that this function

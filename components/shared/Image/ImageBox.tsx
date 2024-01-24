@@ -3,7 +3,7 @@ import { computeOrientation } from '@/util/styles-helper'
 import Priority from './Priority'
 import { Orientation } from '@/types'
 import classNames from 'classnames'
-import { RefObject } from 'react'
+import { RefObject, memo } from 'react'
 import InternalLink from '../InternalLink'
 
 export interface ImageBoxProps {
@@ -32,7 +32,7 @@ export function EntryImageBox({
   )
 }
 
-export function GalleryImageBox({
+export const GalleryImageBox = memo(function GalleryImageBox({
   imageBox,
   className,
   orientation,
@@ -50,4 +50,4 @@ export function GalleryImageBox({
       <SanityImage {...imageBox} width={width} height={height} size={size} />
     </div>
   )
-}
+})

@@ -2,6 +2,7 @@ import {
   InteractionMode,
   InteractionModeContext,
 } from '@/app/(personal)/InteractionModeProvider'
+import { ZContext } from '@/app/(personal)/ZProvider'
 import classNames from 'classnames'
 import { MutableRefObject, useContext, useEffect, useRef } from 'react'
 
@@ -34,11 +35,13 @@ const incrementColorIndex = (
   }
 }
 
-export function DotsCanvas(props) {
+export function DotsCanvas({ z }) {
   const ongoingTouches = useRef<TouchObject[]>([])
   const canvas = useRef<HTMLCanvasElement>(null)
   const colorIndex = useRef(0)
   const { interactionMode } = useContext(InteractionModeContext)
+  // const { topZ } = useContext(ZContext)
+  // console.log('hey', topZ)
 
   useEffect(() => {
     if (canvas.current) {
@@ -74,15 +77,20 @@ export function DotsCanvas(props) {
     }
   }, [])
 
+  useEffect(() => {
+    if (canvas.current) {
+      canvas.current.style.zIndex = `${z}`
+    }
+  }, [])
+
   return (
     <>
       <canvas
-        {...props}
         className={classNames(
           interactionMode == InteractionMode.Draw
             ? 'pointer-events-auto'
             : 'pointer-events-none',
-          'z-[1000000000] absolute border border-red-500 ',
+          'absolute border border-red-500 ',
         )}
         ref={canvas}
         width={370}

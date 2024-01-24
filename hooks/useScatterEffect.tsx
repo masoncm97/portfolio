@@ -3,6 +3,7 @@ import { RefObject, useEffect } from 'react'
 export const useScatterEffect = (
   entryRef: RefObject<HTMLDivElement>,
   index: number,
+  z: number,
 ) => {
   useEffect(() => {
     if (entryRef.current) {
@@ -11,7 +12,7 @@ export const useScatterEffect = (
         height = Math.abs(height)
       }
       const width = (Math.random() * 2 * window.innerWidth) / 5
-      const z = Math.ceil((index + 1) * Math.random() * 10)
+      // const z = Math.ceil((index + 1) * Math.random() * 10)
       entryRef.current.style.marginLeft = `${width}px`
       entryRef.current.style.marginRight = `${
         window.innerWidth - (width + 240)

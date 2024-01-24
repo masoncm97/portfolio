@@ -16,29 +16,31 @@ export interface HomePageProps {
 export function HomePage({ data, encodeDataAttribute }: HomePageProps) {
   let { entries = [] } = data ?? {}
   const ref = useRef<HTMLDivElement>(null)
-  const zIndex = useRef(1000)
   const params = useSearchParams()
-  const { canvases, handleDrawClick, handleLayerClick } = useCanvases()
   useScrollToSelected(params)
-  filterEntries(entries, params)
+  const filteredEntries = filterEntries(entries, params)
+  const zIndices = getRandomPermutation(filteredEntries.length)
+  const topZ = useRef(filteredEntries.length + 1)
+  const { canvases, handleDrawClick, handleLayerClick } = useCanvases(topZ)
+
   return (
     <>
-      {entries && entries.length > 0 && (
+      {filteredEntries && filteredEntries.length > 0 && (
         <div ref={ref} className="mx-auto grid w-screen min-h-screen relative">
           <div>{canvases.map((element) => element)}</div>
           <div className="z-[1000000001] fixed">
             <button onClick={handleDrawClick}>Draw</button>
             <button onClick={handleLayerClick}>Layer</button>
           </div>
-          {entries.map((entry, index) => {
+          {filteredEntries.map((entry, index) => {
             return (
               <EntryListItem
                 key={index}
                 entry={entry}
                 index={index}
-                zIndex={zIndex}
+                topZ={topZ}
+                z={zIndices[index]}
                 encodeDataAttribute={encodeDataAttribute}
-                parentReference={ref}
               />
             )
           })}
@@ -58,6 +60,19 @@ const filterEntries = (
     })
   }
   return entries
+}
+
+function getRandomPermutation(n: number): number[] {
+  // Create an array from 0 to n
+  let array = Array.from({ length: n + 1 }, (_, i) => i)
+
+  // Shuffle the array using Fisher-Yates algorithm
+  for (let i = n; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1))
+    ;[array[i], array[j]] = [array[j], array[i]]
+  }
+
+  return array
 }
 
 export default HomePage

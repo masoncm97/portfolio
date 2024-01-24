@@ -4,13 +4,13 @@ interface useDragProps {
   entryRef: RefObject<HTMLDivElement>
   containerRef: RefObject<HTMLDivElement>
   linkRef: RefObject<HTMLAnchorElement>
-  zIndex: MutableRefObject<number>
+  topZ: MutableRefObject<number>
 }
 export const useDrag = ({
   entryRef,
   containerRef,
   linkRef,
-  zIndex,
+  topZ,
 }: useDragProps) => {
   let touchDownTime = 0
   let touchX = 0
@@ -22,10 +22,10 @@ export const useDrag = ({
       touchX = e.changedTouches.item(0).clientX
       touchY = e.changedTouches.item(0).clientY
     }
-    if (entryRef.current && zIndex.current && containerRef.current) {
-      containerRef.current.style.zIndex = `${zIndex.current}`
+    if (entryRef.current && topZ.current && containerRef.current) {
+      containerRef.current.style.zIndex = `${topZ.current}`
       entryRef.current.style.outline = `5px solid yellow`
-      zIndex.current++
+      topZ.current++
     }
   }
 

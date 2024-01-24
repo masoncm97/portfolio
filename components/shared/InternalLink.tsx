@@ -14,6 +14,7 @@ export interface InternalLinkProps {
   isBase?: boolean
   onClick?: () => void
   children: React.ReactNode
+  index?: number
 }
 
 export default function InternalLink({
@@ -25,6 +26,7 @@ export default function InternalLink({
   isBase = false,
   onClick,
   children,
+  index,
 }: InternalLinkProps) {
   const searchParams = useSearchParams()
 
@@ -48,11 +50,11 @@ export default function InternalLink({
 
   return (
     <Link
+      key={tag ? tag.title : index}
       href={computeHref(tag)}
       ref={reference}
       onClick={onClick}
       className={className}
-      key={tag ? tag.title : Math.random()}
     >
       {children}
     </Link>

@@ -2,7 +2,7 @@ import { GalleryImageBox } from '@/components/shared/Image/ImageBox'
 import InternalLink from '@/components/shared/InternalLink'
 import type { EntryPayload } from '@/types'
 import { EncodeDataAttributeCallback } from '@sanity/react-loader/rsc'
-import { useRef, RefObject, MutableRefObject, memo } from 'react'
+import { useRef, RefObject, MutableRefObject, memo, useContext } from 'react'
 import { motion, useInView, AnimatePresence } from 'framer-motion'
 import Draggable from 'react-draggable'
 import classNames from 'classnames'
@@ -12,7 +12,8 @@ import { useScatterEffect } from '@/hooks/useScatterEffect'
 export interface EntryProps {
   entry: EntryPayload
   index: number
-  zIndex: MutableRefObject<number>
+  topZ: MutableRefObject<number>
+  z: number
   parentReference?: RefObject<HTMLDivElement>
   encodeDataAttribute?: EncodeDataAttributeCallback
 }
@@ -21,19 +22,22 @@ export const EntryListItem = memo(function EntryListItem({
   entry,
   encodeDataAttribute,
   index,
-  zIndex,
+  topZ,
+  z,
 }: EntryProps) {
   const entryRef = useRef<HTMLDivElement>(null)
   const containerRef = useRef<HTMLDivElement>(null)
   const linkRef = useRef<HTMLAnchorElement>(null)
   const isInView = useInView(entryRef, { once: true })
+
   const { handleStartDrag, handleStopDrag } = useDrag({
     entryRef,
     containerRef,
     linkRef,
-    zIndex,
+    topZ,
   })
-  useScatterEffect(entryRef, index)
+
+  useScatterEffect(entryRef, index, z)
 
   return (
     <Draggable
@@ -65,7 +69,7 @@ export const EntryListItem = memo(function EntryListItem({
                   href={entry.slug}
                   isNav={false}
                   className={'m-auto overflow-hidden'}
-                  reference={linkRef}
+                  index={index}
                 >
                   <GalleryImageBox
                     className=".image pointer-events-auto"
