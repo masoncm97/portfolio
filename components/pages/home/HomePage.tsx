@@ -37,7 +37,10 @@ export function HomePage({ data, encodeDataAttribute }: HomePageProps) {
   return (
     <TagProvider tag={tag}>
       {filteredEntries && filteredEntries.length > 0 && (
-        <div ref={ref} className="mx-auto grid w-screen min-h-screen relative">
+        <div
+          ref={ref}
+          className="mx-auto grid md:grid-cols-2 lg:grid-cols-3 w-screen min-h-screen relative"
+        >
           {canvases.map((element) => element)}
           <div className="z-[1000000001] fixed">
             {interactionMode == InteractionMode.Arrange ? (

@@ -8,6 +8,7 @@ import Draggable from 'react-draggable'
 import classNames from 'classnames'
 import { useDrag } from '@/hooks/useDrag'
 import { useScatterEffect } from '@/hooks/useScatterEffect'
+import useDeviceSize from '@/hooks/useDeviceSize'
 
 export interface EntryProps {
   entry: EntryPayload
@@ -37,7 +38,8 @@ export const EntryListItem = memo(function EntryListItem({
     dragging,
     topZ,
   })
-  useScatterEffect(entryRef, index, z)
+  const deviceSize = useDeviceSize()
+  useScatterEffect(entryRef, index, z, deviceSize)
   return (
     <Draggable
       handle=".image"
@@ -71,9 +73,7 @@ export const EntryListItem = memo(function EntryListItem({
                   className={'m-auto overflow-hidden'}
                   index={index}
                   onClick={(e) => {
-                    console.log(dragging.current)
                     if (dragging.current) {
-                      console.log('y')
                       e.preventDefault()
                     }
                   }}

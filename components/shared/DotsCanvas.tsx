@@ -57,7 +57,6 @@ export function DotsCanvas({ z }: DotsCanvas) {
   const colorIndex = useRef(0)
   const { interactionMode } = useContext(InteractionModeContext)
   const [rerender, setRerender] = useState(false)
-  // const [lastClick, setLastClick] = useState<number>(0)
   const lastClick = useRef(0)
   const tag = useTag()
 
