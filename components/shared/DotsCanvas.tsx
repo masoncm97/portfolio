@@ -63,15 +63,6 @@ export function DotsCanvas({ z }: DotsCanvas) {
 
   useEffect(() => {
     if (canvas.current) {
-      const handleTouch = (e) => {
-        console.log('y')
-        const now = Date.now()
-        if (now - lastClick.current > 100) {
-          lastClick.current = now
-          drawCircleTouch(e)
-        }
-      }
-
       const handleClick = (e) => {
         console.log('1')
         const now = Date.now()
@@ -93,37 +84,13 @@ export function DotsCanvas({ z }: DotsCanvas) {
         }
       }
 
-      const drawCircleTouch = (e) => {
-        const ctx = canvas.current?.getContext('2d')
-        const touches: Touch[] = e.changedTouches
-        if (ctx) {
-          for (let i = 0; i < touches.length; i++) {
-            ongoingTouches.current.push(copyTouch(touches[i]))
-            ctx.beginPath()
-            ctx.arc(
-              touches[i].pageX,
-              touches[i].pageY,
-              20,
-              0,
-              2 * Math.PI,
-              false,
-            )
-            ctx.fillStyle = dotColors[colorIndex.current]
-            ctx.fill()
-            incrementColorIndex(colorIndex, dotColors)
-          }
-        }
-      }
-
       resizeCanvas()
       window.addEventListener('resize', resizeCanvas)
-      canvas.current.addEventListener('touchstart', handleTouch)
       canvas.current.addEventListener('mousedown', handleClick)
 
       return () => {
         if (canvas.current) {
           window.removeEventListener('resize', resizeCanvas)
-          canvas.current.removeEventListener('touchstart', handleTouch)
           canvas.current.addEventListener('mousedown', handleClick)
         }
       }
