@@ -2,7 +2,7 @@
 
 import Link from 'next/link'
 import { useSearchParams } from 'next/navigation'
-import { RefObject } from 'react'
+import { MouseEventHandler, RefObject } from 'react'
 import { Tag } from '@/types'
 
 export interface InternalLinkProps {
@@ -12,7 +12,7 @@ export interface InternalLinkProps {
   reference?: RefObject<HTMLAnchorElement>
   isNav: boolean
   isBase?: boolean
-  onClick?: () => void
+  onClick?: MouseEventHandler<HTMLAnchorElement>
   children: React.ReactNode
   index?: number
 }
@@ -52,9 +52,10 @@ export default function InternalLink({
     <Link
       key={tag ? tag.title : index}
       href={computeHref(tag)}
-      ref={reference}
       onClick={onClick}
+      ref={reference}
       className={className}
+      draggable={false}
     >
       {children}
     </Link>

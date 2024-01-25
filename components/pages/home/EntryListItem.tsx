@@ -2,7 +2,7 @@ import { GalleryImageBox } from '@/components/shared/Image/ImageBox'
 import InternalLink from '@/components/shared/InternalLink'
 import type { EntryPayload } from '@/types'
 import { EncodeDataAttributeCallback } from '@sanity/react-loader/rsc'
-import { useRef, RefObject, MutableRefObject, memo, useContext } from 'react'
+import { useRef, RefObject, MutableRefObject, memo } from 'react'
 import { motion, useInView, AnimatePresence } from 'framer-motion'
 import Draggable from 'react-draggable'
 import classNames from 'classnames'
@@ -28,20 +28,22 @@ export const EntryListItem = memo(function EntryListItem({
   const entryRef = useRef<HTMLDivElement>(null)
   const containerRef = useRef<HTMLDivElement>(null)
   const linkRef = useRef<HTMLAnchorElement>(null)
+  const dragging = useRef<boolean>(false)
   const isInView = useInView(entryRef, { once: true })
-  const { handleStartDrag, handleStopDrag } = useDrag({
+  const { handleStartDrag, handleDrag, handleStopDrag } = useDrag({
     entryRef,
     containerRef,
     linkRef,
+    dragging,
     topZ,
   })
   useScatterEffect(entryRef, index, z)
-
   return (
     <Draggable
       handle=".image"
       onStart={handleStartDrag}
       onStop={handleStopDrag}
+      onDrag={handleDrag}
       nodeRef={containerRef}
     >
       <div
@@ -49,7 +51,7 @@ export const EntryListItem = memo(function EntryListItem({
           entry.orientation?.title == 'Portrait'
             ? 'min-h-[25rem]'
             : 'min-h-[13rem]',
-          'pointer-events-none',
+          'pointer-events-none cursor-auto',
         )}
         id={entry.slug}
         ref={containerRef}
@@ -68,10 +70,17 @@ export const EntryListItem = memo(function EntryListItem({
                   isNav={false}
                   className={'m-auto overflow-hidden'}
                   index={index}
+                  onClick={(e) => {
+                    console.log(dragging.current)
+                    if (dragging.current) {
+                      console.log('y')
+                      e.preventDefault()
+                    }
+                  }}
                   reference={linkRef}
                 >
                   <GalleryImageBox
-                    className=".image pointer-events-auto"
+                    className=".image pointer-events-auto cursor-move"
                     imageBox={{
                       image: entry.image,
                       alt: entry.shortDescription

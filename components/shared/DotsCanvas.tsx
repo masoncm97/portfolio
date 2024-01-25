@@ -7,11 +7,14 @@ import { ZContext } from '@/app/(personal)/ZProvider'
 import classNames from 'classnames'
 import {
   MutableRefObject,
+  useCallback,
   useContext,
   useEffect,
+  useMemo,
   useRef,
   useState,
 } from 'react'
+import Draggable from 'react-draggable'
 
 interface TouchObject {
   pageX: number
@@ -50,43 +53,42 @@ interface DotsCanvas {
 export function DotsCanvas({ z }: DotsCanvas) {
   const ongoingTouches = useRef<TouchObject[]>([])
   const canvas = useRef<HTMLCanvasElement>(null)
+  const ctx = useRef<CanvasRenderingContext2D | null | undefined>(undefined)
   const colorIndex = useRef(0)
   const { interactionMode } = useContext(InteractionModeContext)
   const [rerender, setRerender] = useState(false)
   // const [lastClick, setLastClick] = useState<number>(0)
   const lastClick = useRef(0)
   const tag = useTag()
-  console.log(lastClick)
 
   useEffect(() => {
     if (canvas.current) {
       const handleTouch = (e) => {
+        console.log('y')
         const now = Date.now()
-        if (now - lastClick.current > 500) {
+        if (now - lastClick.current > 100) {
           lastClick.current = now
-          console.log('a')
           drawCircleTouch(e)
         }
       }
 
       const handleClick = (e) => {
+        console.log('1')
         const now = Date.now()
-        if (now - lastClick.current > 500) {
+        if (now - lastClick.current > 100) {
           lastClick.current = now
-          console.log('b')
           drawCircleClick(e)
         }
       }
 
       const drawCircleClick = (e) => {
-        console.log('start', e)
-        const ctx = canvas.current?.getContext('2d')
-        if (ctx) {
-          console.log(colorIndex)
-          ctx.beginPath()
-          ctx.arc(e.pageX, e.pageY, 20, 0, 2 * Math.PI, false)
-          ctx.fillStyle = dotColors[colorIndex.current]
-          ctx.fill()
+        console.log('2')
+        if (ctx.current) {
+          console.log('3')
+          ctx.current.beginPath()
+          ctx.current.arc(e.pageX, e.pageY, 20, 0, 2 * Math.PI, false)
+          ctx.current.fillStyle = dotColors[colorIndex.current]
+          ctx.current.fill()
           incrementColorIndex(colorIndex, dotColors)
         }
       }
@@ -128,6 +130,12 @@ export function DotsCanvas({ z }: DotsCanvas) {
     }
   }, [])
 
+  useEffect(() => {
+    if (canvas.current) {
+      ctx.current = canvas.current?.getContext('2d')
+    }
+  }, [canvas])
+
   const getFullDocumentHeight = () => {
     const body = document.body
     const html = document.documentElement
@@ -146,7 +154,6 @@ export function DotsCanvas({ z }: DotsCanvas) {
     if (canvas.current) {
       canvas.current.width = window.innerWidth
       // canvas.current.style.background = `black`
-      console.log(getFullDocumentHeight())
       canvas.current.height = getFullDocumentHeight()
       setRerender(!rerender)
     }
@@ -160,17 +167,15 @@ export function DotsCanvas({ z }: DotsCanvas) {
   }, [tag])
 
   return (
-    <>
-      <canvas
-        className={classNames(
-          interactionMode == InteractionMode.Dot
-            ? 'pointer-events-auto'
-            : 'pointer-events-none',
-          'absolute border border-red-500',
-        )}
-        ref={canvas}
-      />
-    </>
+    <canvas
+      className={classNames(
+        interactionMode == InteractionMode.Dot
+          ? 'pointer-events-auto'
+          : 'pointer-events-none',
+        'absolute border border-red-500',
+      )}
+      ref={canvas}
+    />
   )
 }
 

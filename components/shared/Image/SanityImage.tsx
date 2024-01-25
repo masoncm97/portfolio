@@ -23,6 +23,7 @@ export default function SanityImage({
     <>
       {imageUrl && (
         <Image
+          draggable={false}
           className="image"
           alt={alt}
           width={width}
