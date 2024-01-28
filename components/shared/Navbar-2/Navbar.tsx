@@ -54,7 +54,7 @@ export default function Navbar({ data }: { data: SettingsPayload }) {
   return (
     <section className="mb-3 relative">
       <Hamburger onClick={triggerNav} isOpen={isOpen} />
-      <div className="ml-2 mr-5 my-2">
+      <div className="ml-2 mr-5 my-2 w-[70%]">
         <LogoBlack />
       </div>
       <LineBreak />

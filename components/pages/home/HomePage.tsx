@@ -44,9 +44,14 @@ export function HomePage({ data, encodeDataAttribute }: HomePageProps) {
           className="mx-auto grid md:grid-cols-2 lg:grid-cols-3 w-screen min-h-screen relative"
         >
           {canvases.map((element) => element)}
-          <div className="z-[1000000001] fixed">
+          <div className="z-[1000000001]">
             {interactionMode == InteractionMode.Arrange ? (
-              <button onClick={handleDotClick}>Dot</button>
+              <button
+                onClick={handleDotClick}
+                className="bg-lemon aspect-square rounded-full w-14 z-[1000000] right-2 top-2 absolute"
+              >
+                Dot
+              </button>
             ) : (
               <button onClick={handleArrangeClick}>Arrange</button>
             )}

@@ -26,6 +26,7 @@ module.exports = {
       },
       colors: {
         fuschia: '#fcdffc',
+        lemon: '#ffea14',
       },
     },
   },
