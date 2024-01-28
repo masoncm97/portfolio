@@ -1,13 +1,14 @@
 'use client'
 
 import { track } from '@vercel/analytics'
-import { AnimatePresence,motion, useInView } from 'framer-motion'
+import { AnimatePresence, motion, useInView } from 'framer-motion'
 import { useSearchParams } from 'next/navigation'
 import { useEffect, useRef, useState } from 'react'
 
 import { Tag } from '@/types'
 
 import NavbarMenu from './NavbarMenu'
+import { LogoBlack } from '@/components/logos'
 
 export default function Navbar({ tags }: { tags: Tag[] }) {
   const [isOpen, setIsOpen] = useState(false)
@@ -38,6 +39,7 @@ export default function Navbar({ tags }: { tags: Tag[] }) {
         onClick={() => triggerNav()}
         className="bg-[#ee4539] aspect-square rounded-full fixed w-6 right-5 top-3 z-[1000000]"
       />
+      <LogoBlack />
       <NavbarMenu isOpen={isOpen} setIsOpen={setIsOpen} tags={tags} />
     </>
   )

@@ -16,10 +16,14 @@ module.exports = {
       ...defaultTheme.screens,
     },
     // Overriding fontFamily to use @next/font loaded families
-    fontFamily: {
-      mono: 'var(--font-mono)',
-      sans: 'var(--font-sans)',
-      serif: 'var(--font-serif)',
+    extend: {
+      fontFamily: {
+        sans: ['var(--font-sans)'],
+        serif: ['classico-urw', 'sans-serif'],
+      },
+      colors: {
+        fuschia: '#fcdffc',
+      },
     },
   },
   plugins: [require('@tailwindcss/typography')],
