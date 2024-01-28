@@ -16,8 +16,9 @@ import medium from '@/sanity/schemas/documents/medium'
 import tag from '@/sanity/schemas/documents/tag'
 import home from '@/sanity/schemas/singletons/home'
 import settings from '@/sanity/schemas/singletons/settings'
-
 import orientation from './sanity/schemas/documents/orientation'
+import viewMode from './sanity/schemas/documents/viewMode'
+import viewModeCollection from './sanity/schemas/documents/viewModeCollection'
 
 const title =
   process.env.NEXT_PUBLIC_SANITY_PROJECT_TITLE ||
@@ -40,6 +41,8 @@ export default defineConfig({
       category,
       medium,
       orientation,
+      viewMode,
+      viewModeCollection,
     ],
   },
   plugins: [

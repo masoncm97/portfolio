@@ -32,6 +32,18 @@ export default defineType({
       ],
     }),
     defineField({
+      name: 'viewModeCollections',
+      title: 'ViewModeCollections',
+      description: 'All View modes for the site',
+      type: 'array',
+      of: [
+        defineArrayMember({
+          type: 'reference',
+          to: [{ type: 'viewModeCollection' }],
+        }),
+      ],
+    }),
+    defineField({
       name: 'ogImage',
       title: 'Open Graph Image',
       type: 'image',

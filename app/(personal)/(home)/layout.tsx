@@ -8,7 +8,7 @@ import { draftMode } from 'next/headers'
 import Navbar from '@/components/shared/Navbar-2/Navbar'
 import { urlForOpenGraphImage } from '@/sanity/lib/utils'
 import { getAllEntries, getSettings } from '@/sanity/loader/loadQuery'
-import { Tag } from '@/types'
+import { Tag, ViewModeCollection } from '@/types'
 
 const VisualEditing = dynamic(() => import('@/sanity/loader/VisualEditing'))
 
@@ -41,12 +41,13 @@ export default async function IndexRoute({
   children: React.ReactNode
 }) {
   const data = await getSettings()
-  const tags = data?.tags || ([] as Tag[])
+  // const tags = data?.tags || ([] as Tag[])
+  // console.log('yup', data)
+  // const viewModes = data?.viewModeCollections || ([] as ViewModeCollection[])
   return (
     <>
       <div className="flex min-h-screen flex-col text-black relative">
-        <Navbar tags={tags} />
-        <h1 className="text-2xl fixed center-absolute">Mason Mathai</h1>
+        <Navbar data={data} />
         {children}
       </div>
       {draftMode().isEnabled && <VisualEditing />}

@@ -21,6 +21,9 @@ module.exports = {
         sans: ['var(--font-sans)'],
         serif: ['classico-urw', 'sans-serif'],
       },
+      fontSize: {
+        xxs: '0.5rem',
+      },
       colors: {
         fuschia: '#fcdffc',
       },

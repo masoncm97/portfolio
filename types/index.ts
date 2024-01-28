@@ -1,6 +1,5 @@
 import type { PortableTextBlock } from '@portabletext/types'
 import type { Image, ImageDefinition } from 'sanity'
-
 export type SanityImage = Image & ImageDefinition
 
 export interface BaseType {
@@ -9,6 +8,13 @@ export interface BaseType {
 }
 
 export interface Category extends BaseType {}
+
+export interface ViewMode extends BaseType {}
+
+export interface ViewModeCollection {
+  title: string
+  viewModes: ViewMode[]
+}
 
 export interface Tag extends BaseType {
   description?: string
@@ -32,6 +38,7 @@ export interface HomePagePayload {
 export interface SettingsPayload {
   title?: string
   categories?: Category[]
+  viewModeCollections?: ViewModeCollection[]
   tags?: Tag[]
   ogImage?: SanityImage
 }

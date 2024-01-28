@@ -54,6 +54,13 @@ export const settingsQuery = groq`
       title,
       description
     },
+    viewModeCollections[]->{
+      title, 
+      viewModes[]->{
+        _type,
+        title,
+      }
+    },
     ogImage,
   }
 `
