@@ -8,7 +8,7 @@ import { useEffect, useRef, useState } from 'react'
 import { SettingsPayload, Tag, ViewModeCollection } from '@/types'
 
 import NavbarMenu from './NavbarMenu'
-import { LogoBlack } from '@/components/logos'
+import { LogoBlack } from '@/components/svg'
 import classNames from 'classnames'
 import { Hamburger } from './Hamburger'
 import { ExpandMenu } from './ExpandMenu'
@@ -17,6 +17,8 @@ import InternalLink from '../InternalLink'
 import { resolveHref } from '@/sanity/lib/utils'
 import { isSearchParam } from '@/util/type-guards'
 import { Collections } from './Collections'
+import TextElement from '../TextElement'
+import { ExpandBlurb } from './ExpandBlurb'
 
 export default function Navbar({ data }: { data: SettingsPayload }) {
   const [isOpen, setIsOpen] = useState(false)
@@ -74,6 +76,13 @@ export default function Navbar({ data }: { data: SettingsPayload }) {
         <Collections tags={tags} />
       </ExpandMenu>
       <div className="h-[1px] w-screen bg-black" />
+      {/* <div>
+        <TextElement as="h2" size="md">
+          {tag?.title}
+        </TextElement>
+        <TextElement>{tag?.description}</TextElement>
+      </div> */}
+      <ExpandBlurb title={tag?.title} body={tag?.description} />
       <div className="bg-fuschia w-screen overflow-x">
         in collage mode you can re-arrange the works
       </div>

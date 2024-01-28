@@ -1,14 +1,22 @@
+import { LinkArrow } from '@/components/svg'
+
+interface SuperScriptElementProps {
+  children: React.ReactNode
+  superScript?: string
+}
+
 export const SuperScriptElement = ({
   children,
   superScript,
-}: {
-  children: React.ReactNode
-  superScript: string
-}) => {
+}: SuperScriptElementProps) => {
   return (
-    <div className="flex">
+    <div className="flex gap-1">
       {children}
-      <div className="text-xxs">{superScript}</div>
+      {superScript ? (
+        <div className="text-xxs">{superScript}</div>
+      ) : (
+        <LinkArrow className="h-[.45rem]" />
+      )}
     </div>
   )
 }

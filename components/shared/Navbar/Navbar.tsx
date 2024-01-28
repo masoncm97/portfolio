@@ -8,7 +8,7 @@ import { useEffect, useRef, useState } from 'react'
 import { Tag } from '@/types'
 
 import NavbarMenu from './NavbarMenu'
-import { LogoBlack } from '@/components/logos'
+import { LogoBlack } from '@/components/svg'
 
 export default function Navbar({ tags }: { tags: Tag[] }) {
   const [isOpen, setIsOpen] = useState(false)

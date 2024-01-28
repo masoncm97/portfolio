@@ -51,9 +51,7 @@ export const Collections = ({ tags }: { tags: Tag[] }) => {
               key={tag.title}
               tag={tag}
             >
-              <SuperScriptElement superScript="↗">
-                {tag.title}
-              </SuperScriptElement>
+              <SuperScriptElement>{tag.title}</SuperScriptElement>
             </InternalLink>
           </div>
         ))}

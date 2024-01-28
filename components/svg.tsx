@@ -1,8 +1,14 @@
 import * as React from 'react'
 import { SVGProps } from 'react'
+import classNames from 'classnames'
 
-export const LogoBlack = (props: SVGProps<SVGSVGElement>) => (
+interface SVGElementProps {
+  props?: SVGProps<SVGSVGElement>
+  className?: string
+}
+export const LogoBlack = ({ props, className }: SVGElementProps) => (
   <svg
+    className={className}
     xmlns="http://www.w3.org/2000/svg"
     id="Layer_2"
     data-name="Layer 2"
@@ -65,7 +71,7 @@ export const LogoBlack = (props: SVGProps<SVGSVGElement>) => (
   </svg>
 )
 
-const LogoWhite = (props: SVGProps<SVGSVGElement>) => (
+export const LogoWhite = ({ props, className }: SVGElementProps) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     id="Layer_2"
@@ -125,6 +131,29 @@ const LogoWhite = (props: SVGProps<SVGSVGElement>) => (
         d="M1072.63 373.95h-31.35V201.64h31.35v172.31Zm-22.35-9h13.35V210.64h-13.35v154.31Z"
         className="cls-1"
       />
+    </g>
+  </svg>
+)
+
+export const LinkArrow = ({ props, className }: SVGElementProps) => (
+  <svg
+    className={className}
+    xmlns="http://www.w3.org/2000/svg"
+    id="Layer_2"
+    data-name="Layer 2"
+    viewBox="0 0 26.66 26.37"
+    {...props}
+  >
+    <defs>
+      <style>{'.cls-1{fill:#231f20;stroke-width:0}'}</style>
+    </defs>
+    <g id="Layer_1-2" data-name="Layer 1">
+      <path
+        d="M.001 24.258 23.838.422l2.12 2.12L2.123 26.38z"
+        className="cls-1"
+      />
+      <path d="M13.93 0h12.72v3H13.93z" className="cls-1" />
+      <path d="M23.63.5h3v12.02h-3z" className="cls-1" />
     </g>
   </svg>
 )
