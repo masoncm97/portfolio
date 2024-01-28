@@ -1,19 +1,23 @@
 import { LinkArrow } from '@/components/svg'
+import TextElement from '@/components/shared/TextElement'
+import { TextSize } from '@/types'
 
 interface SuperScriptElementProps {
-  children: React.ReactNode
+  title: string | undefined
   superScript?: string
+  size?: TextSize
 }
 
 export const SuperScriptElement = ({
-  children,
+  title,
   superScript,
+  size = TextSize.md,
 }: SuperScriptElementProps) => {
   return (
     <div className="flex gap-1">
-      {children}
+      <TextElement size={size}>{title}</TextElement>
       {superScript ? (
-        <div className="text-xxs">{superScript}</div>
+        <TextElement size={TextSize.xxs}>{superScript}</TextElement>
       ) : (
         <LinkArrow className="h-[.45rem]" />
       )}

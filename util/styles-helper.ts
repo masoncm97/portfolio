@@ -1,6 +1,6 @@
 import classNames from 'classnames'
 
-import { Orientation } from '@/types'
+import { Orientation, TextSize } from '@/types'
 
 /* Used to ensure that no border is doubled when rendering items in a table
 by ensuring that all elements before the last one should not have a bottom (for vertical rendering)
@@ -73,5 +73,16 @@ export function computeOrientation(
     default:
       console.warn('Invalid orientation type', orientation.title)
       return {} as any
+  }
+}
+
+export function getCamelCase(text: string | undefined): string | undefined {
+  if (text) {
+    let styledTitle = text
+      .split('-')
+      .map((val) => val[0].toUpperCase() + val.substring(1))
+    return styledTitle.reduce((acc, curr) => acc + ' ' + curr)
+  } else {
+    return text
   }
 }

@@ -3,8 +3,9 @@
 import Link from 'next/link'
 import { useSearchParams } from 'next/navigation'
 import { MouseEventHandler, RefObject } from 'react'
-
-import { Tag } from '@/types'
+import classNames from 'classnames'
+import { Tag, TextSize } from '@/types'
+import TextElement, { getTextStyle } from './TextElement'
 
 export interface InternalLinkProps {
   tag?: Tag
@@ -55,7 +56,7 @@ export default function InternalLink({
       href={computeHref(tag)}
       onClick={onClick}
       ref={reference}
-      className={className}
+      className={classNames(getTextStyle(TextSize.md), className)}
       draggable={false}
     >
       {children}

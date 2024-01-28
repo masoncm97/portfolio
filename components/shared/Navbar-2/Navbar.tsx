@@ -4,10 +4,7 @@ import { track } from '@vercel/analytics'
 import { AnimatePresence, motion, useInView } from 'framer-motion'
 import { usePathname, useSearchParams } from 'next/navigation'
 import { useEffect, useRef, useState } from 'react'
-
 import { SettingsPayload, Tag, ViewModeCollection } from '@/types'
-
-import NavbarMenu from './NavbarMenu'
 import { LogoBlack } from '@/components/svg'
 import classNames from 'classnames'
 import { Hamburger } from './Hamburger'
@@ -18,8 +15,11 @@ import { resolveHref } from '@/sanity/lib/utils'
 import { isSearchParam } from '@/util/type-guards'
 import { Collections } from './Collections'
 import TextElement from '../TextElement'
-import { ExpandBlurb } from './ExpandBlurb'
+import { EntryHeader } from './EntryHeader'
 
+function LineBreak() {
+  return <div className="h-[1px] w-screen bg-black" />
+}
 export default function Navbar({ data }: { data: SettingsPayload }) {
   const [isOpen, setIsOpen] = useState(false)
   const ref = useRef(null)
@@ -50,18 +50,14 @@ export default function Navbar({ data }: { data: SettingsPayload }) {
   const pathName = usePathname()
   const searchTag = searchParams.get('tag')
   const tag = tags.find((tag) => tag.title === searchTag)
-  const [selected, setSelected] = useState(tag?.title || '')
+
   return (
     <section className="mb-3 relative">
-      {/* <button
-        onClick={() => triggerNav()}
-        className="bg-[#ee4539] aspect-square rounded-full fixed w-6 right-5 top-3 z-[1000000]"
-      /> */}
       <Hamburger onClick={triggerNav} isOpen={isOpen} />
       <div className="ml-2 mr-5 my-2">
         <LogoBlack />
       </div>
-      <div className="h-[1px] w-screen bg-black" />
+      <LineBreak />
       <ExpandMenu title={'View'}>
         {viewModeCollections?.map((collection) => (
           <div key={collection.title} className="flex gap-x-3">
@@ -71,22 +67,15 @@ export default function Navbar({ data }: { data: SettingsPayload }) {
           </div>
         ))}
       </ExpandMenu>
-      <div className="h-[1px] w-screen bg-black" />
+      <LineBreak />
       <ExpandMenu title={'Collections'}>
         <Collections tags={tags} />
       </ExpandMenu>
-      <div className="h-[1px] w-screen bg-black" />
-      {/* <div>
-        <TextElement as="h2" size="md">
-          {tag?.title}
-        </TextElement>
-        <TextElement>{tag?.description}</TextElement>
-      </div> */}
-      <ExpandBlurb title={tag?.title} body={tag?.description} />
+      <LineBreak />
+      <EntryHeader title={tag?.title} body={tag?.description} />
       <div className="bg-fuschia w-screen overflow-x">
         in collage mode you can re-arrange the works
       </div>
-      {/* <NavbarMenu isOpen={isOpen} setIsOpen={setIsOpen} tags={tags} /> */}
     </section>
   )
 }

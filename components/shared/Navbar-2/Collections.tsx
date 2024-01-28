@@ -7,6 +7,7 @@ import { resolveHref } from '@/sanity/lib/utils'
 import { isSearchParam } from '@/util/type-guards'
 import { useState } from 'react'
 import { SuperScriptElement } from './SuperScriptElement'
+import { getCamelCase } from '@/util/styles-helper'
 
 export const Collections = ({ tags }: { tags: Tag[] }) => {
   const searchParams = useSearchParams()
@@ -30,11 +31,12 @@ export const Collections = ({ tags }: { tags: Tag[] }) => {
     }
   }
   return (
-    <ul className="grid place-items-start">
+    <ul className="mx-auto grid gap-1 place-items-start">
       {tags &&
         tags.map((tag, index) => (
-          <div key={index} className="flex gap-2">
+          <div key={index} className="grid grid-cols-[min-content,1fr] gap-1">
             <input
+              className="mx-3"
               type="checkbox"
               id={tag.title}
               name={tag.title}
@@ -42,16 +44,12 @@ export const Collections = ({ tags }: { tags: Tag[] }) => {
             />
             <InternalLink
               href={'/'}
-              className={classNames(
-                'px-2 py-1',
-                tag.title === selected ? '' : '',
-              )}
               onClick={() => setChooseTag(tag.title)}
               isNav={false}
               key={tag.title}
               tag={tag}
             >
-              <SuperScriptElement>{tag.title}</SuperScriptElement>
+              <SuperScriptElement title={getCamelCase(tag.title)} />
             </InternalLink>
           </div>
         ))}

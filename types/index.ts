@@ -7,6 +7,14 @@ export interface BaseType {
   title?: string
 }
 
+export enum TextSize {
+  'xxs',
+  'xs',
+  'sm',
+  'md',
+  'lg',
+  'xl',
+}
 export interface Category extends BaseType {}
 
 export interface ViewMode extends BaseType {}

@@ -22,7 +22,7 @@ module.exports = {
         serif: ['classico-urw', 'sans-serif'],
       },
       fontSize: {
-        xxs: '0.5rem',
+        xxs: '0.7rem',
       },
       colors: {
         fuschia: '#fcdffc',
