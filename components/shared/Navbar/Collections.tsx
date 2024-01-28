@@ -1,13 +1,15 @@
-import tag from '@/sanity/schemas/documents/tag'
 import classNames from 'classnames'
-import InternalLink from '../InternalLink'
 import { usePathname, useSearchParams } from 'next/navigation'
-import { Tag } from '@/types'
-import { resolveHref } from '@/sanity/lib/utils'
-import { isSearchParam } from '@/util/type-guards'
 import { useState } from 'react'
-import { SuperScriptElement } from './SuperScriptElement'
+
+import { resolveHref } from '@/sanity/lib/utils'
+import tag from '@/sanity/schemas/documents/tag'
+import { Tag } from '@/types'
 import { getCamelCase } from '@/util/styles-helper'
+import { isSearchParam } from '@/util/type-guards'
+
+import InternalLink from '../InternalLink'
+import { SuperScriptElement } from './SuperScriptElement'
 
 export const Collections = ({ tags }: { tags: Tag[] }) => {
   const searchParams = useSearchParams()

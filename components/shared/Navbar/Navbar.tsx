@@ -1,21 +1,23 @@
 'use client'
 
 import { track } from '@vercel/analytics'
+import classNames from 'classnames'
 import { AnimatePresence, motion, useInView } from 'framer-motion'
 import { usePathname, useSearchParams } from 'next/navigation'
 import { useEffect, useRef, useState } from 'react'
-import { SettingsPayload, Tag, ViewModeCollection } from '@/types'
+
 import { LogoBlack } from '@/components/svg'
-import classNames from 'classnames'
-import { Hamburger } from './Hamburger'
-import { ExpandMenu } from './ExpandMenu'
-import tag from '@/sanity/schemas/documents/tag'
-import InternalLink from '../InternalLink'
 import { resolveHref } from '@/sanity/lib/utils'
+import tag from '@/sanity/schemas/documents/tag'
+import { SettingsPayload, Tag, ViewModeCollection } from '@/types'
 import { isSearchParam } from '@/util/type-guards'
-import { Collections } from './Collections'
+
+import InternalLink from '../InternalLink'
 import TextElement from '../TextElement'
+import { Collections } from './Collections'
 import { EntryHeader } from './EntryHeader'
+import { ExpandMenu } from './ExpandMenu'
+import { Hamburger } from './Hamburger'
 
 function LineBreak() {
   return <div className="h-[1px] w-screen bg-black" />

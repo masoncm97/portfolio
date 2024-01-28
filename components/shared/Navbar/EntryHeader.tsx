@@ -1,9 +1,11 @@
 import classNames from 'classnames'
 import { useState } from 'react'
-import { SuperScriptElement } from './SuperScriptElement'
-import TextElement from '../TextElement'
+
 import { TextSize } from '@/types'
 import { getCamelCase } from '@/util/styles-helper'
+
+import TextElement from '../TextElement'
+import { SuperScriptElement } from './SuperScriptElement'
 
 interface EntryHeaderProps {
   title?: string

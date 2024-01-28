@@ -1,5 +1,5 @@
-import { LinkArrow } from '@/components/svg'
 import TextElement from '@/components/shared/TextElement'
+import { LinkArrow } from '@/components/svg'
 import { TextSize } from '@/types'
 
 interface SuperScriptElementProps {

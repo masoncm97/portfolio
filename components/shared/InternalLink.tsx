@@ -1,10 +1,12 @@
 'use client'
 
+import classNames from 'classnames'
 import Link from 'next/link'
 import { useSearchParams } from 'next/navigation'
 import { MouseEventHandler, RefObject } from 'react'
-import classNames from 'classnames'
+
 import { Tag, TextSize } from '@/types'
+
 import TextElement, { getTextStyle } from './TextElement'
 
 export interface InternalLinkProps {

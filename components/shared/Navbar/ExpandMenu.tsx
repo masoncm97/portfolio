@@ -1,7 +1,9 @@
 import classNames from 'classnames'
 import { useState } from 'react'
-import TextElement from '../TextElement'
+
 import { TextSize } from '@/types'
+
+import TextElement from '../TextElement'
 
 interface ExpandMenuProps {
   title: string

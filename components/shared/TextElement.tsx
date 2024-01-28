@@ -1,5 +1,6 @@
-import { TextSize } from '@/types'
 import classNames from 'classnames'
+
+import { TextSize } from '@/types'
 
 type TextElementProps = {
   as?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'p'
