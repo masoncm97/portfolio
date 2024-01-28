@@ -1,12 +1,13 @@
+import { EncodeDataAttributeCallback } from '@sanity/react-loader/rsc'
+import classNames from 'classnames'
+
 import { ArrowNav } from '@/components/shared/Arrow/ArrowNav'
 import { Exit } from '@/components/shared/Exit'
+import { EntryImageBox } from '@/components/shared/Image/ImageBox'
+import InternalLink from '@/components/shared/InternalLink'
 import { EntryPayload } from '@/types'
 import { getTableElementStyle } from '@/util/styles-helper'
 import { isMedium, isTags } from '@/util/type-guards'
-import { EncodeDataAttributeCallback } from '@sanity/react-loader/rsc'
-import classNames from 'classnames'
-import { EntryImageBox } from '@/components/shared/Image/ImageBox'
-import InternalLink from '@/components/shared/InternalLink'
 
 export interface PageProps {
   data: EntryPayload | undefined
@@ -48,6 +49,7 @@ export function Page({ data, encodeDataAttribute }: PageProps) {
             if (isTags(item)) {
               return (
                 <div
+                  key={'tags'}
                   className={classNames(
                     tableElementBaseStyle,
                     'flex flex-wrap px-0 justify-end gap-1',
@@ -55,6 +57,7 @@ export function Page({ data, encodeDataAttribute }: PageProps) {
                 >
                   {item.map((tag) => (
                     <InternalLink
+                      key={tag.title}
                       isNav={true}
                       tag={tag}
                       href="/"

@@ -1,14 +1,15 @@
+import { EncodeDataAttributeCallback } from '@sanity/react-loader/rsc'
+import classNames from 'classnames'
+import { AnimatePresence,motion, useInView } from 'framer-motion'
+import { memo,MutableRefObject, RefObject, useRef } from 'react'
+import Draggable from 'react-draggable'
+
 import { GalleryImageBox } from '@/components/shared/Image/ImageBox'
 import InternalLink from '@/components/shared/InternalLink'
-import type { EntryPayload } from '@/types'
-import { EncodeDataAttributeCallback } from '@sanity/react-loader/rsc'
-import { useRef, RefObject, MutableRefObject, memo } from 'react'
-import { motion, useInView, AnimatePresence } from 'framer-motion'
-import Draggable from 'react-draggable'
-import classNames from 'classnames'
+import useDeviceSize from '@/hooks/useDeviceSize'
 import { useDrag } from '@/hooks/useDrag'
 import { useScatterEffect } from '@/hooks/useScatterEffect'
-import useDeviceSize from '@/hooks/useDeviceSize'
+import type { EntryPayload } from '@/types'
 
 export interface EntryProps {
   entry: EntryPayload

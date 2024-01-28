@@ -1,5 +1,6 @@
-import { DeviceSize } from '@/types/devices'
 import { RefObject, useEffect } from 'react'
+
+import { DeviceSize } from '@/types/devices'
 
 export const useScatterEffect = (
   entryRef: RefObject<HTMLDivElement>,

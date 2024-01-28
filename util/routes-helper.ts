@@ -1,5 +1,6 @@
-import { EntryPayload } from '@/types'
 import { ReadonlyURLSearchParams } from 'next/navigation'
+
+import { EntryPayload } from '@/types'
 
 export function generateSiblingRoutes(
   entries: EntryPayload[] | undefined,

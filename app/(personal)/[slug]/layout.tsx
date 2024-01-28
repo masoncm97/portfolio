@@ -3,6 +3,7 @@ import 'styles/index.css'
 import { toPlainText } from '@portabletext/react'
 import { Metadata } from 'next'
 import { Suspense } from 'react'
+
 import { urlForOpenGraphImage } from '@/sanity/lib/utils'
 import { getAllEntries, getSettings } from '@/sanity/loader/loadQuery'
 

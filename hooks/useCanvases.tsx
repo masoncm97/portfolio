@@ -1,9 +1,10 @@
+import { MutableRefObject,useCallback, useContext, useState } from 'react'
+
 import {
-  InteractionModeContext,
   InteractionMode,
+  InteractionModeContext,
 } from '@/app/(personal)/InteractionModeProvider'
 import DotsCanvas from '@/components/shared/DotsCanvas'
-import { useState, useContext, useCallback, MutableRefObject } from 'react'
 
 interface Canvases {
   canvases: JSX.Element[]

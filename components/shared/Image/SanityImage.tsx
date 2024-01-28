@@ -1,4 +1,5 @@
 import Image from 'next/image'
+
 import { urlForImage } from '@/sanity/lib/utils'
 
 export interface SanityImageProps {

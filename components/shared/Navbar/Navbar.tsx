@@ -1,11 +1,13 @@
 'use client'
 
-import { useEffect, useRef, useState } from 'react'
-import NavbarMenu from './NavbarMenu'
-import { motion, useInView, AnimatePresence } from 'framer-motion'
-import { Tag } from '@/types'
-import { useSearchParams } from 'next/navigation'
 import { track } from '@vercel/analytics'
+import { AnimatePresence,motion, useInView } from 'framer-motion'
+import { useSearchParams } from 'next/navigation'
+import { useEffect, useRef, useState } from 'react'
+
+import { Tag } from '@/types'
+
+import NavbarMenu from './NavbarMenu'
 
 export default function Navbar({ tags }: { tags: Tag[] }) {
   const [isOpen, setIsOpen] = useState(false)

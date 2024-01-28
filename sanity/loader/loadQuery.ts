@@ -1,12 +1,12 @@
 import 'server-only'
 
 import { draftMode } from 'next/headers'
+import { groq } from 'next-sanity'
 
 import { client } from '@/sanity/lib/client'
 import { getAllEntriesQuery, settingsQuery } from '@/sanity/lib/queries'
 import { token } from '@/sanity/lib/token'
-import { HomePagePayload, EntryPayload, SettingsPayload } from '@/types'
-import { groq } from 'next-sanity'
+import { EntryPayload, HomePagePayload, SettingsPayload } from '@/types'
 
 import { queryStore } from './createQueryStore'
 

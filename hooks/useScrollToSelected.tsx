@@ -1,6 +1,7 @@
-import { getParamValue } from '@/util/routes-helper'
 import { ReadonlyURLSearchParams } from 'next/navigation'
 import { useEffect } from 'react'
+
+import { getParamValue } from '@/util/routes-helper'
 
 export const useScrollToSelected = (params: ReadonlyURLSearchParams) => {
   const tag = getParamValue(params, 'nav')

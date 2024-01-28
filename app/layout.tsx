@@ -1,6 +1,7 @@
 import 'tailwindcss/tailwind.css'
-import { IBM_Plex_Mono, Inter, PT_Serif } from 'next/font/google'
+
 import { Analytics } from '@vercel/analytics/react'
+import { IBM_Plex_Mono, Inter, PT_Serif } from 'next/font/google'
 
 const serif = PT_Serif({
   variable: '--font-serif',

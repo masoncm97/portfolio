@@ -1,6 +1,6 @@
 'use client'
 
-import { Dispatch, SetStateAction, createContext, useState } from 'react'
+import { createContext, Dispatch, SetStateAction, useState } from 'react'
 
 export enum InteractionMode {
   Dot,

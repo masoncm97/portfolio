@@ -7,14 +7,16 @@ import { defineConfig } from 'sanity'
 import { deskTool } from 'sanity/desk'
 import { presentationTool } from 'sanity/presentation'
 import { unsplashImageAsset } from 'sanity-plugin-asset-source-unsplash'
+
 import { apiVersion, dataset, projectId, studioUrl } from '@/sanity/lib/api'
 import { pageStructure, singletonPlugin } from '@/sanity/plugins/settings'
+import category from '@/sanity/schemas/documents/category'
 import entry from '@/sanity/schemas/documents/entry'
+import medium from '@/sanity/schemas/documents/medium'
+import tag from '@/sanity/schemas/documents/tag'
 import home from '@/sanity/schemas/singletons/home'
 import settings from '@/sanity/schemas/singletons/settings'
-import tag from '@/sanity/schemas/documents/tag'
-import category from '@/sanity/schemas/documents/category'
-import medium from '@/sanity/schemas/documents/medium'
+
 import orientation from './sanity/schemas/documents/orientation'
 
 const title =

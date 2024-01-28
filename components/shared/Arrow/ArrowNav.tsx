@@ -1,11 +1,13 @@
 'use client'
 
-import { Arrow } from './Arrow'
 import classNames from 'classnames'
+import { useContext } from 'react'
+
 // import { NavigationLink } from '@/components/shared/Links/client/NavigationLink'
 import { NavigationContext } from '@/app/(personal)/[slug]/NavigationProvider'
-import { useContext } from 'react'
+
 import InternalLink from '../InternalLink'
+import { Arrow } from './Arrow'
 
 export interface ArrowNavProps {
   className?: string

@@ -3,6 +3,7 @@
 import Link from 'next/link'
 import { useSearchParams } from 'next/navigation'
 import { MouseEventHandler, RefObject } from 'react'
+
 import { Tag } from '@/types'
 
 export interface InternalLinkProps {

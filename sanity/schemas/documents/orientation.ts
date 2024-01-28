@@ -1,5 +1,5 @@
-import { defineType, defineField } from 'sanity'
 import { StackIcon } from '@sanity/icons'
+import { defineField,defineType } from 'sanity'
 
 export default defineType({
   type: 'document',

@@ -4,9 +4,10 @@ import { toPlainText } from '@portabletext/react'
 import { Metadata } from 'next'
 import dynamic from 'next/dynamic'
 import { draftMode } from 'next/headers'
+
+import Navbar from '@/components/shared/Navbar/Navbar'
 import { urlForOpenGraphImage } from '@/sanity/lib/utils'
 import { getAllEntries, getSettings } from '@/sanity/loader/loadQuery'
-import Navbar from '@/components/shared/Navbar/Navbar'
 import { Tag } from '@/types'
 
 const VisualEditing = dynamic(() => import('@/sanity/loader/VisualEditing'))

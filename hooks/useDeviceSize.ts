@@ -1,4 +1,5 @@
 import { DeviceSize } from '@/types/devices'
+
 import useWindowDimensions from './useWindowDimensions'
 
 const useDeviceSize = (): DeviceSize | undefined => {

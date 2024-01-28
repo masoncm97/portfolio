@@ -1,9 +1,3 @@
-import {
-  InteractionMode,
-  InteractionModeContext,
-} from '@/app/(personal)/InteractionModeProvider'
-import { useTag } from '@/app/(personal)/TagProvider'
-import { ZContext } from '@/app/(personal)/ZProvider'
 import classNames from 'classnames'
 import {
   MutableRefObject,
@@ -15,6 +9,13 @@ import {
   useState,
 } from 'react'
 import Draggable from 'react-draggable'
+
+import {
+  InteractionMode,
+  InteractionModeContext,
+} from '@/app/(personal)/InteractionModeProvider'
+import { useTag } from '@/app/(personal)/TagProvider'
+import { ZContext } from '@/app/(personal)/ZProvider'
 
 interface TouchObject {
   pageX: number
@@ -60,8 +61,18 @@ export function DotsCanvas({ z }: DotsCanvas) {
   const lastClick = useRef(0)
   const tag = useTag()
 
-  useEffect(() => {
+  // retrigger this every time we change the tag
+  const resizeCanvas = useCallback(() => {
     if (canvas.current) {
+      canvas.current.width = window.innerWidth
+      canvas.current.height = getFullDocumentHeight()
+      setRerender((prev) => !prev)
+    }
+  }, [])
+
+  useEffect(() => {
+    let currentCanvas = canvas.current
+    if (currentCanvas) {
       const handleClick = (e) => {
         console.log('1')
         const now = Date.now()
@@ -85,16 +96,16 @@ export function DotsCanvas({ z }: DotsCanvas) {
 
       resizeCanvas()
       window.addEventListener('resize', resizeCanvas)
-      canvas.current.addEventListener('mousedown', handleClick)
+      currentCanvas.addEventListener('mousedown', handleClick)
 
       return () => {
-        if (canvas.current) {
+        if (currentCanvas) {
           window.removeEventListener('resize', resizeCanvas)
-          canvas.current.addEventListener('mousedown', handleClick)
+          currentCanvas.removeEventListener('mousedown', handleClick)
         }
       }
     }
-  }, [])
+  }, [resizeCanvas])
 
   useEffect(() => {
     if (canvas.current) {
@@ -115,22 +126,12 @@ export function DotsCanvas({ z }: DotsCanvas) {
     )
   }
 
-  // retrigger this every time we change the tag
-  const resizeCanvas = () => {
-    if (canvas.current) {
-      canvas.current.width = window.innerWidth
-      // canvas.current.style.background = `black`
-      canvas.current.height = getFullDocumentHeight()
-      setRerender(!rerender)
-    }
-  }
-
   useEffect(() => {
     if (canvas.current) {
       canvas.current.style.zIndex = `${z}`
       resizeCanvas()
     }
-  }, [tag])
+  }, [tag, resizeCanvas, z])
 
   return (
     <canvas

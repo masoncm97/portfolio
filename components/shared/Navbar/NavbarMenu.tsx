@@ -1,14 +1,16 @@
-import Link from 'next/link'
-import { AnimatePresence, motion } from 'framer-motion'
-import { Exit } from '../Exit'
-import { Tag } from '@/types'
-import { usePathname, useSearchParams } from 'next/navigation'
-import { resolveHref } from '@/sanity/lib/utils'
-import { isSearchParam } from '@/util/type-guards'
-import { useState } from 'react'
 import classNames from 'classnames'
-import TextElement from '../TextElement'
+import { AnimatePresence, motion } from 'framer-motion'
+import Link from 'next/link'
+import { usePathname, useSearchParams } from 'next/navigation'
+import { useState } from 'react'
+
+import { resolveHref } from '@/sanity/lib/utils'
+import { Tag } from '@/types'
+import { isSearchParam } from '@/util/type-guards'
+
+import { Exit } from '../Exit'
 import InternalLink from '../InternalLink'
+import TextElement from '../TextElement'
 
 export interface NavBarMenuProps {
   isOpen: boolean

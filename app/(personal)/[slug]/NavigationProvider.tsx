@@ -1,8 +1,9 @@
 'use client'
 
-import { EntryPayload } from '@/types'
 import { usePathname, useSearchParams } from 'next/navigation'
 import { createContext, useEffect } from 'react'
+
+import { EntryPayload } from '@/types'
 
 export const NavigationContext = createContext<NavigationState | null>(null)
 
@@ -47,7 +48,7 @@ export default function NavigationProvider({
 
   useEffect(() => {
     sessionStorage.setItem('lastViewedImage', current)
-  }, [])
+  }, [current])
 
   const navigationState = {
     prev: getNextRoute(current, siblingRoutes, (index) => index + 1),

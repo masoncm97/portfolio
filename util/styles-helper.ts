@@ -1,5 +1,6 @@
-import { Orientation } from '@/types'
 import classNames from 'classnames'
+
+import { Orientation } from '@/types'
 
 /* Used to ensure that no border is doubled when rendering items in a table
 by ensuring that all elements before the last one should not have a bottom (for vertical rendering)

@@ -1,5 +1,5 @@
 import { FilterIcon } from '@sanity/icons'
-import { defineType, defineField } from 'sanity'
+import { defineField,defineType } from 'sanity'
 
 export default defineType({
   type: 'document',

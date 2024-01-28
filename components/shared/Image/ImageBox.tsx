@@ -1,10 +1,12 @@
-import SanityImage, { SanityImageProps } from './SanityImage'
-import { computeOrientation } from '@/util/styles-helper'
-import Priority from './Priority'
-import { Orientation } from '@/types'
 import classNames from 'classnames'
-import { RefObject, memo } from 'react'
+import { memo,RefObject } from 'react'
+
+import { Orientation } from '@/types'
+import { computeOrientation } from '@/util/styles-helper'
+
 import InternalLink from '../InternalLink'
+import Priority from './Priority'
+import SanityImage, { SanityImageProps } from './SanityImage'
 
 export interface ImageBoxProps {
   imageBox: SanityImageProps

@@ -1,6 +1,8 @@
+import type { Viewport } from 'next'
+
 import { HomePage } from '@/components/pages/home/HomePage'
 import { getAllEntries } from '@/sanity/loader/loadQuery'
-import type { Viewport } from 'next'
+
 import InteractionModeProvider, {
   InteractionMode,
 } from '../InteractionModeProvider'

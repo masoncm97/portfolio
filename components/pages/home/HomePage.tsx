@@ -1,16 +1,18 @@
 'use client'
 
 import type { EncodeDataAttributeCallback } from '@sanity/react-loader/rsc'
-import type { EntryPayload, HomePagePayload } from '@/types'
-import { EntryListItem } from './EntryListItem'
-import { useEffect, useRef } from 'react'
 import { ReadonlyURLSearchParams, useSearchParams } from 'next/navigation'
+import { useEffect, useRef } from 'react'
+import { createContext, useContext } from 'react'
+
+import { InteractionMode } from '@/app/(personal)/InteractionModeProvider'
+import TagProvider from '@/app/(personal)/TagProvider'
 import { useCanvases } from '@/hooks/useCanvases'
 import { useScrollToSelected } from '@/hooks/useScrollToSelected'
-import { InteractionMode } from '@/app/(personal)/InteractionModeProvider'
+import type { EntryPayload, HomePagePayload } from '@/types'
 import { getParamValue } from '@/util/routes-helper'
-import { createContext, useContext } from 'react'
-import TagProvider from '@/app/(personal)/TagProvider'
+
+import { EntryListItem } from './EntryListItem'
 
 export interface HomePageProps {
   data: HomePagePayload | null
