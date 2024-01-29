@@ -8,7 +8,6 @@ import { draftMode } from 'next/headers'
 import Navbar from '@/components/shared/Navbar/Navbar'
 import { urlForOpenGraphImage } from '@/sanity/lib/utils'
 import { getAllEntries, getSettings } from '@/sanity/loader/loadQuery'
-import { Tag, ViewModeCollection } from '@/types'
 
 const VisualEditing = dynamic(() => import('@/sanity/loader/VisualEditing'))
 

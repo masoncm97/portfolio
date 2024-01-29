@@ -1,9 +1,10 @@
+import { useCallback, useContext, useEffect, useId, useState } from 'react'
+
+import { CollectionsContext } from '@/app/providers/CollectionsProvider'
 import { Tag } from '@/types'
 import { getCamelCase } from '@/util/styles-helper'
-import { useCallback, useContext, useEffect, useId, useState } from 'react'
-import InternalLink from '../InternalLink'
+
 import { SuperScriptElement } from './SuperScriptElement'
-import { CollectionsContext } from '@/app/providers/CollectionsProvider'
 
 export const CheckboxLink = ({ tag }: { tag: Tag }) => {
   const tagId = useId()

@@ -2,9 +2,13 @@ import 'tailwindcss/tailwind.css'
 
 import { Analytics } from '@vercel/analytics/react'
 import { IBM_Plex_Mono, Inter, PT_Serif } from 'next/font/google'
-import CollectionsProvider from './providers/CollectionsProvider'
+
 import { getSettings } from '@/sanity/loader/loadQuery'
-import { Tag } from '@/types'
+import { LayoutCollection, Tag, ThemeCollection } from '@/types'
+
+import CollectionsProvider from './providers/CollectionsProvider'
+import ThemeProvider from './providers/ThemeProvider'
+import LayoutProvider, { LayoutContext } from './providers/LayoutProvider'
 
 const serif = PT_Serif({
   variable: '--font-serif',
@@ -31,10 +35,17 @@ export default async function RootLayout({
 }) {
   const settings = await getSettings()
   let defaultCollectionFilters: string[] = []
+  let themeCollection: ThemeCollection = { title: '', viewModes: [] }
+  let layoutCollection: LayoutCollection = { title: '', viewModes: [] }
   if (settings.tags) {
     defaultCollectionFilters = settings.tags
       .filter((tag): tag is Tag & { title: string } => tag.title !== undefined)
       .map((tag) => tag.title)
+  }
+
+  if (settings.viewModeCollections) {
+    themeCollection = settings.viewModeCollections[0]
+    layoutCollection = settings.viewModeCollections[1]
   }
 
   return (
@@ -43,12 +54,16 @@ export default async function RootLayout({
       className={`${mono.variable} ${sans.variable} ${serif.variable}`}
     >
       <body className="overflow-x-hidden">
-        <CollectionsProvider
-          defaultCollectionFilters={defaultCollectionFilters}
-        >
-          {children}
-        </CollectionsProvider>
-        <Analytics />
+        <LayoutProvider layoutCollection={layoutCollection}>
+          <ThemeProvider themeCollection={themeCollection}>
+            <CollectionsProvider
+              defaultCollectionFilters={defaultCollectionFilters}
+            >
+              {children}
+            </CollectionsProvider>
+            <Analytics />
+          </ThemeProvider>
+        </LayoutProvider>
       </body>
     </html>
   )

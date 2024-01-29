@@ -1,5 +1,6 @@
-import { InteractionMode } from '@/app/providers/InteractionModeProvider'
 import classNames from 'classnames'
+
+import { InteractionMode } from '@/app/providers/InteractionModeProvider'
 
 interface InteractionModeButtonProps {
   interactionMode: InteractionMode

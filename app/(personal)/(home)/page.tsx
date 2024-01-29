@@ -2,12 +2,9 @@ import type { Viewport } from 'next'
 
 import { HomePage } from '@/components/pages/home/HomePage'
 import { getAllEntries, getSettings } from '@/sanity/loader/loadQuery'
-
-import InteractionModeProvider, {
-  InteractionMode,
-} from '../../providers/InteractionModeProvider'
-import CollectionsProvider from '@/app/providers/CollectionsProvider'
 import { Tag } from '@/types'
+
+import InteractionModeProvider from '../../providers/InteractionModeProvider'
 
 export const viewport: Viewport = {
   width: 'device-width',

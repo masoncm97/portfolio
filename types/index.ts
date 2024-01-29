@@ -17,11 +17,22 @@ export enum TextSize {
 }
 export interface Category extends BaseType {}
 
+export interface BaseType {
+  _type: string
+  title: string
+}
+
 export interface ViewMode extends BaseType {}
 
-export interface ViewModeCollection {
+export interface ThemeCollection extends ViewModeCollection<Theme> {}
+export interface Theme extends ViewMode {}
+
+export interface LayoutCollection extends ViewModeCollection<Layout> {}
+export interface Layout extends ViewMode {}
+
+export interface ViewModeCollection<T extends ViewMode> {
   title: string
-  viewModes: ViewMode[]
+  viewModes: T[]
 }
 
 export interface Tag extends BaseType {
@@ -46,7 +57,7 @@ export interface HomePagePayload {
 export interface SettingsPayload {
   title?: string
   categories?: Category[]
-  viewModeCollections?: ViewModeCollection[]
+  viewModeCollections?: ViewModeCollection<ViewMode>[]
   tags?: Tag[]
   ogImage?: SanityImage
 }

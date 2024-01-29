@@ -1,16 +1,14 @@
 'use client'
 
+import { useRouter } from 'next/navigation'
 import {
+  createContext,
   Dispatch,
   SetStateAction,
-  createContext,
-  useReducer,
-  useContext,
-  useState,
   useEffect,
+  useState,
 } from 'react'
-import { useRouter, useSearchParams } from 'next/navigation'
-import { getParamValue } from '@/util/routes-helper'
+
 
 export interface CollectionsProviderState {
   collectionFilters: string[]
@@ -38,7 +36,6 @@ export default function CollectionsProvider({
   children,
 }: CollectionsProviderProps) {
   const router = useRouter()
-  const params = useSearchParams()
   const [collectionFilters, setCollectionFilters] = useState<string[]>([])
   const [highlightCollection, setHighlightCollection] = useState<
     string | undefined
@@ -54,7 +51,6 @@ export default function CollectionsProvider({
 
   useEffect(() => {
     let diff = setDifference(defaultCollectionFilters, collectionFilters)
-    console.log(diff)
     if (diff.length == 1) {
       setHighlightCollection(diff[0])
       router.push(`/?tag=${diff[0]}`)

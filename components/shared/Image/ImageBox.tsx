@@ -1,10 +1,9 @@
 import classNames from 'classnames'
-import { memo,RefObject } from 'react'
+import { memo } from 'react'
 
 import { Orientation } from '@/types'
 import { computeOrientation } from '@/util/styles-helper'
 
-import InternalLink from '../InternalLink'
 import Priority from './Priority'
 import SanityImage, { SanityImageProps } from './SanityImage'
 

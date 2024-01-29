@@ -1,7 +1,7 @@
 import { EncodeDataAttributeCallback } from '@sanity/react-loader/rsc'
 import classNames from 'classnames'
-import { AnimatePresence,motion, useInView } from 'framer-motion'
-import { memo,MutableRefObject, RefObject, useRef } from 'react'
+import { AnimatePresence, motion, useInView } from 'framer-motion'
+import { memo, MutableRefObject, RefObject, useRef } from 'react'
 import Draggable from 'react-draggable'
 
 import { GalleryImageBox } from '@/components/shared/Image/ImageBox'

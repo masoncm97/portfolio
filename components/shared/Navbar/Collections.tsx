@@ -1,15 +1,10 @@
-import classNames from 'classnames'
 import { usePathname, useSearchParams } from 'next/navigation'
-import { useId, useState } from 'react'
+import { useState } from 'react'
 
 import { resolveHref } from '@/sanity/lib/utils'
-import tag from '@/sanity/schemas/documents/tag'
 import { Tag } from '@/types'
-import { getCamelCase } from '@/util/styles-helper'
 import { isSearchParam } from '@/util/type-guards'
 
-import InternalLink from '../InternalLink'
-import { SuperScriptElement } from './SuperScriptElement'
 import { CheckboxLink } from './CheckboxLink'
 
 export const Collections = ({ tags }: { tags: Tag[] }) => {
@@ -33,8 +28,6 @@ export const Collections = ({ tags }: { tags: Tag[] }) => {
       return null
     }
   }
-  const tagId = useId()
-
   return (
     <ul className="mx-auto grid gap-1 place-items-start">
       {tags && tags.map((tag) => <CheckboxLink key={tag.title} tag={tag} />)}

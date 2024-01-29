@@ -1,14 +1,10 @@
 import classNames from 'classnames'
 import { useCallback, useContext, useState } from 'react'
-
+import { CollectionsContext } from '@/app/providers/CollectionsProvider'
 import { TextSize } from '@/types'
 import { getCamelCase } from '@/util/styles-helper'
-
 import TextElement from '../TextElement'
 import { SuperScriptElement } from './SuperScriptElement'
-import { CollectionsContext } from '@/app/providers/CollectionsProvider'
-import { useRouter } from 'next/navigation'
-import tag from '@/sanity/schemas/documents/tag'
 
 interface EntryHeaderProps {
   title?: string

@@ -7,7 +7,7 @@ import { MouseEventHandler, RefObject } from 'react'
 
 import { Tag, TextSize } from '@/types'
 
-import TextElement, { getTextStyle } from './TextElement'
+import { getTextStyle } from './TextElement'
 
 export interface InternalLinkProps {
   tag?: Tag

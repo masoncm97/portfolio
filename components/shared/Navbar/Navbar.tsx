@@ -1,24 +1,19 @@
 'use client'
 
 import { track } from '@vercel/analytics'
-import classNames from 'classnames'
-import { AnimatePresence, motion, useInView } from 'framer-motion'
+import { useInView } from 'framer-motion'
 import { usePathname, useSearchParams } from 'next/navigation'
-import { useContext, useEffect, useRef, useState } from 'react'
+import { useContext, useRef, useState } from 'react'
 
+import { CollectionsContext } from '@/app/providers/CollectionsProvider'
 import { LogoBlack } from '@/components/svg'
-import { resolveHref } from '@/sanity/lib/utils'
-import tag from '@/sanity/schemas/documents/tag'
-import { SettingsPayload, Tag, ViewModeCollection } from '@/types'
-import { isSearchParam } from '@/util/type-guards'
+import { SettingsPayload, Tag, ViewMode, ViewModeCollection } from '@/types'
 
-import InternalLink from '../InternalLink'
-import TextElement from '../TextElement'
 import { Collections } from './Collections'
 import { EntryHeader } from './EntryHeader'
 import { ExpandMenu } from './ExpandMenu'
 import { Hamburger } from './Hamburger'
-import { CollectionsContext } from '@/app/providers/CollectionsProvider'
+import { ViewModes } from './ViewModes'
 
 function LineBreak() {
   return <div className="h-[1px] w-screen bg-black" />
@@ -31,7 +26,7 @@ export default function Navbar({ data }: { data: SettingsPayload }) {
   const searchParams = useSearchParams()
   const tags = data?.tags || ([] as Tag[])
   const viewModeCollections =
-    data?.viewModeCollections || ([] as ViewModeCollection[])
+    data?.viewModeCollections || ([] as ViewModeCollection<ViewMode>[])
 
   const { highlightCollection } = useContext(CollectionsContext)
 
@@ -53,13 +48,7 @@ export default function Navbar({ data }: { data: SettingsPayload }) {
       </div>
       <LineBreak />
       <ExpandMenu title={'View'}>
-        {viewModeCollections?.map((collection) => (
-          <div key={collection.title} className="flex gap-x-3">
-            {collection?.viewModes?.map((mode) => (
-              <p key={mode.title}>{mode.title}</p>
-            ))}
-          </div>
-        ))}
+        <ViewModes viewModeCollections={viewModeCollections} />
       </ExpandMenu>
       <LineBreak />
       <ExpandMenu title={'Collections'}>

@@ -1,11 +1,11 @@
 'use client'
 
 import type { EncodeDataAttributeCallback } from '@sanity/react-loader/rsc'
-import { ReadonlyURLSearchParams, useSearchParams } from 'next/navigation'
-import { MutableRefObject, useEffect, useRef } from 'react'
-import { createContext, useContext } from 'react'
+import { useSearchParams } from 'next/navigation'
+import { useEffect, useRef } from 'react'
+import { useContext } from 'react'
 
-import { InteractionMode } from '@/app/providers/InteractionModeProvider'
+import { CollectionsContext } from '@/app/providers/CollectionsProvider'
 import TagProvider from '@/app/providers/TagProvider'
 import { useCanvases } from '@/hooks/useCanvases'
 import { useScrollToSelected } from '@/hooks/useScrollToSelected'
@@ -14,7 +14,6 @@ import { getParamValue } from '@/util/routes-helper'
 
 import { EntryListItem } from './EntryListItem'
 import { InteractionModeButton } from './InteractionModeButton'
-import { CollectionsContext } from '@/app/providers/CollectionsProvider'
 
 export interface HomePageProps {
   data: HomePagePayload | null
@@ -39,7 +38,6 @@ export function HomePage({ data, encodeDataAttribute }: HomePageProps) {
   } = useCanvases(topZ, tag)
 
   useEffect(() => {
-    console.log('filtering...')
     filteredEntries = filterEntries(entries, collectionFilters)
   }, [collectionFilters])
 
