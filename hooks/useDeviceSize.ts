@@ -18,7 +18,6 @@ const useDeviceSize = (): DeviceSize | undefined => {
     }
   }
 
-  console.log()
   return DeviceSize.xl
 }
 

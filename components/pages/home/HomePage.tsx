@@ -39,6 +39,7 @@ export function HomePage({ data, encodeDataAttribute }: HomePageProps) {
   } = useCanvases(topZ, tag)
 
   useEffect(() => {
+    console.log('filtering...')
     filteredEntries = filterEntries(entries, collectionFilters)
   }, [collectionFilters])
 
@@ -77,13 +78,10 @@ const filterEntries = (
   entries: EntryPayload[],
   filters: string[],
 ): EntryPayload[] => {
-  console.log(filters)
-
   entries = entries?.filter(
     (entry) =>
       !entry.tags?.every((entryTag) => filters.includes(entryTag.title)),
   )
-  console.log(entries)
 
   return entries
 }

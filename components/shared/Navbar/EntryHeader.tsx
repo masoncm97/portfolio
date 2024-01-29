@@ -1,11 +1,14 @@
 import classNames from 'classnames'
-import { useState } from 'react'
+import { useCallback, useContext, useState } from 'react'
 
 import { TextSize } from '@/types'
 import { getCamelCase } from '@/util/styles-helper'
 
 import TextElement from '../TextElement'
 import { SuperScriptElement } from './SuperScriptElement'
+import { CollectionsContext } from '@/app/providers/CollectionsProvider'
+import { useRouter } from 'next/navigation'
+import tag from '@/sanity/schemas/documents/tag'
 
 interface EntryHeaderProps {
   title?: string
@@ -14,6 +17,19 @@ interface EntryHeaderProps {
 export const EntryHeader = ({ title, body }: EntryHeaderProps) => {
   const [isOpen, setIsOpen] = useState(true)
   const heading = getCamelCase(title)
+  const {
+    collectionFilters,
+    defaultCollectionFilters,
+    highlightCollection,
+    setCollectionFilters,
+    setHighlightCollection,
+  } = useContext(CollectionsContext)
+
+  const closeEntryHeader = useCallback(() => {
+    console.log('p', defaultCollectionFilters)
+    setCollectionFilters([])
+    setIsOpen((prev) => !prev)
+  }, [setCollectionFilters])
 
   return (
     <div
@@ -23,7 +39,7 @@ export const EntryHeader = ({ title, body }: EntryHeaderProps) => {
       )}
     >
       {heading && (
-        <button className="flex" onClick={() => setIsOpen((prev) => !prev)}>
+        <button className="flex" onClick={() => closeEntryHeader()}>
           <SuperScriptElement
             title={heading}
             size={TextSize.xl}

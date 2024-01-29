@@ -4,7 +4,7 @@ import { track } from '@vercel/analytics'
 import classNames from 'classnames'
 import { AnimatePresence, motion, useInView } from 'framer-motion'
 import { usePathname, useSearchParams } from 'next/navigation'
-import { useEffect, useRef, useState } from 'react'
+import { useContext, useEffect, useRef, useState } from 'react'
 
 import { LogoBlack } from '@/components/svg'
 import { resolveHref } from '@/sanity/lib/utils'
@@ -18,6 +18,7 @@ import { Collections } from './Collections'
 import { EntryHeader } from './EntryHeader'
 import { ExpandMenu } from './ExpandMenu'
 import { Hamburger } from './Hamburger'
+import { CollectionsContext } from '@/app/providers/CollectionsProvider'
 
 function LineBreak() {
   return <div className="h-[1px] w-screen bg-black" />
@@ -29,20 +30,12 @@ export default function Navbar({ data }: { data: SettingsPayload }) {
   // console.log(viewModeCollections)
   const searchParams = useSearchParams()
   const tags = data?.tags || ([] as Tag[])
-  console.log('yup', data)
   const viewModeCollections =
     data?.viewModeCollections || ([] as ViewModeCollection[])
-  console.log(viewModeCollections)
-  const tagParam = searchParams
-    .toString()
-    .split('&')
-    .find((param) => param.includes('nav'))
 
-  useEffect(() => {
-    if (tagParam) {
-      setIsOpen(true)
-    }
-  }, [tagParam])
+  const { highlightCollection } = useContext(CollectionsContext)
+
+  let highlightTag = tags.find((tag) => tag.title === highlightCollection)
 
   const triggerNav = () => {
     track('Trigger Nav', { isOpen: isOpen })
@@ -50,8 +43,7 @@ export default function Navbar({ data }: { data: SettingsPayload }) {
   }
 
   const pathName = usePathname()
-  const searchTag = searchParams.get('tag')
-  const tag = tags.find((tag) => tag.title === searchTag)
+  // const searchTag = searchParams.get('tag')
 
   return (
     <section className="mb-3 relative">
@@ -74,7 +66,12 @@ export default function Navbar({ data }: { data: SettingsPayload }) {
         <Collections tags={tags} />
       </ExpandMenu>
       <LineBreak />
-      <EntryHeader title={tag?.title} body={tag?.description} />
+      {highlightTag && (
+        <EntryHeader
+          title={highlightTag.title}
+          body={highlightTag.description}
+        />
+      )}
       <div className="bg-fuschia w-screen overflow-x">
         in collage mode you can re-arrange the works
       </div>

@@ -8,26 +8,38 @@ import { CollectionsContext } from '@/app/providers/CollectionsProvider'
 export const CheckboxLink = ({ tag }: { tag: Tag }) => {
   const tagId = useId()
   const [isChecked, setIsChecked] = useState(true)
-  const { collectionFilters, setCollectionFilters } =
-    useContext(CollectionsContext)
+  const {
+    collectionFilters,
+    highlightCollection,
+    setCollectionFilters,
+    setHighlightCollection,
+    defaultCollectionFilters,
+  } = useContext(CollectionsContext)
 
   const updateCheckbox = useCallback(() => {
     if (!tag.title) return
     if (!isChecked) {
-      console.log('f', tag.title)
-      console.log(collectionFilters.filter((col) => col == tag.title))
       setCollectionFilters((prev) => prev.filter((col) => col !== tag.title))
     } else {
-      console.log('p', tag.title)
       setCollectionFilters((prev) => [...prev, tag.title])
     }
     setIsChecked((prev) => !prev)
-  }, [setCollectionFilters, isChecked, tag.title])
+  }, [collectionFilters, setCollectionFilters, isChecked, tag.title])
 
   useEffect(() => {
-    console.log('y')
-    console.log(collectionFilters)
+    if (!collectionFilters.includes(tag.title)) {
+      setIsChecked(true)
+    } else {
+      setIsChecked(false)
+    }
   }, [collectionFilters])
+
+  const selectCollection = useCallback(() => {
+    setHighlightCollection(tag.title)
+    setCollectionFilters(
+      defaultCollectionFilters.filter((col) => col !== tag.title),
+    )
+  }, [setHighlightCollection, setCollectionFilters, defaultCollectionFilters])
 
   return (
     <div className="grid grid-cols-[min-content,1fr] gap-1">
@@ -41,15 +53,17 @@ export const CheckboxLink = ({ tag }: { tag: Tag }) => {
         checked={isChecked}
       />
       <label htmlFor={tagId}>
-        <InternalLink
+        {/* <InternalLink
           href={'/'}
-          //   onClick={() => setChooseTag(tag.title)}
+          onClick={() => setSelect()}
           isNav={false}
           key={tag.title}
           tag={tag}
-        >
+        > */}
+        <button onClick={() => selectCollection()}>
           <SuperScriptElement title={getCamelCase(tag.title)} />
-        </InternalLink>
+        </button>
+        {/* </InternalLink> */}
       </label>
     </div>
   )

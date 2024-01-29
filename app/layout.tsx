@@ -3,6 +3,8 @@ import 'tailwindcss/tailwind.css'
 import { Analytics } from '@vercel/analytics/react'
 import { IBM_Plex_Mono, Inter, PT_Serif } from 'next/font/google'
 import CollectionsProvider from './providers/CollectionsProvider'
+import { getSettings } from '@/sanity/loader/loadQuery'
+import { Tag } from '@/types'
 
 const serif = PT_Serif({
   variable: '--font-serif',
@@ -27,13 +29,25 @@ export default async function RootLayout({
 }: {
   children: React.ReactNode
 }) {
+  const settings = await getSettings()
+  let defaultCollectionFilters: string[] = []
+  if (settings.tags) {
+    defaultCollectionFilters = settings.tags
+      .filter((tag): tag is Tag & { title: string } => tag.title !== undefined)
+      .map((tag) => tag.title)
+  }
+
   return (
     <html
       lang="en"
       className={`${mono.variable} ${sans.variable} ${serif.variable}`}
     >
       <body className="overflow-x-hidden">
-        <CollectionsProvider>{children}</CollectionsProvider>
+        <CollectionsProvider
+          defaultCollectionFilters={defaultCollectionFilters}
+        >
+          {children}
+        </CollectionsProvider>
         <Analytics />
       </body>
     </html>
