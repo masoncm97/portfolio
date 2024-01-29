@@ -2,17 +2,19 @@
 
 import type { EncodeDataAttributeCallback } from '@sanity/react-loader/rsc'
 import { ReadonlyURLSearchParams, useSearchParams } from 'next/navigation'
-import { useEffect, useRef } from 'react'
+import { MutableRefObject, useEffect, useRef } from 'react'
 import { createContext, useContext } from 'react'
 
-import { InteractionMode } from '@/app/(personal)/InteractionModeProvider'
-import TagProvider from '@/app/(personal)/TagProvider'
+import { InteractionMode } from '@/app/providers/InteractionModeProvider'
+import TagProvider from '@/app/providers/TagProvider'
 import { useCanvases } from '@/hooks/useCanvases'
 import { useScrollToSelected } from '@/hooks/useScrollToSelected'
 import type { EntryPayload, HomePagePayload } from '@/types'
 import { getParamValue } from '@/util/routes-helper'
 
 import { EntryListItem } from './EntryListItem'
+import { InteractionModeButton } from './InteractionModeButton'
+import { CollectionsContext } from '@/app/providers/CollectionsProvider'
 
 export interface HomePageProps {
   data: HomePagePayload | null
@@ -25,8 +27,8 @@ export function HomePage({ data, encodeDataAttribute }: HomePageProps) {
   const params = useSearchParams()
   useScrollToSelected(params)
   const tag = getParamValue(params, 'tag')
-  const tagRef = useRef<string | undefined>(tag)
-  let filteredEntries = filterEntries(entries, tag)
+  const { collectionFilters } = useContext(CollectionsContext)
+  let filteredEntries = filterEntries(entries, collectionFilters)
   const zIndices = getRandomPermutation(filteredEntries.length)
   const topZ = useRef(filteredEntries.length + 1)
   const {
@@ -36,6 +38,10 @@ export function HomePage({ data, encodeDataAttribute }: HomePageProps) {
     handleArrangeClick,
   } = useCanvases(topZ, tag)
 
+  useEffect(() => {
+    filteredEntries = filterEntries(entries, collectionFilters)
+  }, [collectionFilters])
+
   return (
     <TagProvider tag={tag}>
       {filteredEntries && filteredEntries.length > 0 && (
@@ -44,22 +50,15 @@ export function HomePage({ data, encodeDataAttribute }: HomePageProps) {
           className="mx-auto grid md:grid-cols-2 lg:grid-cols-3 w-screen min-h-screen relative"
         >
           {canvases.map((element) => element)}
-          <div className="z-[1000000001]">
-            {interactionMode == InteractionMode.Arrange ? (
-              <button
-                onClick={handleDotClick}
-                className="bg-lemon aspect-square rounded-full w-14 z-[1000000] right-2 top-2 absolute"
-              >
-                Dot
-              </button>
-            ) : (
-              <button onClick={handleArrangeClick}>Arrange</button>
-            )}
-          </div>
+          <InteractionModeButton
+            interactionMode={interactionMode}
+            handleDotClick={handleDotClick}
+            handleArrangeClick={handleArrangeClick}
+          />
           {filteredEntries.map((entry, index) => {
             return (
               <EntryListItem
-                key={`${tag}:${index}`}
+                key={index}
                 entry={entry}
                 index={index}
                 topZ={topZ}
@@ -76,13 +75,16 @@ export function HomePage({ data, encodeDataAttribute }: HomePageProps) {
 
 const filterEntries = (
   entries: EntryPayload[],
-  tag: string | undefined,
+  filters: string[],
 ): EntryPayload[] => {
-  if (tag) {
-    entries = entries?.filter((entry) => {
-      return entry.tags?.some((entryTag) => entryTag.title === tag)
-    })
-  }
+  console.log(filters)
+
+  entries = entries?.filter(
+    (entry) =>
+      !entry.tags?.every((entryTag) => filters.includes(entryTag.title)),
+  )
+  console.log(entries)
+
   return entries
 }
 

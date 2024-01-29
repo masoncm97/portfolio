@@ -13,9 +13,9 @@ import Draggable from 'react-draggable'
 import {
   InteractionMode,
   InteractionModeContext,
-} from '@/app/(personal)/InteractionModeProvider'
-import { useTag } from '@/app/(personal)/TagProvider'
-import { ZContext } from '@/app/(personal)/ZProvider'
+} from '@/app/providers/InteractionModeProvider'
+import { useTag } from '@/app/providers/TagProvider'
+import { ZContext } from '@/app/providers/ZProvider'
 
 interface TouchObject {
   pageX: number

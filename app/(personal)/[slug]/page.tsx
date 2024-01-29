@@ -5,7 +5,7 @@ import { Page } from '@/components/pages/page/Page'
 import { generateStaticSlugs } from '@/sanity/loader/generateStaticSlugs'
 import { getAllEntries } from '@/sanity/loader/loadQuery'
 
-import NavigationProvider from './NavigationProvider'
+import NavigationProvider from '../../providers/NavigationProvider'
 
 type Props = {
   params: { slug: string }

@@ -1,6 +1,6 @@
 import classNames from 'classnames'
 import { usePathname, useSearchParams } from 'next/navigation'
-import { useState } from 'react'
+import { useId, useState } from 'react'
 
 import { resolveHref } from '@/sanity/lib/utils'
 import tag from '@/sanity/schemas/documents/tag'
@@ -10,6 +10,7 @@ import { isSearchParam } from '@/util/type-guards'
 
 import InternalLink from '../InternalLink'
 import { SuperScriptElement } from './SuperScriptElement'
+import { CheckboxLink } from './CheckboxLink'
 
 export const Collections = ({ tags }: { tags: Tag[] }) => {
   const searchParams = useSearchParams()
@@ -32,29 +33,11 @@ export const Collections = ({ tags }: { tags: Tag[] }) => {
       return null
     }
   }
+  const tagId = useId()
+
   return (
     <ul className="mx-auto grid gap-1 place-items-start">
-      {tags &&
-        tags.map((tag, index) => (
-          <div key={index} className="grid grid-cols-[min-content,1fr] gap-1">
-            <input
-              className="mx-3"
-              type="checkbox"
-              id={tag.title}
-              name={tag.title}
-              value={tag.title}
-            />
-            <InternalLink
-              href={'/'}
-              onClick={() => setChooseTag(tag.title)}
-              isNav={false}
-              key={tag.title}
-              tag={tag}
-            >
-              <SuperScriptElement title={getCamelCase(tag.title)} />
-            </InternalLink>
-          </div>
-        ))}
+      {tags && tags.map((tag) => <CheckboxLink key={tag.title} tag={tag} />)}
     </ul>
   )
 }

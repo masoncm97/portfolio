@@ -1,6 +1,6 @@
 'use client'
 
-import { createContext,RefObject } from 'react'
+import { createContext, RefObject } from 'react'
 
 export const WrapperContext = createContext<HTMLDivElement | null>(null)
 
@@ -13,7 +13,6 @@ export default function WrapperProvider({
   children,
   wrapper,
 }: WrapperProviderProps) {
-  console.log(wrapper)
   return (
     <WrapperContext.Provider value={wrapper.current}>
       {children}

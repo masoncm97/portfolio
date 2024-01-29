@@ -4,7 +4,7 @@ export type SanityImage = Image & ImageDefinition
 
 export interface BaseType {
   _type: string
-  title?: string
+  title: string
 }
 
 export enum TextSize {

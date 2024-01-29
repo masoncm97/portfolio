@@ -4,7 +4,7 @@ import classNames from 'classnames'
 import { useContext } from 'react'
 
 // import { NavigationLink } from '@/components/shared/Links/client/NavigationLink'
-import { NavigationContext } from '@/app/(personal)/[slug]/NavigationProvider'
+import { NavigationContext } from '@/app/providers/NavigationProvider'
 
 import InternalLink from '../InternalLink'
 import { Arrow } from './Arrow'

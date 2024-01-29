@@ -28,7 +28,7 @@ export const ExpandMenu = ({
         {children}
       </div>
       <button
-        className="flex gap-1 justify-self-end col-start-2"
+        className="flex gap-1 justify-self-end col-start-2 mb-auto"
         onClick={() => setIsOpen((prev) => !prev)}
       >
         <TextElement size={TextSize.md}>{title}</TextElement>

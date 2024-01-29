@@ -41,9 +41,6 @@ export default async function IndexRoute({
   children: React.ReactNode
 }) {
   const data = await getSettings()
-  // const tags = data?.tags || ([] as Tag[])
-  // console.log('yup', data)
-  // const viewModes = data?.viewModeCollections || ([] as ViewModeCollection[])
   return (
     <>
       <div className="flex min-h-screen flex-col text-black relative">
