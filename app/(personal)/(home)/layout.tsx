@@ -8,6 +8,7 @@ import { draftMode } from 'next/headers'
 import Navbar from '@/components/shared/Navbar/Navbar'
 import { urlForOpenGraphImage } from '@/sanity/lib/utils'
 import { getAllEntries, getSettings } from '@/sanity/loader/loadQuery'
+import classNames from 'classnames'
 
 const VisualEditing = dynamic(() => import('@/sanity/loader/VisualEditing'))
 
@@ -40,9 +41,10 @@ export default async function IndexRoute({
   children: React.ReactNode
 }) {
   const data = await getSettings()
+
   return (
     <>
-      <div className="flex min-h-screen flex-col text-black relative">
+      <div className="flex min-h-screen flex-col relative">
         <Navbar data={data} />
         {children}
       </div>

@@ -32,7 +32,11 @@ export const ExpandMenu = ({
         onClick={() => setIsOpen((prev) => !prev)}
       >
         <TextElement size={TextSize.md}>{title}</TextElement>
-        {isOpen ? <div>[x]</div> : <div>[+]</div>}
+        {isOpen ? (
+          <TextElement>[x]</TextElement>
+        ) : (
+          <TextElement>[+]</TextElement>
+        )}
       </button>
     </div>
   )

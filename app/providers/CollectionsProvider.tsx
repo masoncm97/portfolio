@@ -6,9 +6,9 @@ import {
   Dispatch,
   SetStateAction,
   useEffect,
+  useRef,
   useState,
 } from 'react'
-
 
 export interface CollectionsProviderState {
   collectionFilters: string[]
@@ -40,6 +40,7 @@ export default function CollectionsProvider({
   const [highlightCollection, setHighlightCollection] = useState<
     string | undefined
   >()
+  const initial = useRef(true)
 
   const collectionState = {
     collectionFilters,
@@ -50,6 +51,11 @@ export default function CollectionsProvider({
   }
 
   useEffect(() => {
+    if (initial) {
+      initial.current = false
+      return
+    }
+
     let diff = setDifference(defaultCollectionFilters, collectionFilters)
     if (diff.length == 1) {
       setHighlightCollection(diff[0])

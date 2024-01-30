@@ -24,17 +24,30 @@ export const ViewModes = ({
   console.log(themes)
   console.log(layouts)
 
-  const { currentTheme, setCurrentTheme } = useContext(ThemeContext)
+  const { currentTheme, dispatch, auto, setAuto } = useContext(ThemeContext)
   const { currentLayout, setCurrentLayout } = useContext(LayoutContext)
 
-  console.log(currentTheme)
-
   const clickTheme = useCallback(
-    (theme: Theme) => {
-      console.log('y', theme)
-      setCurrentTheme(theme)
+    (title: string) => {
+      switch (title) {
+        case 'Auto': {
+          dispatch({ type: 'SET_AUTO' })
+          setAuto(true)
+          return
+        }
+        case 'Light': {
+          dispatch({ type: 'SET_LIGHT' })
+          setAuto(false)
+          return
+        }
+        case 'Dark': {
+          dispatch({ type: 'SET_DARK' })
+          setAuto(false)
+          return
+        }
+      }
     },
-    [setCurrentTheme],
+    [dispatch],
   )
 
   const clickLayout = useCallback(
@@ -51,8 +64,9 @@ export const ViewModes = ({
         {themes.viewModes.map((theme) => (
           <button
             key={theme.title}
-            onClick={() => clickTheme(theme)}
+            onClick={() => clickTheme(theme.title)}
             className={classNames(
+              auto ? 'opacity-40' : '',
               currentTheme.title == theme.title ? 'opacity-100' : 'opacity-40',
               'flex gap-x-3',
             )}
@@ -62,6 +76,15 @@ export const ViewModes = ({
             </TextElement>
           </button>
         ))}
+        <button
+          onClick={() => clickTheme('Auto')}
+          className={classNames(
+            auto ? 'opacity-100' : 'opacity-40',
+            'flex gap-x-3',
+          )}
+        >
+          <TextElement size={TextSize.md}>Auto</TextElement>
+        </button>
       </div>
       <div className="flex gap-x-3">
         {layouts.viewModes.map((layout) => (

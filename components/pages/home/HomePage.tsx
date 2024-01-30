@@ -14,6 +14,8 @@ import { getParamValue } from '@/util/routes-helper'
 
 import { EntryListItem } from './EntryListItem'
 import { InteractionModeButton } from './InteractionModeButton'
+import { ThemeContext } from '@/app/providers/ThemeProvider'
+import classNames from 'classnames'
 
 export interface HomePageProps {
   data: HomePagePayload | null
@@ -41,12 +43,16 @@ export function HomePage({ data, encodeDataAttribute }: HomePageProps) {
     filteredEntries = filterEntries(entries, collectionFilters)
   }, [collectionFilters])
 
+  // const { getCurrentTheme } = useContext(ThemeContext)
+
   return (
     <TagProvider tag={tag}>
       {filteredEntries && filteredEntries.length > 0 && (
         <div
           ref={ref}
-          className="mx-auto grid md:grid-cols-2 lg:grid-cols-3 w-screen min-h-screen relative"
+          className={
+            'mx-auto grid md:grid-cols-2 lg:grid-cols-3 w-screen min-h-screen relative'
+          }
         >
           {canvases.map((element) => element)}
           <InteractionModeButton

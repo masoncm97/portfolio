@@ -9,6 +9,7 @@ import { LayoutCollection, Tag, ThemeCollection } from '@/types'
 import CollectionsProvider from './providers/CollectionsProvider'
 import ThemeProvider from './providers/ThemeProvider'
 import LayoutProvider, { LayoutContext } from './providers/LayoutProvider'
+import { Providers } from './providers/Providers'
 
 const serif = PT_Serif({
   variable: '--font-serif',
@@ -54,16 +55,14 @@ export default async function RootLayout({
       className={`${mono.variable} ${sans.variable} ${serif.variable}`}
     >
       <body className="overflow-x-hidden">
-        <LayoutProvider layoutCollection={layoutCollection}>
-          <ThemeProvider themeCollection={themeCollection}>
-            <CollectionsProvider
-              defaultCollectionFilters={defaultCollectionFilters}
-            >
-              {children}
-            </CollectionsProvider>
-            <Analytics />
-          </ThemeProvider>
-        </LayoutProvider>
+        <Providers
+          defaultCollectionFilters={defaultCollectionFilters}
+          themeCollection={themeCollection}
+          layoutCollection={layoutCollection}
+        >
+          {children}
+        </Providers>
+        <Analytics />
       </body>
     </html>
   )

@@ -6,7 +6,7 @@ import { usePathname, useSearchParams } from 'next/navigation'
 import { useContext, useRef, useState } from 'react'
 
 import { CollectionsContext } from '@/app/providers/CollectionsProvider'
-import { LogoBlack } from '@/components/svg'
+import { LogoWhite, LogoBlack } from '@/components/svg'
 import { SettingsPayload, Tag, ViewMode, ViewModeCollection } from '@/types'
 
 import { Collections } from './Collections'
@@ -14,9 +14,18 @@ import { EntryHeader } from './EntryHeader'
 import { ExpandMenu } from './ExpandMenu'
 import { Hamburger } from './Hamburger'
 import { ViewModes } from './ViewModes'
+import { ThemeContext } from '@/app/providers/ThemeProvider'
+import classNames from 'classnames'
 
-function LineBreak() {
-  return <div className="h-[1px] w-screen bg-black" />
+function LineBreak({ theme }: { theme: string }) {
+  return (
+    <div
+      className={classNames(
+        theme === 'Dark' ? 'bg-white' : 'bg-black',
+        'h-[1px] w-screen ',
+      )}
+    />
+  )
 }
 export default function Navbar({ data }: { data: SettingsPayload }) {
   const [isOpen, setIsOpen] = useState(false)
@@ -37,24 +46,23 @@ export default function Navbar({ data }: { data: SettingsPayload }) {
     setIsOpen(!isOpen)
   }
 
-  const pathName = usePathname()
-  // const searchTag = searchParams.get('tag')
+  const { currentTheme } = useContext(ThemeContext)
 
   return (
     <section className="mb-3 relative">
       <Hamburger onClick={triggerNav} isOpen={isOpen} />
       <div className="ml-2 mr-5 my-2 w-[70%]">
-        <LogoBlack />
+        {currentTheme.title === 'Dark' ? <LogoWhite /> : <LogoBlack />}
       </div>
-      <LineBreak />
+      <LineBreak theme={currentTheme.title} />
       <ExpandMenu title={'View'}>
         <ViewModes viewModeCollections={viewModeCollections} />
       </ExpandMenu>
-      <LineBreak />
+      <LineBreak theme={currentTheme.title} />
       <ExpandMenu title={'Collections'}>
         <Collections tags={tags} />
       </ExpandMenu>
-      <LineBreak />
+      <LineBreak theme={currentTheme.title} />
       {highlightTag && (
         <EntryHeader
           title={highlightTag.title}

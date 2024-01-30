@@ -1,6 +1,10 @@
+'use client'
+
 import classNames from 'classnames'
 
 import { TextSize } from '@/types'
+import { useContext } from 'react'
+import { ThemeContext } from '@/app/providers/ThemeProvider'
 
 type TextElementProps = {
   as?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'p'
@@ -15,8 +19,15 @@ export default function TextElement({
   children,
   size = TextSize.xs,
 }: TextElementProps) {
+  const { currentTheme } = useContext(ThemeContext)
   return (
-    <Comp className={classNames(className, getTextStyle(size))}>
+    <Comp
+      className={classNames(
+        className,
+        currentTheme.title === 'Dark' ? 'text-white' : 'text-black',
+        getTextStyle(size),
+      )}
+    >
       {children}
     </Comp>
   )
