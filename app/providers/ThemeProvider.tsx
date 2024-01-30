@@ -35,7 +35,7 @@ export const ThemeContext = createContext<ThemeState>({
 
 const getIsDark = () => {
   const hours = new Date().getHours()
-  return hours < 7 || hours > 7
+  return hours < 7 || hours > 19
 }
 
 function themeReducer(_, action) {
